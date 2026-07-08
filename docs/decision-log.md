@@ -12,6 +12,7 @@
 | D-004 | 2026-07-07 | 产品 / 视觉边界 | 将 `docs/visual-system.md` 纳入正式文档体系，作为页面、组件和视觉增量的执行护栏 | 用户确认将附件中文化、项目化后添加，并要求不初始化应用、不创建组件、不创建 runtime content | `docs/visual-system.md`、`AGENTS.md`、`CLAUDE.md`、`docs/content-model.md`、`docs/testing.md`、`docs/backlog.md`、`docs/iteration-log.md` | 已确认 |
 | D-005 | 2026-07-07 | 产品 / 表达规则 | 前端可见文案以中文为主，只保留必要英文术语 | 用户明确要求前端主要用中文表达，只有必要英文才使用英文 | `docs/visual-system.md`、`docs/content-model.md`、`docs/backlog.md`、`docs/testing.md`、`docs/iteration-log.md` | 已确认 |
 | D-006 | 2026-07-08 | 产品 / 视觉表达 | 首页 Hero 允许采用暗色高级玻璃质感作为局部封面方向，但不扩展为全站暗色科幻风格 | 用户明确要求首页封面更神秘、高级、未来感，并重点优化右侧能力模型；项目仍需保持克制、专业、简洁和产品可信度 | `apps/ai-native-product-builder-portfolio/src/pages/index.astro`、`apps/ai-native-product-builder-portfolio/src/components/HeroAbilitySystem.astro`、`docs/backlog.md`、`docs/testing.md`、`docs/iteration-log.md` | 已确认 |
+| D-007 | 2026-07-08 | 产品 / 首页内容策略 | 首页当前公开阶段将“精选案例”收敛为单个 AIPM 方法样本，不做多项目卡片堆叠 | 用户明确当前定位是 AI Product Manager / AI 产品原型构建者，现阶段先展示核心能力、判断方式和方法论，而不是大量完整项目案例或空项目占位卡 | `apps/ai-native-product-builder-portfolio/src/pages/index.astro`、`docs/prd.md`、`docs/portfolio-content-strategy.md`、`docs/project-portfolio-index.md`、`docs/content-model.md`、`docs/backlog.md`、`docs/testing.md`、`docs/iteration-log.md` | 已确认 |
 
 ## 决策详情
 
@@ -103,6 +104,20 @@
   - 后续 Case Study、Projects 和正文阅读区仍应优先保持内容清晰、可读、克制，避免大面积炫光或过度科幻。
 - 非目标：不引入 3D、粒子场、复杂视差、全站暗色模式、重动画库或新的视觉依赖。
 - 复核条件：如果未来全站视觉系统要从 light-first editorial interface 改为 dark-first product interface，需要复核 `docs/visual-system.md` 和整体可读性验收。
+
+### D-007 首页“精选案例”收敛为 AIPM 方法样本
+
+- 日期：2026-07-08
+- 类型：产品 / 首页内容策略
+- 背景：用户明确当前网站不是要先展示大量完整项目案例，而是证明 AI Product Manager / AI 产品原型构建者的核心能力、产品判断方式和方法论。
+- 决策：首页原“精选案例”模块重构为“能力样本 / 方法样本：我如何拆解一个 AI 产品机会”。当前只公开 Ecommerce Review Copilot 这一个完整判断链路样本，并将其包装为“样本 01：从非结构化评论到运营决策 Copilot”。
+- 选择原因：
+  - 单个完整方法样本比多个弱证据项目卡更能证明 AIPM 能力。
+  - 当前核心价值是展示业务问题拆解、AI 适用边界、Human-in-the-loop、AI Workflow、可交互 MVP 和评估闭环。
+  - 完整项目案例应在截图、指标和复盘补齐后再逐步上线。
+- 非目标：不新增多个空项目占位卡；不把首页做成传统项目列表；不编造截图、真实指标、用户反馈或上线证据；不改变 Projects Index 和 Case Study Detail 的统一内容源原则。
+- 影响：后续首页内容增量应优先深化当前方法样本和详情页拆解过程；TalentSignal AI 等候选案例仍可保留在项目池，但进入首页前必须补齐准入字段。
+- 复核条件：当至少 2-3 个案例都已补齐截图、指标、复盘和完整 Case Study 后，可复核是否恢复多 Featured 案例展示。
 
 ## 待复核决策
 

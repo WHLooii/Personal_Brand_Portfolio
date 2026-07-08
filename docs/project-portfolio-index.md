@@ -2,7 +2,7 @@
 
 用途：统一管理作品集项目池、首页展示优先级和能力证明关系。
 
-状态：Draft before content production。项目状态、链接、截图和指标仍可为 `TBD`，不得为了完整感编造。
+状态：Current homepage uses one public method sample。项目状态、链接、截图和指标仍可为 `TBD`，不得为了完整感编造。
 
 ## Portfolio Narrative
 
@@ -14,15 +14,20 @@ Business / Product Judgment
 -> Prototype / Builder Capability
 ```
 
-首页第一版优先展示 3 个互补案例，补充项目可进入 Projects 列表或 About 证据区。
+首页当前公开阶段先展示 1 个完整方法样本，重点证明 AIPM 判断链路；补充项目可进入 Projects 列表或后续 Featured 候选池，但不在首页做空项目卡堆叠。
 
-## Featured Projects v0
+## Home Method Sample v0
+
+| Order | Project | Slug | Homepage Role | Status |
+| --- | --- | --- | --- | --- |
+| 1 | Ecommerce Review Copilot | `ecommerce-review-copilot` | 样本 01：从非结构化评论到运营决策 Copilot | current public method sample |
+
+## Future Featured Candidate Pool
 
 | Order | Project | Slug | Tagline | Portfolio Role | Status |
 | --- | --- | --- | --- | --- | --- |
-| 1 | Ecommerce Review Copilot | `ecommerce-review-copilot` | 用户评论洞察与运营决策辅助系统 | AI Product Strategy / Business Judgment | mvp content skeleton |
-| 2 | TalentSignal AI | `talentsignal-ai` | JD-to-Evidence Copilot | Agent Workflow / Evidence-based Decision | TBD |
-| 3 | AI PM Judgment Coach | `ai-pm-judgment-coach` | AI 产品思维训练系统 | Prototype Engineering / AI Native Thinking | TBD |
+| 1 | TalentSignal AI | `talentsignal-ai` | JD-to-Evidence Copilot | Agent Workflow / Evidence-based Decision | TBD |
+| 2 | AI PM Judgment Coach | `ai-pm-judgment-coach` | AI 产品思维训练系统 | Prototype Engineering / AI Native Thinking | TBD |
 
 ## Secondary Projects
 
@@ -63,3 +68,4 @@ Business / Product Judgment
 2. 项目排序变化属于内容策略变化，应同步更新本文件。
 3. 如果新增项目改变能力证明模型，需要同步复核 `docs/portfolio-content-strategy.md`。
 4. 项目真实内容应在进入内容生产阶段后按 `docs/case-study-template-schema.md` 逐个补齐。
+5. 当前首页不因候选池存在而展示多个空项目卡；只有补齐判断链路、证据和复盘的项目才进入首页重点露出。

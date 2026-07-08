@@ -98,7 +98,7 @@ capability
   -> What I Build
 
 project_index.featured
-  -> Selected Case Studies
+  -> Home Method Sample / future Selected Case Studies
 
 project_index.all
   -> Projects Index
@@ -106,9 +106,10 @@ project_index.all
 case_study
   -> Case Study Detail
   -> Project Card summary
+  -> Home Method Sample summary
 ```
 
-首页 Featured Projects 和 Projects Index 必须来自同一项目数据源，避免首页文案和详情页内容分裂。
+首页 Method Sample / Featured Projects 和 Projects Index 必须来自同一项目数据源，避免首页文案和详情页内容分裂。当前首页允许为同一个 Case Study 增加方法样本式导读文案，但项目事实、详情入口和完整案例内容仍以 `case_study` 内容源为准。
 
 ## Project Card 最小字段
 

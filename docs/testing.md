@@ -5,7 +5,7 @@
 ## 当前状态
 
 - Project：AI Native Product Builder Portfolio
-- Status：Foundation complete；first formal Case Study content and detail display skeleton available；homepage dark glass hero with refined personal signature, and restored header product identity available
+- Status：Foundation complete；first formal Case Study content and detail display skeleton available；homepage dark glass hero with refined personal signature, restored header product identity, and AIPM method sample module available
 - 当前可以执行文档级验证、Astro 内容 schema 校验、TypeScript / Astro check 和静态构建验证。
 - 当前目录未检测到 `.git`；checkpoint 时无法执行 `git status`，版本状态暂以文件扫描和文档检索确认。
 
@@ -102,6 +102,7 @@ How: Problem -> AI Judgment -> Workflow -> Prototype -> Evaluation
 
 | 日期 | 变更 | 执行命令或方式 | 结果 |
 | --- | --- | --- | --- |
+| 2026-07-08 | UX-008 首页精选案例重构为能力样本 | 普通 PATH 执行 `pnpm run check`；使用 Codex bundled Node / pnpm 执行 `pnpm run check`、`pnpm run build`、`pnpm run lint`；检索 `dist/index.html` 中的“能力样本”、“方法样本：我如何拆解一个 AI 产品机会”、“样本 01：从非结构化评论到运营决策 Copilot”和“查看拆解过程”；负向检索“精选案例”、“暂无案例”、“coming soon”、“mock”和“没有真实用户”；授权启动 `astro preview` 并检查首页 HTTP 状态 | 通过，带已知环境限制；普通 PATH 因 `node: not found` 失败，符合当前本地环境限制；bundled Node 环境下 `astro check` 结果 0 errors / 0 warnings / 0 hints；`astro build` 生成 3 个静态页面：`/`、`/projects/`、`/projects/ecommerce-review-copilot/`；关键方法样本文案可检索；负向文案未检索到；`http://127.0.0.1:4324/` 返回 200 OK |
 | 2026-07-08 | UX-007 首页 Hero 个人品牌识别与能力系统精修 | 使用 Codex bundled Node / pnpm 执行 `pnpm run check`、`pnpm run build`、`pnpm run lint`；检索源码和 `dist/index.html` 中的个人品牌签名、副标签、能力节点编号、系统日志标签和旧重复短语 | 通过；`astro check` 结果 0 errors / 0 warnings / 0 hints；`astro build` 生成 3 个静态页面：`/`、`/projects/`、`/projects/ecommerce-review-copilot/`；构建产物可检索到“巫浩林”、`AI 产品原型构建者 / Personal Portfolio`、`LOG 01`、`system-node__code` 和 `AI Product Prototype System`；源码与构建产物不再检索到 `巫浩林 · AI Native Product Builder Portfolio` |
 | 2026-07-08 | UX-006 首页暗色玻璃质感 Hero 改版 | 使用 Codex bundled Node / pnpm 执行 `pnpm run check`、`pnpm run build`、`pnpm run lint`；检索 `dist/index.html` 和 `dist/_astro/*.css` 中的新 Hero 标题、CTA、暗色页眉、能力系统面板、六个能力节点与六个编号标签；尝试本地浏览器预览和截图级 QA | 通过，带已知限制；`astro check` 结果 0 errors / 0 warnings / 0 hints；`astro build` 生成 3 个静态页面：`/`、`/projects/`、`/projects/ecommerce-review-copilot/`；构建产物可检索到 `把业务问题拆成`、`查看作品集`、`了解能力模型`、`AI Product Prototype System`、`业务拆解` 和 `06 Portfolio Delivery`；本地端口访问因沙箱端口权限受限，Browser `data:` 预览因安全策略受限，未完成截图级视觉 QA |
 | 2026-07-08 | UX-005 恢复页眉产品身份文本 | 使用 Codex bundled Node / pnpm 执行 `pnpm run check`、`pnpm run build`、`pnpm run lint`；检索 `dist/index.html` 中页眉身份和 Hero 姓名；检查本地预览首页 HTTP 状态 | 通过；`astro check` 结果 0 errors / 0 warnings / 0 hints；`astro build` 生成 3 个静态页面：`/`、`/projects/`、`/projects/ecommerce-review-copilot/`；首页构建产物页眉可检索到 `AI Native Product Builder`，Hero 可检索到“巫浩林”，未恢复 `identity-mark` / `identity-role`；`http://127.0.0.1:4323/` 返回 200 OK |

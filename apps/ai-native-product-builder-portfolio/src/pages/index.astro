@@ -1,16 +1,25 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import ProjectCard from "@/components/ProjectCard.astro";
 import CapabilityMap from "@/components/CapabilityMap.astro";
 import HeroAbilitySystem from "@/components/HeroAbilitySystem.astro";
 import WorkflowDiagram from "@/components/WorkflowDiagram.astro";
-import { getFeaturedProjects, getProjects } from "@/lib/content";
+import { getProjectSlug, getProjects } from "@/lib/content";
 
-let featuredProjects = await getFeaturedProjects();
+const projects = await getProjects();
+const methodSampleProject = projects.find((project) => getProjectSlug(project) === "ecommerce-review-copilot");
+const methodSampleHref = methodSampleProject
+  ? `/projects/${getProjectSlug(methodSampleProject)}/`
+  : "/projects/ecommerce-review-copilot/";
 
-if (featuredProjects.length === 0) {
-  featuredProjects = (await getProjects()).slice(0, 3);
-}
+const methodWorkflow = ["评论输入", "主题聚类", "差评归因", "风险提示", "建议卡片", "人工复盘", "指标评估"];
+
+const methodCapabilities = [
+  "能从模糊业务需求中拆出真实问题",
+  "能判断 AI 适合做什么、不适合做什么",
+  "能设计 Human-in-the-loop 的人机协作闭环",
+  "能把产品判断落成可演示、可测试的 MVP",
+  "能为 AI 输出设计评估指标，而不是只停留在“看起来能用”"
+];
 
 const shellWorkflow: Array<{
   step: string;
@@ -82,16 +91,64 @@ const shellWorkflow: Array<{
     </div>
   </section>
 
-  <section class="site-shell section">
-    <div class="mb-8">
-      <p class="eyebrow">精选案例</p>
-      <h2 class="mt-3 text-3xl font-semibold">从判断到原型的能力证据</h2>
-      <p class="mt-3 max-w-2xl text-[var(--color-text-secondary)]">
-        每个案例都按 Problem、Product Judgment、AI Workflow、Prototype、Evaluation 组织，避免只展示截图或技术标签。
-      </p>
-    </div>
-    <div class="grid gap-5 md:grid-cols-3">
-      {featuredProjects.map((project) => <ProjectCard project={project} />)}
+  <section class="method-sample-section section">
+    <div class="site-shell">
+      <div class="method-sample-heading">
+        <p class="eyebrow">能力样本</p>
+        <h2>方法样本：我如何拆解一个 AI 产品机会</h2>
+        <p>
+          当前我先公开一个完整的 AIPM 判断链路样本。完整项目案例会在截图、指标和复盘补齐后逐步上线。这里重点展示的不是项目数量，而是我如何判断一个 AI 产品机会是否值得做、应该怎么做、以及如何验证它。
+        </p>
+      </div>
+
+      <article class="method-sample-card">
+        <div class="method-sample-card__main">
+          <p class="method-sample-stage">
+            当前验证阶段：V0.1 方法样本，重点验证产品判断链路、交互闭环与评估方法。
+          </p>
+          <h3>样本 01：从非结构化评论到运营决策 Copilot</h3>
+
+          <div class="method-sample-blocks">
+            <div class="method-sample-block">
+              <p class="method-sample-label">问题</p>
+              <p>
+                评论数据量大、表达口语化、归因不稳定，运营团队难以从大量用户评论中快速判断问题优先级。
+              </p>
+            </div>
+            <div class="method-sample-block">
+              <p class="method-sample-label">我的判断</p>
+              <p>
+                这个场景不适合一开始就做“自动运营 Agent”。更合理的切入点是先做一个可复核的评论洞察 Copilot，让 AI 帮助运营人员完成主题聚类、差评归因、风险提示和建议生成，但最终决策仍由人确认。
+              </p>
+            </div>
+            <div class="method-sample-block">
+              <p class="method-sample-label">原型方向</p>
+              <p>
+                先把评论洞察流程落成可演示、可复核的 MVP，让每一步输出都能被人工确认，并能进入后续指标评估。
+              </p>
+              <div class="method-workflow" aria-label="评论洞察 Copilot 原型方向">
+                {
+                  methodWorkflow.map((step, index) => (
+                    <span class="method-workflow__step">
+                      <span class="method-workflow__index">{String(index + 1).padStart(2, "0")}</span>
+                      <span>{step}</span>
+                    </span>
+                  ))
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="method-sample-proof" aria-label="样本能力证明">
+          <p class="eyebrow">能力证明</p>
+          <h4>这个样本证明什么能力</h4>
+          <ul>
+            {methodCapabilities.map((capability) => <li>{capability}</li>)}
+          </ul>
+          <a class="method-sample-link" href={methodSampleHref}>查看拆解过程</a>
+        </aside>
+      </article>
     </div>
   </section>
 
@@ -266,6 +323,194 @@ const shellWorkflow: Array<{
     outline-color: #bfeeff;
   }
 
+  .method-sample-section {
+    background:
+      linear-gradient(180deg, rgba(250, 250, 250, 0) 0%, #f3f5f6 18%, #f3f5f6 100%);
+  }
+
+  .method-sample-heading {
+    max-width: 880px;
+    margin-bottom: 34px;
+  }
+
+  .method-sample-heading h2 {
+    margin: 12px 0 0;
+    color: var(--color-text-primary);
+    font-size: 2rem;
+    font-weight: 680;
+    line-height: 1.22;
+  }
+
+  .method-sample-heading p:not(.eyebrow) {
+    max-width: 800px;
+    margin: 14px 0 0;
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .method-sample-card {
+    display: grid;
+    overflow: hidden;
+    grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.78fr);
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    border-radius: var(--radius-card);
+    background: var(--color-surface);
+    box-shadow: 0 24px 70px rgba(15, 23, 42, 0.08);
+  }
+
+  .method-sample-card__main,
+  .method-sample-proof {
+    padding: 36px;
+  }
+
+  .method-sample-stage {
+    width: fit-content;
+    margin: 0 0 22px;
+    border: 1px solid var(--color-accent-border);
+    border-radius: var(--radius-card);
+    padding: 8px 11px;
+    background: var(--color-accent-soft);
+    color: var(--color-accent-strong);
+    font-size: 0.82rem;
+    font-weight: 650;
+    line-height: 1.5;
+  }
+
+  .method-sample-card h3 {
+    max-width: 720px;
+    margin: 0;
+    color: var(--color-text-primary);
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.18;
+  }
+
+  .method-sample-blocks {
+    margin-top: 30px;
+  }
+
+  .method-sample-block {
+    border-top: 1px solid var(--color-border-subtle);
+    padding-block: 22px;
+  }
+
+  .method-sample-block:first-child {
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .method-sample-block:last-child {
+    padding-bottom: 0;
+  }
+
+  .method-sample-label {
+    margin: 0 0 10px;
+    color: var(--color-text-primary);
+    font-size: 0.96rem;
+    font-weight: 700;
+  }
+
+  .method-sample-block p:not(.method-sample-label) {
+    margin: 0;
+    color: var(--color-text-secondary);
+    font-size: 0.98rem;
+    line-height: 1.82;
+  }
+
+  .method-workflow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-top: 18px;
+  }
+
+  .method-workflow__step {
+    display: inline-flex;
+    min-height: 34px;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    border-radius: var(--radius-card);
+    padding: 0 10px;
+    background: #f8fafb;
+    color: var(--color-text-primary);
+    font-size: 0.85rem;
+    font-weight: 620;
+  }
+
+  .method-workflow__index {
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+  }
+
+  .method-sample-proof {
+    border-left: 1px solid var(--color-border-subtle);
+    background:
+      linear-gradient(180deg, rgba(15, 107, 131, 0.06), rgba(15, 107, 131, 0)),
+      #fbfcfd;
+  }
+
+  .method-sample-proof h4 {
+    margin: 14px 0 0;
+    color: var(--color-text-primary);
+    font-size: 1.28rem;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  .method-sample-proof ul {
+    display: grid;
+    gap: 14px;
+    margin: 24px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .method-sample-proof li {
+    position: relative;
+    padding-left: 18px;
+    color: var(--color-text-secondary);
+    font-size: 0.94rem;
+    line-height: 1.68;
+  }
+
+  .method-sample-proof li::before {
+    position: absolute;
+    top: 0.75em;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--color-accent);
+    content: "";
+    transform: translateY(-50%);
+  }
+
+  .method-sample-link {
+    display: inline-flex;
+    min-height: 42px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    border: 1px solid var(--color-accent-border);
+    border-radius: var(--radius-card);
+    padding: 0 15px;
+    background: var(--color-text-primary);
+    color: var(--color-text-inverse);
+    font-size: 0.9rem;
+    font-weight: 680;
+    transition:
+      transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      background 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .method-sample-link:hover {
+    transform: translateY(-1px);
+    background: var(--color-accent-strong);
+  }
+
   @media (max-width: 980px) {
     .hero-section {
       min-height: auto;
@@ -279,6 +524,15 @@ const shellWorkflow: Array<{
 
     .hero-title {
       font-size: 58px;
+    }
+
+    .method-sample-card {
+      grid-template-columns: 1fr;
+    }
+
+    .method-sample-proof {
+      border-top: 1px solid var(--color-border-subtle);
+      border-left: 0;
     }
   }
 
@@ -316,14 +570,39 @@ const shellWorkflow: Array<{
     .hero-cta {
       width: 100%;
     }
+
+    .method-sample-heading h2,
+    .method-sample-card h3 {
+      font-size: 1.62rem;
+    }
+
+    .method-sample-card__main,
+    .method-sample-proof {
+      padding: 24px;
+    }
+
+    .method-sample-stage {
+      width: 100%;
+    }
+
+    .method-workflow {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    .method-workflow__step {
+      justify-content: flex-start;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .hero-cta {
+    .hero-cta,
+    .method-sample-link {
       transition: none;
     }
 
-    .hero-cta:hover {
+    .hero-cta:hover,
+    .method-sample-link:hover {
       transform: none;
     }
   }

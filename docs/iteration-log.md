@@ -4,13 +4,38 @@
 
 ## 当前状态摘要
 
-- 当前阶段：Phase 3 内容系统落地推进中；首页暗色玻璃质感 Hero 与个人品牌签名层级、页眉产品身份、第一个正式 Case Study 详情页展示骨架已完成
-- 最近完成：UX-007 首页 Hero 个人品牌识别与能力系统精修
+- 当前阶段：Phase 3 内容系统落地推进中；首页暗色玻璃质感 Hero、个人品牌签名层级、页眉产品身份、第一个正式 Case Study 详情页展示骨架与首页 AIPM 方法样本模块已完成
+- 最近完成：UX-008 首页精选案例重构为能力样本
 - 当前阻塞：无内容 schema 阻塞；demo link、GitHub link、截图资产、真实商家反馈和真实商业指标仍为 `TBD`
-- 下一步唯一建议：执行 `prddev-increment` 的 `CS-003`，创建 TalentSignal AI 的第二个 Featured Case Study 内容骨架
+- 下一步唯一建议：执行 `prddev-increment` 的 `CS-004`，优化样本 01 详情页拆解过程表达
 - 最后更新：2026-07-08
 
 ## 迭代记录
+
+### 2026-07-08 - UX-008 首页精选案例重构为能力样本
+
+- 使用 skill：`prddev-increment`
+- 本轮目标：根据用户定位，将首页原“精选案例”模块从传统项目案例列表重构为单个 AIPM 方法样本，重点证明业务问题拆解、AI 适用边界、Human-in-the-loop、AI Workflow、可交互 MVP 和 AI 输出评估闭环能力。
+- 完成内容：
+  - 调整 `apps/ai-native-product-builder-portfolio/src/pages/index.astro`：移除首页该模块中的三列 `ProjectCard` 项目列表，将 `Ecommerce Review Copilot` 重包装为“样本 01：从非结构化评论到运营决策 Copilot”。
+  - 新模块标题改为“方法样本：我如何拆解一个 AI 产品机会”，副标题说明当前先公开一个完整 AIPM 判断链路样本，完整项目案例会在截图、指标和复盘补齐后逐步上线。
+  - 新增单张横向重点卡片：左侧展示“问题 / 我的判断 / 原型方向”和“评论输入 -> 主题聚类 -> 差评归因 -> 风险提示 -> 建议卡片 -> 人工复盘 -> 指标评估”流程；右侧展示“这个样本证明什么能力”和“查看拆解过程”入口。
+  - 同步 `docs/portfolio-content-strategy.md`、`docs/project-portfolio-index.md`、`docs/content-model.md` 和 `docs/decision-log.md`：明确当前首页公开阶段先展示 1 个方法样本，不做多项目空卡堆叠。
+  - 更新 `docs/backlog.md`：新增 `UX-008` 为完成项，延后 `CS-003`，新增下一步建议 `CS-004`。
+- 修改文件：
+  - `apps/ai-native-product-builder-portfolio/src/pages/index.astro`
+  - `docs/prd.md`
+  - `docs/portfolio-content-strategy.md`
+  - `docs/project-portfolio-index.md`
+  - `docs/content-model.md`
+  - `docs/decision-log.md`
+  - `docs/backlog.md`
+  - `docs/testing.md`
+  - `docs/iteration-log.md`
+- 验证结果：普通 PATH 执行 `pnpm run check` 因 `node: not found` 失败，符合当前 testing 文档记录的本地环境限制；随后使用 Codex bundled Node / pnpm 执行 `pnpm run check`、`pnpm run build`、`pnpm run lint` 均通过；`astro check` 结果 0 errors / 0 warnings / 0 hints；`astro build` 生成 `/`、`/projects/`、`/projects/ecommerce-review-copilot/` 3 个静态页面；构建产物可检索到“能力样本”、“方法样本：我如何拆解一个 AI 产品机会”、“样本 01：从非结构化评论到运营决策 Copilot”和“查看拆解过程”；首页构建产物未检索到“精选案例”、“暂无案例”、“coming soon”、“mock”或“没有真实用户”；授权启动 `astro preview` 后，`http://127.0.0.1:4324/` 返回 200 OK。
+- 未做内容：未新增第二个案例；未添加空项目占位卡；未改 Case Study 详情页结构；未补 demo link、GitHub link、截图资产、真实商家反馈或真实商业指标；未引入新依赖、AI runtime、复杂动画、3D 或全站视觉重做。
+- 遗留问题：`查看拆解过程` 当前仍进入现有 Ecommerce Review Copilot 详情页，详情页虽已包含完整 Case Study 字段，但首屏和导读还可以更贴合“方法样本 / 拆解过程”的叙事；仍需要在可访问的本地预览或用户浏览器中做最终截图级视觉 QA。
+- 下一步建议：执行 `prddev-increment` 的 `CS-004`。
 
 ### 2026-07-08 - UX-007 首页 Hero 个人品牌识别与能力系统精修
 

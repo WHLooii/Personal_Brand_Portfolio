@@ -10,8 +10,8 @@
 - selected project direction：个人 AI 产品能力作品集 / AI 产品案例库
 - 依赖技术栈决策：`docs/tech-stack-decision.md`（已决：Astro-powered Editorial Product Experience System）
 - 依赖视觉系统护栏：`docs/visual-system.md`
-- 状态：概念 PRD 已完成；技术路线与视觉系统护栏已同步；最小技术基座已完成
-- 最后更新：2026-07-07
+- 状态：概念 PRD 已完成；技术路线与视觉系统护栏已同步；最小技术基座已完成；首页当前公开阶段已收敛为 AIPM 方法样本优先
+- 最后更新：2026-07-08
 
 ## 产品定位
 
@@ -50,7 +50,7 @@
 ## 核心用户路径
 
 1. 访问 Home，先理解橘子的定位不是普通个人主页，而是 AI 产品案例库。
-2. 浏览 What I Build / Selected Case Studies，判断她关注的问题类型和 AI 产品构建方式。
+2. 浏览 What I Build / 能力样本，判断她如何拆解 AI 产品机会、控制 AI 边界并把判断落成原型。
 3. 进入某个 Case Study，按 Overview、Problem、Product Judgment、AI Workflow、Prototype、Evaluation、Next Iteration 阅读完整案例。
 4. 通过 Product Building Process / Capability Map 理解她的方法论和协作方式。
 5. 通过 About / Contact 发起招聘、合作或进一步沟通。
@@ -61,7 +61,7 @@
 | --- | --- | --- | --- |
 | Home Hero | 第一屏明确定位和作品集叙事 | 是 | 访问者能在 10 秒内理解这是 AI Native Product Builder Portfolio，而不是普通个人主页 |
 | What I Build | 概括橘子构建的 AI 产品类型 | 是 | 清楚表达 AI Opportunity、Workflow、Prototype 三类能力 |
-| Selected Case Studies | 展示重点项目入口 | 是 | 至少可展示 3-5 个案例卡片，其中状态可区分 done / in progress / planned |
+| 能力样本 / Method Sample | 展示一个完整的 AIPM 判断链路样本 | 是 | 当前公开阶段先展示 1 个横向重点样本卡，覆盖 Problem、Product Judgment、AI Workflow、Prototype、Evaluation；不放多个空项目占位卡 |
 | Product Building Process | 展示从问题判断到原型验证的方法 | 是 | 流程包含 Problem、AI Fit、Workflow、Prototype、Evaluation |
 | Capability Map | 系统化呈现能力结构 | 是 | 不以技能 Badge 为主，而以判断、工作流、原型、评估等能力域组织 |
 | Projects Index | 承载所有案例入口 | 是 | 访问者可从列表进入单个 Case Study |
@@ -73,11 +73,11 @@
 ## MVP 范围
 
 - 必须包含：
-  - Home 基础信息架构：Hero、What I Build、Selected Case Studies、Product Building Process、Capability Map、About、Contact。
+  - Home 基础信息架构：Hero、What I Build、能力样本 / Method Sample、Product Building Process、Capability Map、About、Contact。
   - Projects 列表页。
   - 统一 Case Study 内容模板。
   - 项目数据模型草案，覆盖 Overview、Problem、Product Judgment、AI Workflow、Prototype、Evaluation、Next Iteration。
-  - 初始项目清单：TalentSignal AI、Ecommerce Review Copilot、AI PM Judgment Coach、JD Research Analyzer、Unity Optoelectronic Learning System。
+  - 初始项目池：TalentSignal AI、Ecommerce Review Copilot、AI PM Judgment Coach、JD Research Analyzer、Unity Optoelectronic Learning System；当前首页公开阶段先重点展示 Ecommerce Review Copilot 的方法样本。
 - 可以延后：
   - 每个项目的完整内容填充。
   - 可运行 Demo 嵌入。
@@ -104,7 +104,7 @@
 
 | 页面 | 用户目标 | 关键元素 |
 | --- | --- | --- |
-| Home | 快速理解橘子的 AI 产品构建定位和代表案例 | Hero、What I Build、Selected Case Studies、Process、Capability Map、About、Contact |
+| Home | 快速理解橘子的 AI 产品构建定位和方法样本 | Hero、What I Build、能力样本 / Method Sample、Process、Capability Map、About、Contact |
 | Projects | 浏览所有 AI 产品案例 | 项目列表、项目定位、能力标签、状态、入口 |
 | Case Study Detail | 深入理解单个项目的判断、工作流、原型和评估 | Overview、Problem、Product Judgment、AI Workflow、Prototype、Evaluation、Next Iteration |
 

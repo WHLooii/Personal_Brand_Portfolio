@@ -38,15 +38,17 @@ Problem Discovery
 
 ## 项目组合策略
 
-首页第一版优先展示 3 个互补案例，形成“判断 -> 工作流 -> 原型”的证明链；补充项目进入 Projects 列表或 About 证据区。
+当前公开阶段：首页先集中展示 1 个完整的 AIPM 方法样本，形成“问题 -> 判断 -> AI Workflow -> 原型方向 -> 评估闭环”的能力证明链。完整项目案例会在截图、指标和复盘补齐后逐步上线；不要为了数量感在首页放多个弱证据卡、空项目卡或占位项目墙。
 
-| 优先级 | 项目 | Portfolio 角色 | 主要证明能力 |
+中长期项目池仍保留多案例组合，但它们进入首页 Featured 前必须先补齐准入字段。
+
+| 阶段 | 项目 | Portfolio 角色 | 主要证明能力 |
 | --- | --- | --- | --- |
-| P0 | Ecommerce Review Copilot | AI Business Copilot 类项目 | business_judgment |
-| P0 | TalentSignal AI | Agent / RAG Workflow 类项目 | ai_workflow |
-| P0 | AI PM Judgment Coach | AI Prototype Builder / Thinking System 类项目 | prototype_builder |
-| P1 | JD Research Analyzer | Market Research / AI Product Analysis 补充案例 | business_judgment |
-| P1 | Unity Optoelectronic Learning System | Engineering Background / Interactive Product Design 补充案例 | engineering_background |
+| 当前公开 | Ecommerce Review Copilot | 方法样本 01 / AI Business Copilot 判断链路 | business_judgment、ai_workflow、prototype_builder、product_iteration |
+| 后续补齐后 | TalentSignal AI | Agent / RAG Workflow 类项目 | ai_workflow |
+| 后续补齐后 | AI PM Judgment Coach | AI Prototype Builder / Thinking System 类项目 | prototype_builder |
+| 补充项目池 | JD Research Analyzer | Market Research / AI Product Analysis 补充案例 | business_judgment |
+| 补充项目池 | Unity Optoelectronic Learning System | Engineering Background / Interactive Product Design 补充案例 | engineering_background |
 
 ## 内容表达原则
 
@@ -75,5 +77,4 @@ Outcome / Impact
 Reflection
 ```
 
-未通过这些检查的项目可以留在项目池，但不应作为首页核心证明案例。
-
+未通过这些检查的项目可以留在项目池，但不应作为首页核心证明案例，也不应以空卡或弱证据卡形式露出。
