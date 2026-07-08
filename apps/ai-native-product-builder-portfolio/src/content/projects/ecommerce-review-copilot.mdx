@@ -1,0 +1,230 @@
+---
+meta:
+  slug: ecommerce-review-copilot
+  visibility: featured
+  priority: 1
+  last_updated: "2026-07-07"
+basic:
+  title: 电商评论洞察与运营决策 AI Copilot
+  tagline: 帮助中小女装电商运营把用户评论转化为问题归因、证据链建议和可评测的经营动作。
+  category: AI Business Copilot / 评论洞察与运营决策
+  user: 中小服饰 / 女装电商商家的店主、商品运营和运营负责人
+  role: AI 产品构建者 / 产品设计与原型落地
+  timeline: "Base v0.1 / 可演示 MVP"
+  status: mvp
+  tech_stack_summary:
+    - Next.js
+    - TypeScript
+    - FastAPI
+    - SQLAlchemy
+    - SQLite
+    - MockAnalysisProvider
+brand_evidence:
+  primary_capability: business_judgment
+  secondary_capabilities:
+    - ai_workflow
+    - prototype_builder
+    - product_iteration
+    - technical_communication
+  proof_statement: 通过评论语义分析、证据链归因、Human-in-the-loop 反馈和评测中心，证明我能把电商经营问题转成可演示、可评测的 AI Copilot 产品闭环。
+context:
+  background: 当前项目定位为 Base v0.1 AI PM 作品集 / 可演示 MVP，不是已上线生产系统，也不是支持任意 CSV 实时分析的完整 Agent。
+  target_user: 中小女装电商店主、商品运营、客服 / 售后负责人、供应链 / 品控协同角色、视觉 / 内容运营。
+  current_workflow: 平台后台看差评 -> 复制评论或截图 -> Excel 手工分类 -> 凭经验判断原因 -> 临时修改详情页 / 客服话术 / 商品说明 -> 很少追踪建议是否有效。
+  problem: 评论量大且非结构化，人工分类慢、归因不稳定、代表性证据容易丢失，经营建议容易停留在泛泛表达，缺少评测闭环。
+  user_pain_points:
+    - 评论太多，人工翻看和分类慢。
+    - 评论是非结构化文本，用户表达口语化、混合情绪、多问题并存。
+    - 分类口径不稳定，同一条评论可能被不同人归到不同问题。
+    - 差评原因难归因，不知道是尺码、面料、色差、客服推荐还是预期管理问题。
+    - 代表性评论容易丢失，经营建议缺证据。
+    - 建议常常停留在“优化质量”“提升体验”，不够具体。
+    - 没有评测闭环，AI 或人工判断错了以后很难沉淀。
+product_judgment:
+  why_ai: 评论分析包含大量语义理解和结构化转换任务，AI 适合处理同义表达、隐含抱怨、混合情绪、跨评论归因，以及从洞察到动作的初步转换。
+  ai_opportunity: 把非结构化评论转为方面级标签、主题聚类、证据片段、初步归因、风险提示和运营建议卡片，让运营从“翻评论”进入“复核证据和判断动作”。
+  ai_boundary:
+    - task: 评论结构化分析与方面级多标签分类
+      ai_can_do: 识别评论中的尺码、版型、面料、色差、做工、客服等问题，并判断情绪、严重度和低置信度情况。
+      human_must_do: 判断问题在当前商品、库存、供应链和客服背景下是否真实重要。
+    - task: 证据评论抽取与问题主题聚类
+      ai_can_do: 把不同表达聚成同一经营主题，并绑定 comment_id、用户原话和证据片段。
+      human_must_do: 判断主题是否值得进入运营优先级，以及是否需要结合退货原因、客服咨询、批次数据进一步确认。
+    - task: 运营建议卡片生成
+      ai_can_do: 基于证据生成初步归因、风险提示和建议动作。
+      human_must_do: 决定采纳、驳回、编辑后采纳或标记待验证，并负责真实经营动作。
+  human_in_the_loop:
+    - step: 运营建议人工反馈
+      reason: 支持采纳、驳回、编辑后采纳、待验证，避免 AI 自动替商家做经营决策。
+    - step: 评测中心复盘
+      reason: 汇总反馈指标、离线标注指标和错误案例，让 AI 输出质量可追踪、可复盘。
+    - step: 业务动作确认
+      reason: 是否修改详情页、客服 SOP、视觉图或质检流程，需要由人结合业务背景最终判断。
+  non_goals:
+    - V0.1 不做大而全电商 Agent。
+    - V0.1 不支持任意 CSV 的完整实时 AI 分析。
+    - 不自动修改详情页、客服话术、调价或投放。
+    - 不宣称真实上线、真实商家反馈或真实商业指标。
+product:
+  solution: 一个面向中小女装电商的评论洞察与运营决策 Copilot，用样例数据跑通评论质检、问题归因、建议生成、人工反馈和评测闭环。
+  core_features:
+    - name: 评论主题聚类与证据化归因
+      description: 把评论聚成尺码、色差、面料、做工、客服等经营问题，并绑定 comment_id 和用户原话。
+      user_value: 让运营看到“问题是什么”和“证据来自哪里”，而不是只看抽象标签。
+    - name: 差评原因分析与风险提示
+      description: 判断问题可能来自尺码预期、详情页信息不足、客服推荐口径、品控批次等，并给出置信度和风险提示。
+      user_value: 帮助运营把差评从情绪文本转成可讨论的经营归因。
+    - name: 运营建议卡片与人工反馈评测
+      description: 生成可执行建议，支持采纳、驳回、编辑后采纳、待验证，并在评测中心沉淀指标和错误案例。
+      user_value: 让 AI 建议进入可复核、可沉淀的工作流，而不是停留在一次性总结。
+  user_flow:
+    - step: 选择内置样例数据 / 上传 CSV
+      description: 内置样例数据支持完整闭环；上传 CSV 在 V0.1 只支持质检和预览。
+    - step: 数据质量检查与评论预览
+      description: 先确认字段、数据质量和评论内容，再进入分析流程。
+    - step: 样例数据运行 Mock AI 分析
+      description: 使用 MockAnalysisProvider 跑通评论级分析和主题聚类。
+    - step: 客户声音看板
+      description: 汇总高频问题、评论情绪和关键经营主题。
+    - step: 问题归因详情
+      description: 展示问题主题、证据评论、归因和风险提示。
+    - step: 运营建议工作台
+      description: 呈现建议卡片，支持人工反馈和状态记录。
+    - step: 评测中心
+      description: 汇总反馈指标、离线标注指标和错误案例。
+ai_design:
+  ai_role: 评论洞察与运营建议 Copilot，负责把评论文本转成可追溯的问题归因、证据链和建议草稿。
+  workflow_summary: V0.1 使用内置样例数据和 MockAnalysisProvider 跑通分析闭环；上传 CSV 仅支持质检和预览，完整真实 LLM 分析留到 V0.2。
+  agent_workflow:
+    - step: 数据质检与评论预览
+      input: 内置女装评论样例或用户上传 CSV
+      process: 系统检查字段、数据质量和评论样本，判断是否进入完整闭环。
+      output: 可预览的数据集和质检结果
+      owner: system
+    - step: 评论级结构化分析
+      input: 通过质检的样例评论
+      process: AI 对评论做方面级分类、情绪、严重度和低置信度判断。
+      output: 评论级 Mock analysis 结果
+      owner: ai
+    - step: 主题聚类与证据抽取
+      input: 评论级分析结果
+      process: AI 聚类高频经营问题，并抽取代表性评论和证据片段。
+      output: 问题主题、comment_id 和用户原话证据
+      owner: ai
+    - step: 建议卡片生成
+      input: 问题主题、证据评论、风险提示
+      process: AI 生成初步归因、置信度、风险提示和运营建议动作。
+      output: 运营建议卡片初稿
+      owner: ai
+    - step: 人工反馈
+      input: 建议卡片和证据链
+      process: 人选择采纳、驳回、编辑后采纳或待验证。
+      output: 反馈状态和可复盘案例
+      owner: human
+    - step: 评测沉淀
+      input: 人工反馈、离线标注、错误案例
+      process: 系统汇总反馈指标、离线标注指标和错误案例。
+      output: AI 输出质量评测视图
+      owner: system
+  prompt_strategy: V0.1 为 Mock 分析闭环；真实 prompt 策略待 V0.2 LLM Provider 接入后补齐。
+  context_strategy: 使用 120 条女装评论样例、120 条评论级 Mock analysis、30 条人工标注、5 个问题主题和 5 条建议卡片作为上下文基准。
+  evaluation_method: 结合人工反馈、离线标注指标、错误案例、建议证据完整率和幻觉率评估 AI 输出质量。
+technical:
+  architecture: Next.js + TypeScript 前端，FastAPI + SQLAlchemy + SQLite 后端，MockAnalysisProvider 提供 V0.1 分析闭环，LLMAnalysisProvider 仅占位。
+  data_flow: 样例评论 / CSV 预览 -> 数据质检 -> Mock AI 分析 -> 看板 / 问题详情 / 建议工作台 -> 人工反馈 -> 评测中心。
+  tech_stack:
+    frontend:
+      - Next.js
+      - TypeScript
+    backend:
+      - FastAPI
+      - SQLAlchemy
+    ai:
+      - MockAnalysisProvider
+      - LLMAnalysisProvider placeholder
+    database:
+      - SQLite
+    deployment:
+      - 本地可演示
+      - 待部署
+  implementation_notes:
+    - 当前可运行工程位于外部项目目录 ecommerce-review-copilot/。
+    - 内置样例数据包含 120 条女装评论。
+    - V0.1 已有 120 条评论级 Mock analysis、30 条人工标注、5 个问题主题和 5 条建议卡片。
+    - 上传 CSV 在 V0.1 只支持质检和预览，任意 CSV 的完整 AI 分析留到 V0.2。
+  tradeoffs:
+    - decision: 先做女装评论洞察，不做大而全电商 Agent。
+      reason: 女装评论天然有尺码、版型、面料、色差、做工、客服等高频问题，标签体系和证据链更容易做深。
+      rejected_alternative: 一开始就做全品类、全流程、自动执行的电商 Agent。
+    - decision: 先做 Human-in-the-loop 和稳定 Mock 闭环，不让 AI 自动执行。
+      reason: V0.1 重点是验证产品闭环、证据链和评测机制，自动修改详情页、客服话术、调价、投放风险高。
+      rejected_alternative: 让 AI 直接替商家修改运营资产或自动回复客户。
+    - decision: 上传 CSV 先只做质检和预览，不开放完整 Mock 分析。
+      reason: 避免固定 Mock 输出引用不属于当前数据集的证据，保持演示结果可信。
+      rejected_alternative: 为了演示完整感，对任意上传数据都返回不可靠的固定分析。
+evaluation:
+  product_metrics:
+    - name: 评论分析时间减少
+      definition: 从导出评论到形成可讨论问题清单的时间是否下降。
+      target: TBD，待真实商家试用验证。
+    - name: 高频问题发现时间缩短
+      definition: 运营发现尺码、面料、色差、客服等高频问题所需时间是否缩短。
+      target: TBD，待真实商家试用验证。
+    - name: 建议反馈完成率
+      definition: 生成的建议卡片中被运营标记采纳、驳回、编辑后采纳或待验证的比例。
+      target: V0.1 作为过程指标追踪，真实目标待验证。
+    - name: 人工复核通过率
+      definition: AI 归因和建议经过人工复核后可直接或编辑后使用的比例。
+      target: TBD，待真实商家试用验证。
+    - name: 建议采纳 / 编辑后采纳 / 驳回率
+      definition: 不同反馈状态在建议卡片中的分布。
+      target: TBD，待真实商家试用验证。
+  ai_metrics:
+    - name: 分类准确率
+      definition: AI 分类结果和人工标注的一致程度。
+      target: V0.1 样例数据和 Mock 输出基准为 93.33%。
+    - name: 多标签召回率
+      definition: AI 是否能识别一条评论中的多个相关问题。
+      target: V0.1 样例数据和 Mock 输出基准为 100.00%。
+    - name: Micro F1
+      definition: 综合衡量评论分类准确性和召回能力。
+      target: V0.1 样例数据和 Mock 输出基准为 98.18%。
+    - name: 正式建议证据完整率
+      definition: 建议卡片是否绑定清晰证据评论和证据片段。
+      target: V0.1 样例数据和 Mock 输出基准为 100.00%。
+    - name: 幻觉率
+      definition: AI 输出是否引用了不存在或不属于当前证据集的信息。
+      target: V0.1 样例数据和 Mock 输出基准为 3.33%，不等同于真实 LLM 线上表现。
+  validation_status: V0.1 在样例数据和 Mock 输出上已有作品集评测指标；这些指标用于证明评测设计能力，不等同于真实商业效果。
+outcome:
+  demo_link: TBD
+  github_link: TBD
+  screenshots:
+    - path: TBD
+      caption: 待确认是否从外部项目截图目录迁移到当前 portfolio assets。
+  impact: 已形成可演示 MVP，用于证明 AI 产品判断、证据链设计、Human-in-the-loop 反馈和评测闭环能力；尚无真实上线和真实商业指标。
+reflection:
+  challenges:
+    - 评论表达口语化、混合情绪、多问题并存，需要避免简单关键词统计。
+    - V0.1 需要在“可演示闭环”和“不夸大 AI 能力”之间保持边界。
+    - Mock 输出可以证明产品结构，但不能替代真实 LLM 评测和真实商家实验。
+  product_decisions:
+    - 优先证明“AI 输出如何可信、可追溯、可复盘”，而不是优先证明“AI 可以自动替商家做决定”。
+    - 选择女装评论作为首个垂直场景，让问题标签、证据链和建议动作更具体。
+    - 把人工反馈和评测中心放进 MVP，强调 Human-in-the-loop 和 AI 输出质量控制。
+  limitations:
+    - 没有真实上线。
+    - 没有真实商家用户反馈。
+    - 没有真实 GMV / 转化率 / 退货率指标。
+    - 没有接入真实 LLM。
+    - 没有 GitHub 远程仓库证据。
+    - 没有支持任意 CSV 的完整实时分析。
+    - 没有多租户权限、平台 API、爬虫或自动经营执行。
+  future_iterations:
+    - V0.2 接入真实 LLM Provider。
+    - 支持上传真实 CSV 后的字段映射、Schema 校验和异常输出修复。
+    - 补充真实 demo 链接、截图资产和可验证项目证据。
+    - 在真实商家试用后补充业务代理指标，例如同类差评占比、尺码咨询量或退换货原因变化。
+---
+
+这个案例当前以 Base v0.1 可演示 MVP 为边界，重点展示从电商评论问题判断、AI Workflow、人机协作到评测闭环的产品构建过程。

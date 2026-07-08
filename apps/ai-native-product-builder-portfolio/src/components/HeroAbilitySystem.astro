@@ -1,0 +1,376 @@
+---
+const abilities = [
+  { code: "01", className: "business", title: "业务拆解", meta: "Business Logic" },
+  { code: "02", className: "insight", title: "用户洞察", meta: "User Signals" },
+  { code: "03", className: "architecture", title: "产品架构", meta: "Product System" },
+  { code: "04", className: "workflow", title: "AI 工作流", meta: "AI Workflow" },
+  { code: "05", className: "prototype", title: "原型设计", meta: "Prototype UI" },
+  { code: "06", className: "validation", title: "验证迭代", meta: "Validation Loop" }
+];
+
+const labels = [
+  { code: "01", text: "Problem Framing" },
+  { code: "02", text: "Workflow Mapping" },
+  { code: "03", text: "Prototype Design" },
+  { code: "04", text: "AI Agent Logic" },
+  { code: "05", text: "Validation Loop" },
+  { code: "06", text: "Portfolio Delivery" }
+];
+---
+
+<aside id="capability-system" class="hero-system" aria-label="AI 产品原型能力系统">
+  <div class="hero-system__header">
+    <div>
+      <p>AI 产品原型能力系统</p>
+      <h2>Capability Interface</h2>
+    </div>
+    <span>v0.1</span>
+  </div>
+
+  <div class="system-map" aria-label="AI Product Prototype System 能力星图">
+    <svg class="system-lines" viewBox="0 0 640 420" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="system-line" x1="0" x2="1" y1="0" y2="1">
+          <stop offset="0%" stop-color="rgba(160, 221, 255, 0.28)" />
+          <stop offset="55%" stop-color="rgba(135, 143, 255, 0.42)" />
+          <stop offset="100%" stop-color="rgba(185, 135, 255, 0.2)" />
+        </linearGradient>
+        <radialGradient id="system-pulse" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="rgba(186, 228, 255, 0.35)" />
+          <stop offset="100%" stop-color="rgba(186, 228, 255, 0)" />
+        </radialGradient>
+      </defs>
+      <path class="system-ring" d="M320 46 500 112 496 304 320 372 144 304 140 112Z" />
+      <path class="system-spoke" d="M320 210 320 46M320 210 500 112M320 210 496 304M320 210 320 372M320 210 144 304M320 210 140 112" />
+      <circle cx="320" cy="210" r="132" fill="url(#system-pulse)" />
+    </svg>
+
+    <div class="system-center">
+      <span>Core</span>
+      <strong>AI Product Prototype System</strong>
+    </div>
+
+    {abilities.map((ability) => (
+      <div class={`system-node system-node--${ability.className}`}>
+        <span class="system-node__code">{ability.code}</span>
+        <h3>{ability.title}</h3>
+        <p>{ability.meta}</p>
+      </div>
+    ))}
+  </div>
+
+  <ol class="system-ledger" aria-label="能力系统编号标签">
+    {labels.map((label) => (
+      <li>
+        <span>LOG {label.code}</span>
+        <strong>{label.text}</strong>
+      </li>
+    ))}
+  </ol>
+</aside>
+
+<style>
+  .hero-system {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(169, 196, 255, 0.2);
+    border-radius: var(--radius-card);
+    background:
+      linear-gradient(145deg, rgba(9, 15, 34, 0.78), rgba(24, 21, 54, 0.56)),
+      rgba(7, 11, 24, 0.7);
+    box-shadow:
+      0 30px 90px rgba(0, 0, 0, 0.38),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      inset 0 0 36px rgba(103, 130, 255, 0.08);
+    color: rgba(241, 247, 255, 0.94);
+    backdrop-filter: blur(22px);
+  }
+
+  .hero-system::before {
+    position: absolute;
+    inset: 0;
+    content: "";
+    background:
+      linear-gradient(90deg, transparent, rgba(135, 188, 255, 0.09), transparent),
+      radial-gradient(circle at 86% 16%, rgba(141, 187, 255, 0.18), transparent 34%),
+      radial-gradient(circle at 62% 90%, rgba(142, 95, 255, 0.12), transparent 38%);
+    pointer-events: none;
+  }
+
+  .hero-system::after {
+    position: absolute;
+    inset: 1px;
+    border-radius: calc(var(--radius-card) - 1px);
+    content: "";
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.045);
+    pointer-events: none;
+  }
+
+  .hero-system__header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 22px 22px 0;
+  }
+
+  .hero-system__header p,
+  .hero-system__header h2 {
+    margin: 0;
+  }
+
+  .hero-system__header p,
+  .hero-system__header span {
+    color: rgba(190, 212, 242, 0.68);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+  }
+
+  .hero-system__header h2 {
+    margin-top: 7px;
+    font-size: 1.04rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .hero-system__header span {
+    border: 1px solid rgba(160, 198, 255, 0.18);
+    border-radius: 999px;
+    padding: 5px 8px;
+    background: rgba(255, 255, 255, 0.045);
+  }
+
+  .system-map {
+    position: relative;
+    z-index: 1;
+    min-height: 420px;
+    margin: 6px 8px 0;
+  }
+
+  .system-lines {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.92;
+  }
+
+  .system-ring,
+  .system-spoke {
+    fill: none;
+    stroke: url(#system-line);
+    stroke-linecap: round;
+    stroke-width: 1;
+  }
+
+  .system-spoke {
+    stroke-dasharray: 4 10;
+  }
+
+  .system-center,
+  .system-node {
+    position: absolute;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    transform: translate(-50%, -50%);
+    border: 1px solid rgba(176, 207, 255, 0.2);
+    border-radius: var(--radius-card);
+    background: rgba(9, 15, 34, 0.58);
+    box-shadow:
+      0 14px 34px rgba(0, 0, 0, 0.22),
+      inset 0 1px 0 rgba(255, 255, 255, 0.07);
+    text-align: center;
+    backdrop-filter: blur(14px);
+  }
+
+  .system-center {
+    top: 50%;
+    left: 50%;
+    width: 212px;
+    min-height: 108px;
+    padding: 18px;
+    background:
+      linear-gradient(140deg, rgba(21, 45, 77, 0.72), rgba(39, 33, 88, 0.62)),
+      rgba(9, 15, 34, 0.72);
+    box-shadow:
+      0 0 46px rgba(99, 167, 255, 0.18),
+      0 18px 42px rgba(0, 0, 0, 0.26),
+      inset 0 1px 0 rgba(255, 255, 255, 0.09);
+  }
+
+  .system-center::before {
+    position: absolute;
+    inset: -38px;
+    z-index: -1;
+    border-radius: 999px;
+    content: "";
+    background:
+      radial-gradient(circle, rgba(126, 202, 255, 0.24), transparent 58%),
+      radial-gradient(circle, rgba(153, 111, 255, 0.18), transparent 66%);
+    filter: blur(4px);
+  }
+
+  .system-center span {
+    color: rgba(178, 214, 255, 0.68);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+  }
+
+  .system-center strong {
+    margin-top: 8px;
+    font-size: 1.02rem;
+    font-weight: 750;
+    line-height: 1.24;
+  }
+
+  .system-node {
+    width: 132px;
+    min-height: 74px;
+    padding: 11px;
+  }
+
+  .system-node__code {
+    position: absolute;
+    top: 8px;
+    left: 9px;
+    color: rgba(180, 218, 255, 0.48);
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    line-height: 1;
+  }
+
+  .system-node h3,
+  .system-node p {
+    margin: 0;
+  }
+
+  .system-node h3 {
+    margin-top: 9px;
+    font-size: 0.92rem;
+    font-weight: 720;
+    line-height: 1.25;
+  }
+
+  .system-node p {
+    margin-top: 5px;
+    color: rgba(190, 212, 242, 0.46);
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    line-height: 1.25;
+  }
+
+  .system-node--business {
+    top: 11%;
+    left: 50%;
+  }
+
+  .system-node--insight {
+    top: 27%;
+    left: 81%;
+  }
+
+  .system-node--architecture {
+    top: 73%;
+    left: 80%;
+  }
+
+  .system-node--workflow {
+    top: 89%;
+    left: 50%;
+  }
+
+  .system-node--prototype {
+    top: 73%;
+    left: 20%;
+  }
+
+  .system-node--validation {
+    top: 27%;
+    left: 19%;
+  }
+
+  .system-ledger {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin: 0;
+    padding: 0 22px 22px;
+    list-style: none;
+  }
+
+  .system-ledger li {
+    border: 1px solid rgba(160, 198, 255, 0.14);
+    border-radius: var(--radius-card);
+    background: rgba(255, 255, 255, 0.025);
+    color: rgba(216, 229, 249, 0.52);
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    line-height: 1.25;
+    padding: 7px 8px;
+  }
+
+  .system-ledger span,
+  .system-ledger strong {
+    display: block;
+    font-weight: 520;
+  }
+
+  .system-ledger span {
+    color: rgba(158, 192, 231, 0.42);
+    font-size: 0.58rem;
+  }
+
+  .system-ledger strong {
+    margin-top: 3px;
+    color: rgba(218, 231, 249, 0.56);
+  }
+
+  @supports not (backdrop-filter: blur(1px)) {
+    .hero-system,
+    .system-center,
+    .system-node {
+      background: rgba(7, 12, 26, 0.92);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .hero-system__header {
+      padding: 18px 18px 0;
+    }
+
+    .system-map {
+      display: grid;
+      gap: 10px;
+      min-height: auto;
+      margin: 18px;
+    }
+
+    .system-lines {
+      display: none;
+    }
+
+    .system-center,
+    .system-node {
+      position: static;
+      width: 100%;
+      min-height: 0;
+      transform: none;
+      padding: 13px;
+    }
+
+    .system-node h3 {
+      margin-top: 13px;
+    }
+
+    .system-ledger {
+      grid-template-columns: 1fr;
+      padding: 0 18px 18px;
+    }
+  }
+</style>

@@ -1,0 +1,31 @@
+---
+import { getProjectSlug, type ProjectEntry } from "@/lib/content";
+import { getCapabilityLabel, getStatusLabel } from "@/lib/labels";
+
+interface Props {
+  project: ProjectEntry;
+}
+
+const { project } = Astro.props;
+const data = project.data;
+const slug = getProjectSlug(project);
+---
+
+<article class="surface-card flex h-full flex-col p-6 transition hover:-translate-y-1 hover:border-[var(--color-accent-border)]">
+  <div class="flex items-start justify-between gap-4">
+    <p class="eyebrow">{getCapabilityLabel(data.brand_evidence.primary_capability)}</p>
+    <span class="rounded-full border border-[var(--color-border-subtle)] px-3 py-1 text-xs text-[var(--color-text-muted)]">
+      {getStatusLabel(data.basic.status)}
+    </span>
+  </div>
+  <h3 class="mt-5 text-xl font-semibold leading-snug">{data.basic.title}</h3>
+  <p class="mt-3 text-sm leading-6 text-[var(--color-text-secondary)]">{data.basic.tagline}</p>
+  <div class="mt-6 space-y-3 text-sm text-[var(--color-text-secondary)]">
+    <p><span class="font-semibold text-[var(--color-text-primary)]">问题：</span>{data.context.problem}</p>
+    <p><span class="font-semibold text-[var(--color-text-primary)]">AI 角色：</span>{data.ai_design.ai_role}</p>
+    <p><span class="font-semibold text-[var(--color-text-primary)]">我的角色：</span>{data.basic.role}</p>
+  </div>
+  <a class="mt-auto pt-6 text-sm font-semibold text-[var(--color-accent)]" href={`/projects/${slug}/`}>
+    查看案例
+  </a>
+</article>

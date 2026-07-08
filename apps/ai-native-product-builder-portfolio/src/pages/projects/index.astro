@@ -1,0 +1,20 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ProjectCard from "@/components/ProjectCard.astro";
+import { getProjects } from "@/lib/content";
+
+const projects = await getProjects();
+---
+
+<BaseLayout title="项目案例 | 巫浩林">
+  <section class="site-shell section">
+    <p class="eyebrow">项目案例</p>
+    <h1 class="mt-4 text-4xl font-semibold md:text-5xl">AI 产品案例索引</h1>
+    <p class="mt-5 max-w-2xl leading-7 text-[var(--color-text-secondary)]">
+      这个索引已经接入 Astro 内容集合。真实案例会按一个增量一个增量地补充，避免一次性堆内容。
+    </p>
+    <div class="mt-10 grid gap-5 md:grid-cols-3">
+      {projects.map((project) => <ProjectCard project={project} />)}
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,335 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import DecisionMatrix from "@/components/DecisionMatrix.astro";
+import WorkflowDiagram from "@/components/WorkflowDiagram.astro";
+import ArchitectureBlock from "@/components/ArchitectureBlock.astro";
+import Timeline from "@/components/Timeline.astro";
+import { getProjectSlug, type ProjectEntry } from "@/lib/content";
+import { getCapabilityLabel, getStatusLabel } from "@/lib/labels";
+
+interface Props {
+  project: ProjectEntry;
+}
+
+const { project } = Astro.props;
+const data = project.data;
+const slug = getProjectSlug(project);
+const isPending = (value: string) => value.trim().toUpperCase() === "TBD";
+const displayText = (value: string) => value.replaceAll("TBD", "待补充");
+const techStackGroups = [
+  { label: "前端", items: data.technical.tech_stack.frontend },
+  { label: "后端", items: data.technical.tech_stack.backend },
+  { label: "AI", items: data.technical.tech_stack.ai },
+  { label: "数据库", items: data.technical.tech_stack.database },
+  { label: "部署", items: data.technical.tech_stack.deployment }
+].filter((group) => group.items.length > 0);
+const outcomeLinks = [
+  { label: "Demo", value: data.outcome.demo_link },
+  { label: "GitHub", value: data.outcome.github_link }
+];
+---
+
+<BaseLayout title={`${data.basic.title} | 巫浩林`}>
+  <article class="site-shell section">
+    <a class="text-sm text-[var(--color-text-muted)]" href="/projects/">返回项目案例</a>
+    <header class="mt-8 max-w-3xl">
+      <p class="eyebrow">{getCapabilityLabel(data.brand_evidence.primary_capability)}</p>
+      <h1 class="mt-4 text-4xl font-semibold leading-tight md:text-6xl">{data.basic.title}</h1>
+      <p class="mt-5 text-lg leading-8 text-[var(--color-text-secondary)]">{data.basic.tagline}</p>
+      <dl class="mt-8 grid gap-4 text-sm text-[var(--color-text-secondary)] md:grid-cols-4">
+        <div><dt class="font-semibold text-[var(--color-text-primary)]">状态</dt><dd>{getStatusLabel(data.basic.status)}</dd></div>
+        <div><dt class="font-semibold text-[var(--color-text-primary)]">角色</dt><dd>{data.basic.role}</dd></div>
+        <div><dt class="font-semibold text-[var(--color-text-primary)]">用户</dt><dd>{data.basic.user}</dd></div>
+        <div><dt class="font-semibold text-[var(--color-text-primary)]">周期</dt><dd>{data.basic.timeline}</dd></div>
+      </dl>
+    </header>
+
+    <div class="mt-14 grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px]">
+      <div class="space-y-12">
+        <section class="surface-card p-6">
+          <p class="eyebrow">案例概览</p>
+          <h2 class="mt-3 text-2xl font-semibold">能力证明</h2>
+          <p class="mt-4 leading-7 text-[var(--color-text-secondary)]">{data.brand_evidence.proof_statement}</p>
+          <div class="mt-6 grid gap-4 md:grid-cols-2">
+            <div class="border border-[var(--color-border-subtle)] p-4">
+              <h3 class="font-semibold">项目类型</h3>
+              <p class="mt-2 text-sm leading-6 text-[var(--color-text-secondary)]">{data.basic.category}</p>
+            </div>
+            <div class="border border-[var(--color-border-subtle)] p-4">
+              <h3 class="font-semibold">案例路径</h3>
+              <p class="mt-2 font-mono text-sm text-[var(--color-text-secondary)]">{slug}</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="surface-card p-6">
+          <p class="eyebrow">情境与问题</p>
+          <h2 class="mt-3 text-2xl font-semibold">问题</h2>
+          <p class="mt-4 leading-7 text-[var(--color-text-secondary)]">{data.context.problem}</p>
+          <div class="mt-6 grid gap-4 md:grid-cols-2">
+            <div class="border border-[var(--color-border-subtle)] p-4">
+              <h3 class="font-semibold">背景</h3>
+              <p class="mt-3 text-sm leading-6 text-[var(--color-text-secondary)]">{data.context.background}</p>
+            </div>
+            <div class="border border-[var(--color-border-subtle)] p-4">
+              <h3 class="font-semibold">当前流程</h3>
+              <p class="mt-3 text-sm leading-6 text-[var(--color-text-secondary)]">{data.context.current_workflow}</p>
+            </div>
+          </div>
+          <div class="mt-6">
+            <h3 class="font-semibold">用户痛点</h3>
+            <ul class="mt-3 grid gap-3 md:grid-cols-2">
+              {data.context.user_pain_points.map((point) => (
+                <li class="border border-[var(--color-border-subtle)] p-3 text-sm leading-6 text-[var(--color-text-secondary)]">
+                  {point}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <section class="surface-card p-6">
+          <p class="eyebrow">产品判断</p>
+          <h2 class="mt-3 text-2xl font-semibold">Why AI?</h2>
+          <div class="mt-6 grid gap-4 md:grid-cols-2">
+            <div class="border border-[var(--color-border-subtle)] p-4">
+              <h3 class="font-semibold">为什么适合 AI</h3>
+              <p class="mt-3 text-sm leading-6 text-[var(--color-text-secondary)]">{data.product_judgment.why_ai}</p>
+            </div>
+            <div class="border border-[var(--color-border-subtle)] p-4">
+              <h3 class="font-semibold">AI 机会</h3>
+              <p class="mt-3 text-sm leading-6 text-[var(--color-text-secondary)]">{data.product_judgment.ai_opportunity}</p>
+            </div>
+          </div>
+        </section>
+
+        <DecisionMatrix boundaries={data.product_judgment.ai_boundary} />
+
+        <section class="surface-card p-6">
+          <p class="eyebrow">Human-in-the-loop</p>
+          <h2 class="mt-3 text-2xl font-semibold">人的控制点</h2>
+          <div class="mt-6 grid gap-4 md:grid-cols-3">
+            {data.product_judgment.human_in_the_loop.map((item) => (
+              <article class="border border-[var(--color-border-subtle)] p-4">
+                <h3 class="font-semibold leading-snug">{item.step}</h3>
+                <p class="mt-3 text-sm leading-6 text-[var(--color-text-secondary)]">{item.reason}</p>
+              </article>
+            ))}
+          </div>
+          <div class="mt-6 border border-[var(--color-border-subtle)] bg-[var(--color-surface-muted)] p-4">
+            <h3 class="font-semibold">明确不做</h3>
+            <ul class="mt-3 space-y-2 text-sm leading-6 text-[var(--color-text-secondary)]">
+              {data.product_judgment.non_goals.map((goal) => <li>{goal}</li>)}
+            </ul>
+          </div>
+        </section>
+
+        <section class="surface-card p-6">
+          <p class="eyebrow">产品方案</p>
+          <h2 class="mt-3 text-2xl font-semibold">Product Solution</h2>
+          <p class="mt-4 leading-7 text-[var(--color-text-secondary)]">{data.product.solution}</p>
+          <div class="mt-6 grid gap-4 md:grid-cols-3">
+            {data.product.core_features.map((feature) => (
+              <article class="border border-[var(--color-border-subtle)] p-4">
+                <h3 class="font-semibold leading-snug">{feature.name}</h3>
+                <p class="mt-3 text-sm leading-6 text-[var(--color-text-secondary)]">{feature.description}</p>
+                <p class="mt-4 font-mono text-xs text-[var(--color-accent)]">用户价值</p>
+                <p class="mt-2 text-sm leading-6 text-[var(--color-text-secondary)]">{feature.user_value}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section class="surface-card p-6">
+          <p class="eyebrow">用户流程</p>
+          <h2 class="mt-3 text-2xl font-semibold">User Flow</h2>
+          <ol class="mt-6 space-y-4">
+            {data.product.user_flow.map((step, index) => (
+              <li class="flex gap-4 border border-[var(--color-border-subtle)] p-4">
+                <span class="font-mono text-xs text-[var(--color-accent)]">{String(index + 1).padStart(2, "0")}</span>
+                <div>
+                  <h3 class="font-semibold leading-snug">{step.step}</h3>
+                  <p class="mt-2 text-sm leading-6 text-[var(--color-text-secondary)]">{step.description}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <WorkflowDiagram steps={data.ai_design.agent_workflow} />
+
+        <section class="surface-card p-6">
+          <p class="eyebrow">AI 设计细节</p>
+          <h2 class="mt-3 text-2xl font-semibold">Agent 角色与评估方法</h2>
+          <p class="mt-4 leading-7 text-[var(--color-text-secondary)]">{data.ai_design.workflow_summary}</p>
+          <div class="mt-6 grid gap-4 md:grid-cols-3">
+            <div class="border border-[var(--color-border-subtle)] p-4">
+              <h3 class="font-semibold">AI 角色</h3>
+              <p class="mt-3 text-sm leading-6 text-[var(--color-text-secondary)]">{data.ai_design.ai_role}</p>
+            </div>
+            <div class="border border-[var(--color-border-subtle)] p-4">
+              <h3 class="font-semibold">上下文策略</h3>
+              <p class="mt-3 text-sm leading-6 text-[var(--color-text-secondary)]">{data.ai_design.context_strategy}</p>
+            </div>
+            <div class="border border-[var(--color-border-subtle)] p-4">
+              <h3 class="font-semibold">评估方法</h3>
+              <p class="mt-3 text-sm leading-6 text-[var(--color-text-secondary)]">{data.ai_design.evaluation_method}</p>
+            </div>
+          </div>
+          <div class="mt-4 border border-[var(--color-border-subtle)] p-4">
+            <h3 class="font-semibold">Prompt 策略</h3>
+            <p class="mt-3 text-sm leading-6 text-[var(--color-text-secondary)]">{data.ai_design.prompt_strategy}</p>
+          </div>
+        </section>
+
+        <ArchitectureBlock architecture={data.technical.architecture} dataFlow={data.technical.data_flow} />
+
+        <section class="surface-card p-6">
+          <p class="eyebrow">技术实现</p>
+          <h2 class="mt-3 text-2xl font-semibold">实现说明与取舍</h2>
+          <div class="mt-6 grid gap-4 md:grid-cols-2">
+            <div class="border border-[var(--color-border-subtle)] p-4">
+              <h3 class="font-semibold">实现说明</h3>
+              <ul class="mt-3 space-y-2 text-sm leading-6 text-[var(--color-text-secondary)]">
+                {data.technical.implementation_notes.map((note) => <li>{note}</li>)}
+              </ul>
+            </div>
+            <div class="border border-[var(--color-border-subtle)] p-4">
+              <h3 class="font-semibold">技术组成</h3>
+              <div class="mt-3 space-y-3 text-sm leading-6 text-[var(--color-text-secondary)]">
+                {techStackGroups.map((group) => (
+                  <p><span class="font-semibold text-[var(--color-text-primary)]">{group.label}：</span>{group.items.join(" / ")}</p>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div class="mt-6 space-y-4">
+            {data.technical.tradeoffs.map((tradeoff) => (
+              <article class="border border-[var(--color-border-subtle)] p-4">
+                <h3 class="font-semibold leading-snug">{tradeoff.decision}</h3>
+                <p class="mt-3 text-sm leading-6 text-[var(--color-text-secondary)]">{tradeoff.reason}</p>
+                <p class="mt-3 text-sm leading-6 text-[var(--color-text-muted)]">未选方案：{tradeoff.rejected_alternative}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section class="surface-card p-6">
+          <p class="eyebrow">评估</p>
+          <h2 class="mt-3 text-2xl font-semibold">Evaluation Metrics</h2>
+          <p class="mt-4 leading-7 text-[var(--color-text-secondary)]">{data.evaluation.validation_status}</p>
+          <div class="mt-6 grid gap-6 lg:grid-cols-2">
+            <div>
+              <h3 class="font-semibold">产品指标</h3>
+              <div class="mt-4 space-y-3">
+                {data.evaluation.product_metrics.map((metric) => (
+                  <article class="border border-[var(--color-border-subtle)] p-4">
+                    <h4 class="font-semibold leading-snug">{metric.name}</h4>
+                    <p class="mt-2 text-sm leading-6 text-[var(--color-text-secondary)]">{metric.definition}</p>
+                    <p class="mt-3 font-mono text-xs text-[var(--color-accent)]">目标：{displayText(metric.target)}</p>
+                  </article>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h3 class="font-semibold">AI 指标</h3>
+              <div class="mt-4 space-y-3">
+                {data.evaluation.ai_metrics.map((metric) => (
+                  <article class="border border-[var(--color-border-subtle)] p-4">
+                    <h4 class="font-semibold leading-snug">{metric.name}</h4>
+                    <p class="mt-2 text-sm leading-6 text-[var(--color-text-secondary)]">{metric.definition}</p>
+                    <p class="mt-3 font-mono text-xs text-[var(--color-accent)]">目标：{displayText(metric.target)}</p>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="surface-card p-6">
+          <p class="eyebrow">结果证据</p>
+          <h2 class="mt-3 text-2xl font-semibold">Outcome / Demo Evidence</h2>
+          <p class="mt-4 leading-7 text-[var(--color-text-secondary)]">{data.outcome.impact}</p>
+          <div class="mt-6 grid gap-4 md:grid-cols-2">
+            {outcomeLinks.map((link) => (
+              <div class="border border-[var(--color-border-subtle)] p-4">
+                <h3 class="font-semibold">{link.label}</h3>
+                {
+                  isPending(link.value) ? (
+                    <p class="mt-3 text-sm leading-6 text-[var(--color-text-muted)]">待补充</p>
+                  ) : (
+                    <a class="mt-3 inline-block text-sm font-semibold text-[var(--color-accent)]" href={link.value}>
+                      打开链接
+                    </a>
+                  )
+                }
+              </div>
+            ))}
+          </div>
+          <div class="mt-6">
+            <h3 class="font-semibold">截图资产</h3>
+            <div class="mt-3 space-y-3">
+              {data.outcome.screenshots.map((screenshot) => (
+                <div class="border border-[var(--color-border-subtle)] p-4">
+                  <p class="text-sm leading-6 text-[var(--color-text-secondary)]">{screenshot.caption}</p>
+                  <p class="mt-2 font-mono text-xs text-[var(--color-text-muted)]">路径：{displayText(screenshot.path)}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section class="surface-card p-6">
+          <p class="eyebrow">复盘</p>
+          <h2 class="mt-3 text-2xl font-semibold">Reflection</h2>
+          <div class="mt-6 grid gap-4 md:grid-cols-3">
+            <div class="border border-[var(--color-border-subtle)] p-4">
+              <h3 class="font-semibold">挑战</h3>
+              <ul class="mt-3 space-y-2 text-sm leading-6 text-[var(--color-text-secondary)]">
+                {data.reflection.challenges.map((item) => <li>{item}</li>)}
+              </ul>
+            </div>
+            <div class="border border-[var(--color-border-subtle)] p-4">
+              <h3 class="font-semibold">产品决策</h3>
+              <ul class="mt-3 space-y-2 text-sm leading-6 text-[var(--color-text-secondary)]">
+                {data.reflection.product_decisions.map((item) => <li>{item}</li>)}
+              </ul>
+            </div>
+            <div class="border border-[var(--color-border-subtle)] p-4">
+              <h3 class="font-semibold">限制</h3>
+              <ul class="mt-3 space-y-2 text-sm leading-6 text-[var(--color-text-secondary)]">
+                {data.reflection.limitations.map((item) => <li>{item}</li>)}
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <Timeline items={data.reflection.future_iterations} title="下一轮迭代" />
+      </div>
+
+      <aside class="surface-card h-fit p-6 lg:sticky lg:top-8">
+        <p class="eyebrow">案例摘要</p>
+        <h2 class="mt-3 text-xl font-semibold leading-snug">{data.basic.title}</h2>
+        <p class="mt-4 text-sm leading-6 text-[var(--color-text-secondary)]">{data.brand_evidence.proof_statement}</p>
+        <dl class="mt-6 space-y-4 text-sm text-[var(--color-text-secondary)]">
+          <div>
+            <dt class="font-semibold text-[var(--color-text-primary)]">主要能力</dt>
+            <dd>{getCapabilityLabel(data.brand_evidence.primary_capability)}</dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-[var(--color-text-primary)]">项目类型</dt>
+            <dd>{data.basic.category}</dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-[var(--color-text-primary)]">技术栈</dt>
+            <dd>{data.basic.tech_stack_summary.join(" / ")}</dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-[var(--color-text-primary)]">验证状态</dt>
+            <dd>{data.evaluation.validation_status}</dd>
+          </div>
+        </dl>
+      </aside>
+    </div>
+  </article>
+</BaseLayout>

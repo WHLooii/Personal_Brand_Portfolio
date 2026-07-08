@@ -1,0 +1,330 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ProjectCard from "@/components/ProjectCard.astro";
+import CapabilityMap from "@/components/CapabilityMap.astro";
+import HeroAbilitySystem from "@/components/HeroAbilitySystem.astro";
+import WorkflowDiagram from "@/components/WorkflowDiagram.astro";
+import { getFeaturedProjects, getProjects } from "@/lib/content";
+
+let featuredProjects = await getFeaturedProjects();
+
+if (featuredProjects.length === 0) {
+  featuredProjects = (await getProjects()).slice(0, 3);
+}
+
+const shellWorkflow: Array<{
+  step: string;
+  input: string;
+  process: string;
+  output: string;
+  owner: "ai" | "human" | "system";
+}> = [
+  {
+    step: "业务问题",
+    input: "用户场景与业务代价",
+    process: "识别真实痛点、用户角色和当前替代方案",
+    output: "待验证问题",
+    owner: "human"
+  },
+  {
+    step: "AI 判断",
+    input: "待验证问题",
+    process: "判断 AI 介入点、边界和不该自动化的部分",
+    output: "AI 适配边界",
+    owner: "human"
+  },
+  {
+    step: "Workflow",
+    input: "AI 适配边界",
+    process: "设计 Agent/RAG/Copilot 与 Human-in-the-loop 链路",
+    output: "可控工作流",
+    owner: "system"
+  },
+  {
+    step: "原型执行",
+    input: "可控工作流",
+    process: "落成页面、交互、样例数据和演示闭环",
+    output: "可运行原型",
+    owner: "system"
+  },
+  {
+    step: "评估复盘",
+    input: "可运行原型",
+    process: "检查产品指标、AI 指标、风险和成本",
+    output: "可复现证据",
+    owner: "human"
+  }
+];
+---
+
+<BaseLayout headerVariant="dark">
+  <section class="hero-section">
+    <div class="site-shell hero-grid">
+      <div class="hero-copy">
+        <div class="hero-identity" aria-label="巫浩林个人品牌签名">
+          <p class="hero-name">巫浩林</p>
+          <p class="hero-role">AI 产品原型构建者 / Personal Portfolio</p>
+        </div>
+        <h1 class="hero-title">
+          <span>把业务问题拆成</span>
+          <span>可验证的</span>
+          <span class="hero-keyword">AI 产品原型</span>
+        </h1>
+        <p class="hero-subtitle">
+          用产品思维、系统拆解与 AI 工具链，把模糊需求转化为可演示、可测试、可迭代的解决方案。
+        </p>
+        <div class="hero-actions" aria-label="首页主要操作">
+          <a class="hero-cta hero-cta-primary" href="/projects/">查看作品集</a>
+          <a class="hero-cta hero-cta-secondary" href="#capabilities">了解能力模型</a>
+        </div>
+      </div>
+      <HeroAbilitySystem />
+    </div>
+  </section>
+
+  <section class="site-shell section">
+    <div class="mb-8">
+      <p class="eyebrow">精选案例</p>
+      <h2 class="mt-3 text-3xl font-semibold">从判断到原型的能力证据</h2>
+      <p class="mt-3 max-w-2xl text-[var(--color-text-secondary)]">
+        每个案例都按 Problem、Product Judgment、AI Workflow、Prototype、Evaluation 组织，避免只展示截图或技术标签。
+      </p>
+    </div>
+    <div class="grid gap-5 md:grid-cols-3">
+      {featuredProjects.map((project) => <ProjectCard project={project} />)}
+    </div>
+  </section>
+
+  <section id="process" class="site-shell section">
+    <WorkflowDiagram steps={shellWorkflow} title="产品构建流程" />
+  </section>
+
+  <section id="capabilities" class="site-shell section">
+    <CapabilityMap />
+  </section>
+
+  <section id="contact" class="site-shell section">
+    <div class="surface-card p-8">
+      <p class="eyebrow">进一步沟通</p>
+      <h2 class="mt-3 text-3xl font-semibold">如果你想评估我的 AI 产品构建能力，可以先从案例里的判断链路开始。</h2>
+      <p class="mt-4 max-w-2xl text-[var(--color-text-secondary)]">
+        当前作品集优先展示我如何定义问题、设计 AI 介入点、保留人类边界并验证输出质量；更完整的案例、原型证据和评测记录会继续按增量补齐。
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero-section {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-height: calc(100svh - 77px);
+    display: grid;
+    align-items: center;
+    padding-block: 88px 96px;
+    background:
+      radial-gradient(circle at 78% 34%, rgba(82, 124, 255, 0.18), transparent 28%),
+      radial-gradient(circle at 92% 62%, rgba(134, 76, 255, 0.13), transparent 34%),
+      linear-gradient(135deg, #05070e 0%, #071426 45%, #141536 100%);
+    color: rgba(247, 250, 255, 0.96);
+  }
+
+  .hero-section::before {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    content: "";
+    background:
+      linear-gradient(90deg, rgba(147, 197, 253, 0.06) 1px, transparent 1px),
+      linear-gradient(180deg, rgba(147, 197, 253, 0.045) 1px, transparent 1px);
+    background-size: 76px 76px;
+    mask-image: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.72) 42%, transparent 94%);
+    opacity: 0.72;
+    transform: perspective(720px) rotateX(58deg) translateY(84px) scale(1.26);
+    transform-origin: center bottom;
+  }
+
+  .hero-section::after {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    content: "";
+    background-image:
+      radial-gradient(rgba(255, 255, 255, 0.18) 0.55px, transparent 0.55px),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 38%);
+    background-size: 3px 3px, 100% 100%;
+    opacity: 0.16;
+    pointer-events: none;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.94fr) minmax(420px, 0.82fr);
+    gap: 64px;
+    align-items: center;
+  }
+
+  .hero-copy {
+    max-width: 760px;
+  }
+
+  .hero-identity {
+    margin-bottom: 30px;
+  }
+
+  .hero-name {
+    margin: 0;
+    color: rgba(248, 251, 255, 0.95);
+    font-size: 28px;
+    font-weight: 680;
+    line-height: 1.18;
+  }
+
+  .hero-role {
+    margin: 9px 0 0;
+    color: rgba(166, 190, 224, 0.62);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    font-weight: 520;
+    line-height: 1.4;
+  }
+
+  .hero-title {
+    margin: 0;
+    font-size: 70px;
+    font-weight: 760;
+    letter-spacing: 0;
+    line-height: 1.04;
+  }
+
+  .hero-title span {
+    display: block;
+  }
+
+  .hero-keyword {
+    width: fit-content;
+    background: linear-gradient(90deg, #c7f7ff 0%, #8fb8ff 48%, #a98cff 100%);
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 28px rgba(116, 182, 255, 0.24);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero-subtitle {
+    max-width: 680px;
+    margin: 26px 0 0;
+    color: rgba(219, 231, 249, 0.72);
+    font-size: 1.08rem;
+    line-height: 1.85;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 34px;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(178, 207, 255, 0.18);
+    border-radius: var(--radius-card);
+    padding: 0 16px;
+    background: rgba(255, 255, 255, 0.045);
+    color: rgba(241, 247, 255, 0.88);
+    font-size: 0.9rem;
+    font-weight: 650;
+    transition:
+      transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      border-color 180ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      background 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    backdrop-filter: blur(12px);
+  }
+
+  .hero-cta-primary {
+    border-color: rgba(185, 224, 255, 0.26);
+    background: rgba(185, 224, 255, 0.1);
+    box-shadow: 0 0 28px rgba(102, 173, 255, 0.1);
+  }
+
+  .hero-cta-secondary {
+    color: rgba(207, 219, 240, 0.74);
+  }
+
+  .hero-cta:hover {
+    transform: translateY(-1px);
+    border-color: rgba(193, 226, 255, 0.36);
+    background: rgba(255, 255, 255, 0.075);
+  }
+
+  .hero-cta:focus-visible {
+    outline-color: #bfeeff;
+  }
+
+  @media (max-width: 980px) {
+    .hero-section {
+      min-height: auto;
+      padding-block: 72px 76px;
+    }
+
+    .hero-grid {
+      grid-template-columns: 1fr;
+      gap: 46px;
+    }
+
+    .hero-title {
+      font-size: 58px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero-section {
+      padding-block: 58px 64px;
+    }
+
+    .hero-identity {
+      margin-bottom: 22px;
+    }
+
+    .hero-name {
+      font-size: 25px;
+    }
+
+    .hero-role {
+      font-size: 0.72rem;
+    }
+
+    .hero-title {
+      font-size: 42px;
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+      line-height: 1.72;
+    }
+
+    .hero-actions {
+      align-items: stretch;
+      flex-direction: column;
+    }
+
+    .hero-cta {
+      width: 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-cta {
+      transition: none;
+    }
+
+    .hero-cta:hover {
+      transform: none;
+    }
+  }
+</style>

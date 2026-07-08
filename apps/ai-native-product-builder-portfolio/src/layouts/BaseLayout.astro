@@ -1,0 +1,42 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  headerVariant?: "default" | "dark";
+}
+
+const {
+  title = "巫浩林 | AI 产品案例库",
+  description = "一个结构化 AI 产品案例库，用于呈现产品判断、AI Workflow、原型构建与评估迭代能力。",
+  headerVariant = "default"
+} = Astro.props;
+
+const headerClass = headerVariant === "dark" ? "site-header--dark" : "site-header--default";
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header class={`site-header ${headerClass}`}>
+      <div class="site-shell site-header__inner">
+        <a class="site-header__brand" href="/">AI Native Product Builder</a>
+        <nav class="site-header__nav" aria-label="主导航">
+          <a href="/projects/">项目案例</a>
+          <a href="/#process">构建流程</a>
+          <a href="/#contact">联系</a>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>

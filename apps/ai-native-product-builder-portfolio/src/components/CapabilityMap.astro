@@ -1,0 +1,20 @@
+---
+const capabilities = [
+  ["产品判断", "问题、Why AI、AI Boundary"],
+  ["AI Workflow", "Agent 流程、上下文、人审"],
+  ["原型执行", "用户流程、架构、实现证据"],
+  ["评估迭代", "产品指标、AI 指标、下一轮"]
+];
+---
+
+<section class="surface-card p-6">
+  <p class="eyebrow">能力地图</p>
+  <div class="mt-6 grid gap-4 md:grid-cols-4">
+    {capabilities.map(([title, detail]) => (
+      <div class="border-l border-[var(--color-accent-border)] pl-4">
+        <h3 class="font-semibold">{title}</h3>
+        <p class="mt-2 text-sm leading-6 text-[var(--color-text-secondary)]">{detail}</p>
+      </div>
+    ))}
+  </div>
+</section>
