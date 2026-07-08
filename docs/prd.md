@@ -10,13 +10,13 @@
 - selected project direction：个人 AI 产品能力作品集 / AI 产品案例库
 - 依赖技术栈决策：`docs/tech-stack-decision.md`（已决：Astro-powered Editorial Product Experience System）
 - 依赖视觉系统护栏：`docs/visual-system.md`
-- 状态：概念 PRD 已完成；技术路线与视觉系统护栏已同步；最小技术基座已完成；首页当前公开阶段已收敛为 AIPM 方法样本优先
+- 状态：概念 PRD 已完成；技术路线与视觉系统护栏已同步；最小技术基座已完成；首页当前公开阶段已升级为能力驱动个人品牌信息架构，AIPM 能力系统和 AI Product Operating Process 优先于方法样本展示
 - 最后更新：2026-07-08
 
 ## 产品定位
 
 - 一句话定位：面向 AI PM / AI 产品岗位招聘方、潜在合作伙伴和客户的 AI Native Product Builder Portfolio，用案例展示橘子如何判断 AI 产品机会、设计 Agent/RAG/Copilot 工作流，并将想法快速落地为可运行原型。
-- 产品边界：以 AI 产品案例库为核心，重点呈现 Product Judgment、AI Workflow Design、Prototype Execution 和 Evaluation，而不是围绕个人履历、技能标签或视觉包装展开。
+- 产品边界：以 AI 产品能力系统、方法样本和 AI 产品案例库为核心，重点呈现 Product Judgment、AI Workflow Design、Prototype Execution 和 Evaluation，而不是围绕项目数量、个人履历、技能标签或视觉包装展开。
 - 不做什么：
   - 不做普通个人主页。
   - 不做技能 Badge 墙或技术栈罗列页。
@@ -49,21 +49,21 @@
 
 ## 核心用户路径
 
-1. 访问 Home，先理解橘子的定位不是普通个人主页，而是 AI 产品案例库。
-2. 浏览 What I Build / 能力样本，判断她如何拆解 AI 产品机会、控制 AI 边界并把判断落成原型。
-3. 进入某个 Case Study，按 Overview、Problem、Product Judgment、AI Workflow、Prototype、Evaluation、Next Iteration 阅读完整案例。
-4. 通过 Product Building Process / Capability Map 理解她的方法论和协作方式。
-5. 通过 About / Contact 发起招聘、合作或进一步沟通。
+1. 访问 Home，先理解橘子的定位不是普通个人主页，而是能力驱动的 AI Product Builder 个人品牌入口。
+2. 浏览 AIPM Capability System，先判断她的能力结构是否覆盖问题定义、AI 判断、Workflow、Prototype、Evaluation 和 Reflection。
+3. 通过 How I Build AI Products 理解她从 Understand、Frame、Design、Prototype 到 Evaluate 的产品方法论和协作方式。
+4. 浏览能力样本 / Method Sample，判断她如何拆解 AI 产品机会、控制 AI 边界并把判断落成原型。
+5. 进入某个 Case Study，按 Overview、Problem、Product Judgment、AI Workflow、Prototype、Evaluation、Next Iteration 阅读完整案例。
+6. 通过 About / Contact 发起招聘、合作或进一步沟通。
 
 ## 功能模块
 
 | 模块 | 目标 | MVP 是否包含 | 验收标准 |
 | --- | --- | --- | --- |
 | Home Hero | 第一屏明确定位和作品集叙事 | 是 | 访问者能在 10 秒内理解这是 AI Native Product Builder Portfolio，而不是普通个人主页 |
-| What I Build | 概括橘子构建的 AI 产品类型 | 是 | 清楚表达 AI Opportunity、Workflow、Prototype 三类能力 |
+| AIPM Capability System | 系统化呈现橘子的 AI PM / AI Product Builder 能力模型 | 是 | 首屏后优先展示 Problem Framing、AI Judgment、Workflow Design、Prototype Building、Evaluation、Reflection 六个能力节点，并包含 Input / Output |
 | 能力样本 / Method Sample | 展示一个完整的 AIPM 判断链路样本 | 是 | 当前公开阶段先展示 1 个横向重点样本卡，覆盖 Problem、Product Judgment、AI Workflow、Prototype、Evaluation；不放多个空项目占位卡 |
-| Product Building Process | 展示从问题判断到原型验证的方法 | 是 | 流程包含 Problem、AI Fit、Workflow、Prototype、Evaluation |
-| Capability Map | 系统化呈现能力结构 | 是 | 不以技能 Badge 为主，而以判断、工作流、原型、评估等能力域组织 |
+| How I Build AI Products | 展示从问题理解到原型验证的方法论 | 是 | 五阶段包含 Understand、Frame、Design、Prototype、Evaluate，每阶段说明核心问题和产出物 |
 | Projects Index | 承载所有案例入口 | 是 | 访问者可从列表进入单个 Case Study |
 | Case Study Template | 统一案例结构 | 是 | 每个案例包含 Overview、Problem、Product Judgment、AI Workflow、Prototype、Evaluation、Next Iteration |
 | About / Contact | 说明背景并提供行动入口 | 是 | 不写空泛自我介绍，重点连接产品定位、工程背景和合作入口 |
@@ -73,7 +73,7 @@
 ## MVP 范围
 
 - 必须包含：
-  - Home 基础信息架构：Hero、What I Build、能力样本 / Method Sample、Product Building Process、Capability Map、About、Contact。
+  - Home 基础信息架构：Hero、AIPM Capability System、How I Build AI Products、能力样本 / Method Sample、About / Contact。
   - Projects 列表页。
   - 统一 Case Study 内容模板。
   - 项目数据模型草案，覆盖 Overview、Problem、Product Judgment、AI Workflow、Prototype、Evaluation、Next Iteration。
@@ -104,7 +104,7 @@
 
 | 页面 | 用户目标 | 关键元素 |
 | --- | --- | --- |
-| Home | 快速理解橘子的 AI 产品构建定位和方法样本 | Hero、What I Build、能力样本 / Method Sample、Process、Capability Map、About、Contact |
+| Home | 快速理解橘子的 AI 产品构建定位、能力系统、产品方法论和方法样本 | Hero、AIPM Capability System、How I Build AI Products、能力样本 / Method Sample、About / Contact |
 | Projects | 浏览所有 AI 产品案例 | 项目列表、项目定位、能力标签、状态、入口 |
 | Case Study Detail | 深入理解单个项目的判断、工作流、原型和评估 | Overview、Problem、Product Judgment、AI Workflow、Prototype、Evaluation、Next Iteration |
 

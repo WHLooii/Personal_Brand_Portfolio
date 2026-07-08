@@ -1,72 +1,97 @@
 ---
 const abilities = [
-  { code: "01", className: "business", title: "业务拆解", meta: "Business Logic" },
-  { code: "02", className: "insight", title: "用户洞察", meta: "User Signals" },
-  { code: "03", className: "architecture", title: "产品架构", meta: "Product System" },
-  { code: "04", className: "workflow", title: "AI 工作流", meta: "AI Workflow" },
-  { code: "05", className: "prototype", title: "原型设计", meta: "Prototype UI" },
-  { code: "06", className: "validation", title: "验证迭代", meta: "Validation Loop" }
-];
-
-const labels = [
-  { code: "01", text: "Problem Framing" },
-  { code: "02", text: "Workflow Mapping" },
-  { code: "03", text: "Prototype Design" },
-  { code: "04", text: "AI Agent Logic" },
-  { code: "05", text: "Validation Loop" },
-  { code: "06", text: "Portfolio Delivery" }
+  {
+    code: "01",
+    className: "problem",
+    title: "Problem",
+    meta: "问题定义",
+    detail: "从业务场景里拆出真实痛点、用户角色和可验证问题。"
+  },
+  {
+    code: "02",
+    className: "judgment",
+    title: "Judgment",
+    meta: "AI 判断",
+    detail: "判断 AI 是否适合介入、边界在哪里、哪些决策必须由人完成。"
+  },
+  {
+    code: "03",
+    className: "workflow",
+    title: "Workflow",
+    meta: "人机协作",
+    detail: "设计 Agent / Copilot 与 Human-in-the-loop 的协作链路。"
+  },
+  {
+    code: "04",
+    className: "prototype",
+    title: "Prototype",
+    meta: "MVP 原型",
+    detail: "把判断落成可演示、可测试、可复盘的产品原型。"
+  },
+  {
+    code: "05",
+    className: "evaluation",
+    title: "Evaluation",
+    meta: "评估闭环",
+    detail: "定义产品指标、AI 输出质量指标和下一轮迭代证据。"
+  },
+  {
+    code: "06",
+    className: "reflection",
+    title: "Reflection",
+    meta: "复盘迭代",
+    detail: "复盘限制、风险、取舍和下一步验证路径。"
+  }
 ];
 ---
 
-<aside id="capability-system" class="hero-system" aria-label="AI 产品原型能力系统">
+<aside id="capability-system" class="hero-system" aria-label="AI Product Builder 能力可视化">
   <div class="hero-system__header">
     <div>
-      <p>AI 产品原型能力系统</p>
-      <h2>Capability Interface</h2>
+      <p>AI Product Capability Visualization</p>
+      <h2>Product Operating System</h2>
     </div>
-    <span>v0.1</span>
+    <span>Live Map</span>
   </div>
 
-  <div class="system-map" aria-label="AI Product Prototype System 能力星图">
+  <div class="system-map" aria-label="AI Product Builder 中心辐射能力图">
     <svg class="system-lines" viewBox="0 0 640 420" preserveAspectRatio="none" aria-hidden="true">
       <defs>
-        <linearGradient id="system-line" x1="0" x2="1" y1="0" y2="1">
-          <stop offset="0%" stop-color="rgba(160, 221, 255, 0.28)" />
-          <stop offset="55%" stop-color="rgba(135, 143, 255, 0.42)" />
-          <stop offset="100%" stop-color="rgba(185, 135, 255, 0.2)" />
+        <linearGradient id="hero-flow-line" x1="0" x2="1" y1="0" y2="1">
+          <stop offset="0%" stop-color="rgba(91, 140, 255, 0.18)" />
+          <stop offset="50%" stop-color="rgba(164, 197, 255, 0.58)" />
+          <stop offset="100%" stop-color="rgba(139, 92, 246, 0.2)" />
         </linearGradient>
-        <radialGradient id="system-pulse" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="rgba(186, 228, 255, 0.35)" />
-          <stop offset="100%" stop-color="rgba(186, 228, 255, 0)" />
+        <linearGradient id="hero-flow-active" x1="0" x2="1">
+          <stop offset="0%" stop-color="rgba(91, 140, 255, 0)" />
+          <stop offset="48%" stop-color="rgba(191, 238, 255, 0.78)" />
+          <stop offset="100%" stop-color="rgba(139, 92, 246, 0)" />
+        </linearGradient>
+        <radialGradient id="hero-center-glow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="rgba(126, 202, 255, 0.28)" />
+          <stop offset="100%" stop-color="rgba(126, 202, 255, 0)" />
         </radialGradient>
       </defs>
       <path class="system-ring" d="M320 46 500 112 496 304 320 372 144 304 140 112Z" />
+      <path class="system-flow system-flow--ring" d="M320 46 500 112 496 304 320 372 144 304 140 112 320 46" />
       <path class="system-spoke" d="M320 210 320 46M320 210 500 112M320 210 496 304M320 210 320 372M320 210 144 304M320 210 140 112" />
-      <circle cx="320" cy="210" r="132" fill="url(#system-pulse)" />
+      <circle cx="320" cy="210" r="138" fill="url(#hero-center-glow)" />
     </svg>
 
     <div class="system-center">
       <span>Core</span>
-      <strong>AI Product Prototype System</strong>
+      <strong>AI Product Builder</strong>
     </div>
 
     {abilities.map((ability) => (
-      <div class={`system-node system-node--${ability.className}`}>
+      <article class={`system-node system-node--${ability.className}`} tabindex="0">
         <span class="system-node__code">{ability.code}</span>
         <h3>{ability.title}</h3>
         <p>{ability.meta}</p>
-      </div>
+        <small>{ability.detail}</small>
+      </article>
     ))}
   </div>
-
-  <ol class="system-ledger" aria-label="能力系统编号标签">
-    {labels.map((label) => (
-      <li>
-        <span>LOG {label.code}</span>
-        <strong>{label.text}</strong>
-      </li>
-    ))}
-  </ol>
 </aside>
 
 <style>
@@ -76,8 +101,8 @@ const labels = [
     border: 1px solid rgba(169, 196, 255, 0.2);
     border-radius: var(--radius-card);
     background:
-      linear-gradient(145deg, rgba(9, 15, 34, 0.78), rgba(24, 21, 54, 0.56)),
-      rgba(7, 11, 24, 0.7);
+      linear-gradient(145deg, rgba(9, 15, 34, 0.78), rgba(24, 21, 54, 0.58)),
+      rgba(7, 11, 24, 0.72);
     box-shadow:
       0 30px 90px rgba(0, 0, 0, 0.38),
       inset 0 1px 0 rgba(255, 255, 255, 0.08),
@@ -146,7 +171,7 @@ const labels = [
     position: relative;
     z-index: 1;
     min-height: 420px;
-    margin: 6px 8px 0;
+    margin: 4px 8px 14px;
   }
 
   .system-lines {
@@ -158,15 +183,27 @@ const labels = [
   }
 
   .system-ring,
-  .system-spoke {
+  .system-spoke,
+  .system-flow {
     fill: none;
-    stroke: url(#system-line);
     stroke-linecap: round;
     stroke-width: 1;
   }
 
+  .system-ring,
+  .system-spoke {
+    stroke: url(#hero-flow-line);
+  }
+
   .system-spoke {
     stroke-dasharray: 4 10;
+  }
+
+  .system-flow {
+    stroke: url(#hero-flow-active);
+    stroke-dasharray: 72 430;
+    stroke-width: 1.4;
+    animation: hero-flow 8s linear infinite;
   }
 
   .system-center,
@@ -189,8 +226,8 @@ const labels = [
   .system-center {
     top: 50%;
     left: 50%;
-    width: 212px;
-    min-height: 108px;
+    width: 208px;
+    min-height: 122px;
     padding: 18px;
     background:
       linear-gradient(140deg, rgba(21, 45, 77, 0.72), rgba(39, 33, 88, 0.62)),
@@ -199,11 +236,12 @@ const labels = [
       0 0 46px rgba(99, 167, 255, 0.18),
       0 18px 42px rgba(0, 0, 0, 0.26),
       inset 0 1px 0 rgba(255, 255, 255, 0.09);
+    animation: hero-breathe 5.8s ease-in-out infinite;
   }
 
   .system-center::before {
     position: absolute;
-    inset: -38px;
+    inset: -40px;
     z-index: -1;
     border-radius: 999px;
     content: "";
@@ -222,15 +260,33 @@ const labels = [
 
   .system-center strong {
     margin-top: 8px;
-    font-size: 1.02rem;
-    font-weight: 750;
-    line-height: 1.24;
+    font-size: 1.12rem;
+    font-weight: 760;
+    line-height: 1.2;
   }
 
   .system-node {
-    width: 132px;
-    min-height: 74px;
-    padding: 11px;
+    width: 128px;
+    min-height: 92px;
+    padding: 13px 11px;
+    transition:
+      transform 200ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      border-color 200ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      background 200ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    animation: hero-node-breathe 6.8s ease-in-out infinite;
+  }
+
+  .system-node:focus-visible {
+    outline: 2px solid rgba(191, 238, 255, 0.9);
+    outline-offset: 4px;
+  }
+
+  .system-node:hover,
+  .system-node:focus-visible {
+    z-index: 4;
+    transform: translate(-50%, -53%);
+    border-color: rgba(191, 238, 255, 0.46);
+    background: rgba(15, 25, 54, 0.76);
   }
 
   .system-node__code {
@@ -244,91 +300,113 @@ const labels = [
   }
 
   .system-node h3,
-  .system-node p {
+  .system-node p,
+  .system-node small {
     margin: 0;
   }
 
   .system-node h3 {
     margin-top: 9px;
-    font-size: 0.92rem;
-    font-weight: 720;
-    line-height: 1.25;
+    font-size: 0.98rem;
+    font-weight: 740;
+    line-height: 1.18;
   }
 
   .system-node p {
-    margin-top: 5px;
-    color: rgba(190, 212, 242, 0.46);
-    font-family: var(--font-mono);
-    font-size: 0.66rem;
+    margin-top: 6px;
+    color: rgba(190, 212, 242, 0.56);
+    font-size: 0.78rem;
     line-height: 1.25;
   }
 
-  .system-node--business {
-    top: 11%;
+  .system-node small {
+    overflow: hidden;
+    max-height: 0;
+    margin-top: 0;
+    color: rgba(216, 229, 249, 0.76);
+    font-size: 0.72rem;
+    line-height: 1.55;
+    opacity: 0;
+    transition:
+      max-height 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      margin-top 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      opacity 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .system-node:hover small,
+  .system-node:focus-visible small {
+    max-height: 90px;
+    margin-top: 8px;
+    opacity: 1;
+  }
+
+  .system-node--problem {
+    top: 12%;
     left: 50%;
   }
 
-  .system-node--insight {
-    top: 27%;
+  .system-node--judgment {
+    top: 30%;
     left: 81%;
-  }
-
-  .system-node--architecture {
-    top: 73%;
-    left: 80%;
+    animation-delay: 0.2s;
   }
 
   .system-node--workflow {
-    top: 89%;
-    left: 50%;
+    top: 72%;
+    left: 80%;
+    animation-delay: 0.4s;
   }
 
   .system-node--prototype {
-    top: 73%;
+    top: 86%;
+    left: 50%;
+    animation-delay: 0.6s;
+  }
+
+  .system-node--evaluation {
+    top: 72%;
     left: 20%;
+    animation-delay: 0.8s;
   }
 
-  .system-node--validation {
-    top: 27%;
+  .system-node--reflection {
+    top: 30%;
     left: 19%;
+    animation-delay: 1s;
   }
 
-  .system-ledger {
-    position: relative;
-    z-index: 2;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
-    margin: 0;
-    padding: 0 22px 22px;
-    list-style: none;
+  @keyframes hero-flow {
+    to {
+      stroke-dashoffset: -502;
+    }
   }
 
-  .system-ledger li {
-    border: 1px solid rgba(160, 198, 255, 0.14);
-    border-radius: var(--radius-card);
-    background: rgba(255, 255, 255, 0.025);
-    color: rgba(216, 229, 249, 0.52);
-    font-family: var(--font-mono);
-    font-size: 0.62rem;
-    line-height: 1.25;
-    padding: 7px 8px;
+  @keyframes hero-breathe {
+    0%,
+    100% {
+      box-shadow:
+        0 0 42px rgba(99, 167, 255, 0.16),
+        0 18px 42px rgba(0, 0, 0, 0.26),
+        inset 0 1px 0 rgba(255, 255, 255, 0.09);
+    }
+
+    50% {
+      box-shadow:
+        0 0 62px rgba(99, 167, 255, 0.24),
+        0 20px 48px rgba(0, 0, 0, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
   }
 
-  .system-ledger span,
-  .system-ledger strong {
-    display: block;
-    font-weight: 520;
-  }
+  @keyframes hero-node-breathe {
+    0%,
+    100% {
+      border-color: rgba(176, 207, 255, 0.18);
+    }
 
-  .system-ledger span {
-    color: rgba(158, 192, 231, 0.42);
-    font-size: 0.58rem;
-  }
-
-  .system-ledger strong {
-    margin-top: 3px;
-    color: rgba(218, 231, 249, 0.56);
+    50% {
+      border-color: rgba(176, 207, 255, 0.3);
+    }
   }
 
   @supports not (backdrop-filter: blur(1px)) {
@@ -364,13 +442,26 @@ const labels = [
       padding: 13px;
     }
 
+    .system-node:hover,
+    .system-node:focus-visible {
+      transform: none;
+    }
+
     .system-node h3 {
       margin-top: 13px;
     }
+  }
 
-    .system-ledger {
-      grid-template-columns: 1fr;
-      padding: 0 18px 18px;
+  @media (prefers-reduced-motion: reduce) {
+    .system-center,
+    .system-node,
+    .system-flow {
+      animation: none;
+    }
+
+    .system-node,
+    .system-node small {
+      transition: none;
     }
   }
 </style>

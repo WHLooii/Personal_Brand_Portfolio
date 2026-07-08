@@ -13,6 +13,7 @@
 | D-005 | 2026-07-07 | 产品 / 表达规则 | 前端可见文案以中文为主，只保留必要英文术语 | 用户明确要求前端主要用中文表达，只有必要英文才使用英文 | `docs/visual-system.md`、`docs/content-model.md`、`docs/backlog.md`、`docs/testing.md`、`docs/iteration-log.md` | 已确认 |
 | D-006 | 2026-07-08 | 产品 / 视觉表达 | 首页 Hero 允许采用暗色高级玻璃质感作为局部封面方向，但不扩展为全站暗色科幻风格 | 用户明确要求首页封面更神秘、高级、未来感，并重点优化右侧能力模型；项目仍需保持克制、专业、简洁和产品可信度 | `apps/ai-native-product-builder-portfolio/src/pages/index.astro`、`apps/ai-native-product-builder-portfolio/src/components/HeroAbilitySystem.astro`、`docs/backlog.md`、`docs/testing.md`、`docs/iteration-log.md` | 已确认 |
 | D-007 | 2026-07-08 | 产品 / 首页内容策略 | 首页当前公开阶段将“精选案例”收敛为单个 AIPM 方法样本，不做多项目卡片堆叠 | 用户明确当前定位是 AI Product Manager / AI 产品原型构建者，现阶段先展示核心能力、判断方式和方法论，而不是大量完整项目案例或空项目占位卡 | `apps/ai-native-product-builder-portfolio/src/pages/index.astro`、`docs/prd.md`、`docs/portfolio-content-strategy.md`、`docs/project-portfolio-index.md`、`docs/content-model.md`、`docs/backlog.md`、`docs/testing.md`、`docs/iteration-log.md` | 已确认 |
+| D-008 | 2026-07-08 | 产品 / 首页信息架构 | 首页叙事从项目展示型作品集升级为能力驱动个人品牌，优先展示个人定位、AIPM 能力系统和 AI 产品方法论，再展示方法样本 | 用户明确第二阶段目标是 Capability-driven Personal Brand，首页 5-10 秒内应理解巫浩林能发现 AI 产品机会并转化为可验证 AI 产品，而不是先关注项目数量 | `apps/ai-native-product-builder-portfolio/src/pages/index.astro`、`apps/ai-native-product-builder-portfolio/src/components/HeroAbilitySystem.astro`、`apps/ai-native-product-builder-portfolio/src/components/AIPMCapabilitySystem.astro`、`apps/ai-native-product-builder-portfolio/src/components/ProductOperatingProcess.astro`、`apps/ai-native-product-builder-portfolio/src/layouts/BaseLayout.astro`、`docs/prd.md`、`docs/backlog.md`、`docs/testing.md`、`docs/iteration-log.md` | 已确认 |
 
 ## 决策详情
 
@@ -118,6 +119,23 @@
 - 非目标：不新增多个空项目占位卡；不把首页做成传统项目列表；不编造截图、真实指标、用户反馈或上线证据；不改变 Projects Index 和 Case Study Detail 的统一内容源原则。
 - 影响：后续首页内容增量应优先深化当前方法样本和详情页拆解过程；TalentSignal AI 等候选案例仍可保留在项目池，但进入首页前必须补齐准入字段。
 - 复核条件：当至少 2-3 个案例都已补齐截图、指标、复盘和完整 Case Study 后，可复核是否恢复多 Featured 案例展示。
+
+### D-008 首页能力驱动个人品牌信息架构
+
+- 日期：2026-07-08
+- 类型：产品 / 首页信息架构
+- 背景：用户明确第二阶段目标是将首页从 Project-driven Portfolio 升级为 Capability-driven Personal Brand。首页第一视觉权重应依次强调个人定位、能力系统、产品方法论，再进入项目/方法样本。
+- 决策：首页信息流调整为 Hero -> AIPM Capability System -> How I Build AI Products -> 方法样本 / 能力样本 -> 其他内容。Hero 必须在 5-10 秒内说明巫浩林是 AI Product Manager / AI Product Builder，核心价值是把业务问题转化为可验证的 AI 产品。
+- 选择原因：
+  - 个人品牌首页需要先证明“如何发现 AI 产品机会并转化为可验证产品”，而不是先证明“完成过多少项目”。
+  - AIPM 能力系统能比项目卡更快传达 Problem Framing、AI Judgment、Workflow Design、Prototype Building、Evaluation 和 Reflection。
+  - `UX-008` 的方法样本仍然重要，但应作为能力系统和方法论之后的证据，而不是首页第一关注。
+- 非目标：不撤销 `UX-008` 已确认的“方法样本 / 能力样本”定位；不新增项目；不把首页变成技能 Badge 墙；不引入 3D、粒子、重动画或 AI runtime。
+- 影响：
+  - 首页导航顺序同步改为能力系统、构建流程、方法样本、案例库。
+  - 后续首页增量应优先维护能力驱动叙事，不应重新回到多项目墙。
+  - 详情页下一步仍建议执行 `CS-004`，让方法样本详情承接首页“查看拆解过程”入口。
+- 复核条件：如果未来目标从 AI PM / AI Product Builder 个人品牌转向项目型作品集、英文求职站或完整商业服务站，需要复核首页信息架构。
 
 ## 待复核决策
 

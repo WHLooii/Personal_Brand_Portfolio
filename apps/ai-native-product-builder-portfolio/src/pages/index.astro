@@ -1,8 +1,8 @@
 ---
+import AIPMCapabilitySystem from "@/components/AIPMCapabilitySystem.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import CapabilityMap from "@/components/CapabilityMap.astro";
 import HeroAbilitySystem from "@/components/HeroAbilitySystem.astro";
-import WorkflowDiagram from "@/components/WorkflowDiagram.astro";
+import ProductOperatingProcess from "@/components/ProductOperatingProcess.astro";
 import { getProjectSlug, getProjects } from "@/lib/content";
 
 const projects = await getProjects();
@@ -10,6 +10,15 @@ const methodSampleProject = projects.find((project) => getProjectSlug(project) =
 const methodSampleHref = methodSampleProject
   ? `/projects/${getProjectSlug(methodSampleProject)}/`
   : "/projects/ecommerce-review-copilot/";
+
+const heroKeywords = [
+  "Problem Framing",
+  "AI Judgment",
+  "Workflow Design",
+  "Prototype",
+  "Evaluation",
+  "Iteration"
+];
 
 const methodWorkflow = ["评论输入", "主题聚类", "差评归因", "风险提示", "建议卡片", "人工复盘", "指标评估"];
 
@@ -20,84 +29,52 @@ const methodCapabilities = [
   "能把产品判断落成可演示、可测试的 MVP",
   "能为 AI 输出设计评估指标，而不是只停留在“看起来能用”"
 ];
-
-const shellWorkflow: Array<{
-  step: string;
-  input: string;
-  process: string;
-  output: string;
-  owner: "ai" | "human" | "system";
-}> = [
-  {
-    step: "业务问题",
-    input: "用户场景与业务代价",
-    process: "识别真实痛点、用户角色和当前替代方案",
-    output: "待验证问题",
-    owner: "human"
-  },
-  {
-    step: "AI 判断",
-    input: "待验证问题",
-    process: "判断 AI 介入点、边界和不该自动化的部分",
-    output: "AI 适配边界",
-    owner: "human"
-  },
-  {
-    step: "Workflow",
-    input: "AI 适配边界",
-    process: "设计 Agent/RAG/Copilot 与 Human-in-the-loop 链路",
-    output: "可控工作流",
-    owner: "system"
-  },
-  {
-    step: "原型执行",
-    input: "可控工作流",
-    process: "落成页面、交互、样例数据和演示闭环",
-    output: "可运行原型",
-    owner: "system"
-  },
-  {
-    step: "评估复盘",
-    input: "可运行原型",
-    process: "检查产品指标、AI 指标、风险和成本",
-    output: "可复现证据",
-    owner: "human"
-  }
-];
 ---
 
-<BaseLayout headerVariant="dark">
+<BaseLayout
+  title="巫浩林 | AI Product Builder"
+  description="巫浩林的 AI Product Builder 个人品牌首页，展示 AI 产品判断、Workflow 设计、MVP 原型构建与评估迭代能力。"
+  headerVariant="dark"
+>
   <section class="hero-section">
     <div class="site-shell hero-grid">
       <div class="hero-copy">
-        <div class="hero-identity" aria-label="巫浩林个人品牌签名">
-          <p class="hero-name">巫浩林</p>
-          <p class="hero-role">AI 产品原型构建者 / Personal Portfolio</p>
+        <p class="hero-kicker">AI PRODUCT BUILDER</p>
+        <h1 class="hero-name">巫浩林</h1>
+        <div class="hero-position" aria-label="职业定位">
+          <span>AI Product Manager</span>
+          <span>AI 产品原型构建者</span>
         </div>
-        <h1 class="hero-title">
-          <span>把业务问题拆成</span>
-          <span>可验证的</span>
-          <span class="hero-keyword">AI 产品原型</span>
-        </h1>
-        <p class="hero-subtitle">
-          用产品思维、系统拆解与 AI 工具链，把模糊需求转化为可演示、可测试、可迭代的解决方案。
+        <p class="hero-statement">
+          把业务问题转化为
+          <span>可验证的 AI 产品。</span>
         </p>
+        <p class="hero-subtitle">
+          我关注的不是“做了多少项目”，而是如何发现值得 AI 化的产品机会，设计可控的 AI Workflow，并用 MVP 快速验证。
+        </p>
+        <ul class="hero-keywords" aria-label="核心能力关键词">
+          {heroKeywords.map((keyword) => <li>{keyword}</li>)}
+        </ul>
         <div class="hero-actions" aria-label="首页主要操作">
-          <a class="hero-cta hero-cta-primary" href="/projects/">查看作品集</a>
-          <a class="hero-cta hero-cta-secondary" href="#capabilities">了解能力模型</a>
+          <a class="hero-cta hero-cta-primary" href="#capabilities">查看能力系统</a>
+          <a class="hero-cta hero-cta-secondary" href="#method-sample">查看方法样本</a>
         </div>
       </div>
       <HeroAbilitySystem />
     </div>
   </section>
 
-  <section class="method-sample-section section">
+  <AIPMCapabilitySystem />
+
+  <ProductOperatingProcess />
+
+  <section id="method-sample" class="method-sample-section">
     <div class="site-shell">
       <div class="method-sample-heading">
-        <p class="eyebrow">能力样本</p>
-        <h2>方法样本：我如何拆解一个 AI 产品机会</h2>
+        <p class="eyebrow">方法样本 / 能力样本</p>
+        <h2>一个样本，展示完整 AIPM 判断链路</h2>
         <p>
-          当前我先公开一个完整的 AIPM 判断链路样本。完整项目案例会在截图、指标和复盘补齐后逐步上线。这里重点展示的不是项目数量，而是我如何判断一个 AI 产品机会是否值得做、应该怎么做、以及如何验证它。
+          当前我先公开一个完整的 AIPM 判断链路样本。这里重点展示的不是项目数量，而是我如何判断一个 AI 产品机会是否值得做、应该怎么做、以及如何验证它。
         </p>
       </div>
 
@@ -152,21 +129,15 @@ const shellWorkflow: Array<{
     </div>
   </section>
 
-  <section id="process" class="site-shell section">
-    <WorkflowDiagram steps={shellWorkflow} title="产品构建流程" />
-  </section>
-
-  <section id="capabilities" class="site-shell section">
-    <CapabilityMap />
-  </section>
-
-  <section id="contact" class="site-shell section">
-    <div class="surface-card p-8">
-      <p class="eyebrow">进一步沟通</p>
-      <h2 class="mt-3 text-3xl font-semibold">如果你想评估我的 AI 产品构建能力，可以先从案例里的判断链路开始。</h2>
-      <p class="mt-4 max-w-2xl text-[var(--color-text-secondary)]">
-        当前作品集优先展示我如何定义问题、设计 AI 介入点、保留人类边界并验证输出质量；更完整的案例、原型证据和评测记录会继续按增量补齐。
-      </p>
+  <section id="contact" class="contact-section">
+    <div class="site-shell">
+      <div class="contact-panel">
+        <p class="eyebrow">其他内容</p>
+        <h2>如果你想评估我的 AI 产品构建能力，可以先从这套判断链路开始。</h2>
+        <p>
+          当前作品集优先展示我如何定义问题、设计 AI 介入点、保留人类边界并验证输出质量；更完整的案例、原型证据和评测记录会继续按增量补齐。
+        </p>
+      </div>
     </div>
   </section>
 </BaseLayout>
@@ -175,15 +146,16 @@ const shellWorkflow: Array<{
   .hero-section {
     position: relative;
     isolation: isolate;
+    box-sizing: border-box;
     overflow: hidden;
     min-height: calc(100svh - 77px);
     display: grid;
     align-items: center;
-    padding-block: 88px 96px;
+    padding-block: 24px;
     background:
-      radial-gradient(circle at 78% 34%, rgba(82, 124, 255, 0.18), transparent 28%),
-      radial-gradient(circle at 92% 62%, rgba(134, 76, 255, 0.13), transparent 34%),
-      linear-gradient(135deg, #05070e 0%, #071426 45%, #141536 100%);
+      radial-gradient(circle at 76% 32%, rgba(91, 140, 255, 0.2), transparent 29%),
+      radial-gradient(circle at 92% 62%, rgba(139, 92, 246, 0.14), transparent 34%),
+      linear-gradient(135deg, #05070e 0%, #071426 45%, #11152e 100%);
     color: rgba(247, 250, 255, 0.96);
   }
 
@@ -211,13 +183,13 @@ const shellWorkflow: Array<{
       radial-gradient(rgba(255, 255, 255, 0.18) 0.55px, transparent 0.55px),
       linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 38%);
     background-size: 3px 3px, 100% 100%;
-    opacity: 0.16;
+    opacity: 0.14;
     pointer-events: none;
   }
 
   .hero-grid {
     display: grid;
-    grid-template-columns: minmax(0, 0.94fr) minmax(420px, 0.82fr);
+    grid-template-columns: minmax(0, 1.08fr) minmax(420px, 0.92fr);
     gap: 64px;
     align-items: center;
   }
@@ -226,40 +198,54 @@ const shellWorkflow: Array<{
     max-width: 760px;
   }
 
-  .hero-identity {
-    margin-bottom: 30px;
+  .hero-kicker {
+    width: fit-content;
+    margin: 0 0 22px;
+    border: 1px solid rgba(191, 219, 254, 0.18);
+    border-radius: var(--radius-card);
+    padding: 8px 10px;
+    background: rgba(255, 255, 255, 0.045);
+    color: rgba(191, 238, 255, 0.78);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 680;
   }
 
   .hero-name {
     margin: 0;
-    color: rgba(248, 251, 255, 0.95);
-    font-size: 28px;
-    font-weight: 680;
-    line-height: 1.18;
-  }
-
-  .hero-role {
-    margin: 9px 0 0;
-    color: rgba(166, 190, 224, 0.62);
-    font-family: var(--font-mono);
-    font-size: 0.76rem;
-    font-weight: 520;
-    line-height: 1.4;
-  }
-
-  .hero-title {
-    margin: 0;
-    font-size: 70px;
+    color: rgba(248, 251, 255, 0.98);
+    font-size: clamp(64px, 6.5vw, 80px);
     font-weight: 760;
-    letter-spacing: 0;
-    line-height: 1.04;
+    line-height: 1.02;
   }
 
-  .hero-title span {
+  .hero-position {
+    display: grid;
+    gap: 6px;
+    margin-top: 18px;
+    color: rgba(218, 228, 244, 0.72);
+    font-size: clamp(22px, 2.1vw, 28px);
+    font-weight: 620;
+    line-height: 1.25;
+  }
+
+  .hero-position span:last-child {
+    color: rgba(166, 190, 224, 0.66);
+    font-size: 0.72em;
+    font-weight: 560;
+  }
+
+  .hero-statement {
+    max-width: 600px;
+    margin: 30px 0 0;
+    color: rgba(245, 247, 250, 0.94);
+    font-size: clamp(32px, 3vw, 38px);
+    font-weight: 720;
+    line-height: 1.2;
+  }
+
+  .hero-statement span {
     display: block;
-  }
-
-  .hero-keyword {
     width: fit-content;
     background: linear-gradient(90deg, #c7f7ff 0%, #8fb8ff 48%, #a98cff 100%);
     background-clip: text;
@@ -270,18 +256,40 @@ const shellWorkflow: Array<{
   }
 
   .hero-subtitle {
-    max-width: 680px;
-    margin: 26px 0 0;
-    color: rgba(219, 231, 249, 0.72);
-    font-size: 1.08rem;
-    line-height: 1.85;
+    max-width: 640px;
+    margin: 18px 0 0;
+    color: rgba(219, 231, 249, 0.68);
+    font-size: 1.04rem;
+    line-height: 1.82;
+  }
+
+  .hero-keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-width: 760px;
+    margin: 22px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .hero-keywords li {
+    min-height: 32px;
+    border: 1px solid rgba(191, 219, 254, 0.16);
+    border-radius: var(--radius-card);
+    padding: 7px 10px;
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(218, 228, 244, 0.72);
+    font-size: 0.82rem;
+    font-weight: 620;
+    line-height: 1.25;
   }
 
   .hero-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
-    margin-top: 34px;
+    margin-top: 24px;
   }
 
   .hero-cta {
@@ -324,8 +332,22 @@ const shellWorkflow: Array<{
   }
 
   .method-sample-section {
+    position: relative;
+    overflow: hidden;
+    padding-block: 128px;
     background:
-      linear-gradient(180deg, rgba(250, 250, 250, 0) 0%, #f3f5f6 18%, #f3f5f6 100%);
+      radial-gradient(circle at 15% 16%, rgba(139, 92, 246, 0.1), transparent 30%),
+      linear-gradient(180deg, #0a0d14 0%, #07090d 100%);
+    color: #f5f7fa;
+  }
+
+  .method-sample-section::before {
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    height: 1px;
+    content: "";
+    background: linear-gradient(90deg, transparent, rgba(191, 219, 254, 0.22), transparent);
   }
 
   .method-sample-heading {
@@ -335,16 +357,16 @@ const shellWorkflow: Array<{
 
   .method-sample-heading h2 {
     margin: 12px 0 0;
-    color: var(--color-text-primary);
-    font-size: 2rem;
-    font-weight: 680;
-    line-height: 1.22;
+    color: #f5f7fa;
+    font-size: 2.28rem;
+    font-weight: 720;
+    line-height: 1.18;
   }
 
   .method-sample-heading p:not(.eyebrow) {
     max-width: 800px;
     margin: 14px 0 0;
-    color: var(--color-text-secondary);
+    color: rgba(218, 228, 244, 0.66);
     font-size: 1rem;
     line-height: 1.8;
   }
@@ -353,10 +375,15 @@ const shellWorkflow: Array<{
     display: grid;
     overflow: hidden;
     grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.78fr);
-    border: 1px solid rgba(15, 23, 42, 0.08);
+    border: 1px solid rgba(191, 219, 254, 0.16);
     border-radius: var(--radius-card);
-    background: var(--color-surface);
-    box-shadow: 0 24px 70px rgba(15, 23, 42, 0.08);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.032)),
+      rgba(9, 15, 34, 0.72);
+    box-shadow:
+      0 28px 80px rgba(0, 0, 0, 0.28),
+      inset 0 1px 0 rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(18px);
   }
 
   .method-sample-card__main,
@@ -367,11 +394,11 @@ const shellWorkflow: Array<{
   .method-sample-stage {
     width: fit-content;
     margin: 0 0 22px;
-    border: 1px solid var(--color-accent-border);
+    border: 1px solid rgba(191, 238, 255, 0.22);
     border-radius: var(--radius-card);
     padding: 8px 11px;
-    background: var(--color-accent-soft);
-    color: var(--color-accent-strong);
+    background: rgba(91, 140, 255, 0.08);
+    color: rgba(191, 238, 255, 0.76);
     font-size: 0.82rem;
     font-weight: 650;
     line-height: 1.5;
@@ -380,9 +407,9 @@ const shellWorkflow: Array<{
   .method-sample-card h3 {
     max-width: 720px;
     margin: 0;
-    color: var(--color-text-primary);
+    color: #f5f7fa;
     font-size: 2rem;
-    font-weight: 700;
+    font-weight: 720;
     line-height: 1.18;
   }
 
@@ -391,7 +418,7 @@ const shellWorkflow: Array<{
   }
 
   .method-sample-block {
-    border-top: 1px solid var(--color-border-subtle);
+    border-top: 1px solid rgba(191, 219, 254, 0.12);
     padding-block: 22px;
   }
 
@@ -406,14 +433,14 @@ const shellWorkflow: Array<{
 
   .method-sample-label {
     margin: 0 0 10px;
-    color: var(--color-text-primary);
+    color: rgba(245, 247, 250, 0.9);
     font-size: 0.96rem;
     font-weight: 700;
   }
 
   .method-sample-block p:not(.method-sample-label) {
     margin: 0;
-    color: var(--color-text-secondary);
+    color: rgba(218, 228, 244, 0.66);
     font-size: 0.98rem;
     line-height: 1.82;
   }
@@ -430,31 +457,31 @@ const shellWorkflow: Array<{
     min-height: 34px;
     align-items: center;
     gap: 8px;
-    border: 1px solid rgba(15, 23, 42, 0.08);
+    border: 1px solid rgba(191, 219, 254, 0.14);
     border-radius: var(--radius-card);
     padding: 0 10px;
-    background: #f8fafb;
-    color: var(--color-text-primary);
+    background: rgba(255, 255, 255, 0.045);
+    color: rgba(245, 247, 250, 0.82);
     font-size: 0.85rem;
     font-weight: 620;
   }
 
   .method-workflow__index {
-    color: var(--color-accent);
+    color: rgba(191, 238, 255, 0.72);
     font-family: var(--font-mono);
     font-size: 0.68rem;
   }
 
   .method-sample-proof {
-    border-left: 1px solid var(--color-border-subtle);
+    border-left: 1px solid rgba(191, 219, 254, 0.12);
     background:
-      linear-gradient(180deg, rgba(15, 107, 131, 0.06), rgba(15, 107, 131, 0)),
-      #fbfcfd;
+      linear-gradient(180deg, rgba(91, 140, 255, 0.08), rgba(139, 92, 246, 0.025)),
+      rgba(255, 255, 255, 0.025);
   }
 
   .method-sample-proof h4 {
     margin: 14px 0 0;
-    color: var(--color-text-primary);
+    color: #f5f7fa;
     font-size: 1.28rem;
     font-weight: 700;
     line-height: 1.35;
@@ -471,7 +498,7 @@ const shellWorkflow: Array<{
   .method-sample-proof li {
     position: relative;
     padding-left: 18px;
-    color: var(--color-text-secondary);
+    color: rgba(218, 228, 244, 0.66);
     font-size: 0.94rem;
     line-height: 1.68;
   }
@@ -483,7 +510,7 @@ const shellWorkflow: Array<{
     width: 6px;
     height: 6px;
     border-radius: 999px;
-    background: var(--color-accent);
+    background: #8fb8ff;
     content: "";
     transform: translateY(-50%);
   }
@@ -494,13 +521,13 @@ const shellWorkflow: Array<{
     align-items: center;
     justify-content: center;
     margin-top: 30px;
-    border: 1px solid var(--color-accent-border);
+    border: 1px solid rgba(191, 238, 255, 0.24);
     border-radius: var(--radius-card);
     padding: 0 15px;
-    background: var(--color-text-primary);
-    color: var(--color-text-inverse);
+    background: rgba(245, 247, 250, 0.92);
+    color: #07090d;
     font-size: 0.9rem;
-    font-weight: 680;
+    font-weight: 700;
     transition:
       transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1),
       background 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -508,7 +535,42 @@ const shellWorkflow: Array<{
 
   .method-sample-link:hover {
     transform: translateY(-1px);
-    background: var(--color-accent-strong);
+    background: #bfeeff;
+  }
+
+  .contact-section {
+    padding-block: 0 128px;
+    background: #07090d;
+    color: #f5f7fa;
+  }
+
+  .contact-panel {
+    border: 1px solid rgba(191, 219, 254, 0.16);
+    border-radius: var(--radius-card);
+    padding: 40px;
+    background:
+      radial-gradient(circle at 92% 12%, rgba(91, 140, 255, 0.12), transparent 34%),
+      rgba(255, 255, 255, 0.045);
+    box-shadow:
+      0 24px 70px rgba(0, 0, 0, 0.22),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+
+  .contact-panel h2 {
+    max-width: 760px;
+    margin: 14px 0 0;
+    color: #f5f7fa;
+    font-size: 2rem;
+    font-weight: 720;
+    line-height: 1.22;
+  }
+
+  .contact-panel p:not(.eyebrow) {
+    max-width: 720px;
+    margin: 16px 0 0;
+    color: rgba(218, 228, 244, 0.66);
+    font-size: 1rem;
+    line-height: 1.8;
   }
 
   @media (max-width: 980px) {
@@ -522,16 +584,12 @@ const shellWorkflow: Array<{
       gap: 46px;
     }
 
-    .hero-title {
-      font-size: 58px;
-    }
-
     .method-sample-card {
       grid-template-columns: 1fr;
     }
 
     .method-sample-proof {
-      border-top: 1px solid var(--color-border-subtle);
+      border-top: 1px solid rgba(191, 219, 254, 0.12);
       border-left: 0;
     }
   }
@@ -541,20 +599,12 @@ const shellWorkflow: Array<{
       padding-block: 58px 64px;
     }
 
-    .hero-identity {
-      margin-bottom: 22px;
-    }
-
     .hero-name {
-      font-size: 25px;
+      font-size: 54px;
     }
 
-    .hero-role {
-      font-size: 0.72rem;
-    }
-
-    .hero-title {
-      font-size: 42px;
+    .hero-statement {
+      font-size: 31px;
     }
 
     .hero-subtitle {
@@ -571,13 +621,18 @@ const shellWorkflow: Array<{
       width: 100%;
     }
 
+    .method-sample-section {
+      padding-block: 76px;
+    }
+
     .method-sample-heading h2,
     .method-sample-card h3 {
       font-size: 1.62rem;
     }
 
     .method-sample-card__main,
-    .method-sample-proof {
+    .method-sample-proof,
+    .contact-panel {
       padding: 24px;
     }
 
@@ -592,6 +647,14 @@ const shellWorkflow: Array<{
 
     .method-workflow__step {
       justify-content: flex-start;
+    }
+
+    .contact-section {
+      padding-bottom: 76px;
+    }
+
+    .contact-panel h2 {
+      font-size: 1.55rem;
     }
   }
 

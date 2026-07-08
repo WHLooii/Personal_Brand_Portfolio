@@ -1,0 +1,508 @@
+---
+const capabilities = [
+  {
+    code: "01",
+    className: "problem",
+    title: "Problem Framing",
+    zh: "业务问题拆解",
+    description: "识别真实业务问题，判断 AI 是否适合介入。",
+    input: ["Business Context", "User Pain Point"],
+    output: ["Problem Definition", "AI Opportunity"]
+  },
+  {
+    code: "02",
+    className: "judgment",
+    title: "AI Judgment",
+    zh: "AI 产品判断",
+    description: "判断 AI 介入价值、自动化边界、风险和人的控制点。",
+    input: ["Problem Definition", "Workflow Constraint"],
+    output: ["AI Fit", "AI Boundary"]
+  },
+  {
+    code: "03",
+    className: "workflow",
+    title: "Workflow Design",
+    zh: "人机协作设计",
+    description: "把 AI 能力放进真实业务流程，设计可控、可复核的协作链路。",
+    input: ["AI Boundary", "User Task"],
+    output: ["AI Workflow", "Human-in-the-loop"]
+  },
+  {
+    code: "04",
+    className: "prototype",
+    title: "Prototype Building",
+    zh: "MVP 原型构建",
+    description: "把产品判断落成可交互、可演示、可验证的最小产品形态。",
+    input: ["Workflow", "Core Scenario"],
+    output: ["MVP Prototype", "Demo Path"]
+  },
+  {
+    code: "05",
+    className: "evaluation",
+    title: "Evaluation",
+    zh: "产品评估闭环",
+    description: "为产品效果和 AI 输出质量建立评估标准，避免只停留在演示感。",
+    input: ["Prototype Output", "User Feedback"],
+    output: ["Product Metrics", "AI Metrics"]
+  },
+  {
+    code: "06",
+    className: "reflection",
+    title: "Reflection",
+    zh: "复盘与迭代",
+    description: "复盘假设、边界、失败点和下一轮验证方向，让原型持续接近真实产品。",
+    input: ["Evidence", "Limitation"],
+    output: ["Iteration Direction", "Product Learning"]
+  }
+];
+---
+
+<section id="capabilities" class="capability-system-section">
+  <div class="site-shell">
+    <div class="capability-system-heading">
+      <p class="eyebrow">AIPM Capability System</p>
+      <h2>从业务问题到可验证 AI 产品的能力系统</h2>
+      <p>
+        首页的核心不是项目数量，而是一套可复用的 AI 产品构建能力：先判断问题是否值得 AI 化，再设计人机协作流程，最后用 MVP 和评估闭环验证假设。
+      </p>
+    </div>
+
+    <div class="capability-orbit" aria-label="AIPM 能力系统中心辐射图">
+      <svg class="capability-orbit__lines" viewBox="0 0 1200 980" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="capability-line" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0%" stop-color="rgba(91, 140, 255, 0.16)" />
+            <stop offset="52%" stop-color="rgba(159, 190, 255, 0.54)" />
+            <stop offset="100%" stop-color="rgba(139, 92, 246, 0.18)" />
+          </linearGradient>
+          <linearGradient id="capability-line-active" x1="0" x2="1">
+            <stop offset="0%" stop-color="rgba(91, 140, 255, 0)" />
+            <stop offset="46%" stop-color="rgba(191, 238, 255, 0.82)" />
+            <stop offset="100%" stop-color="rgba(139, 92, 246, 0)" />
+          </linearGradient>
+        </defs>
+        <path class="capability-orbit__ring" d="M600 92 946 244 946 736 600 888 254 736 254 244Z" />
+        <path class="capability-orbit__flow" d="M600 92 946 244 946 736 600 888 254 736 254 244 600 92" />
+        <path class="capability-orbit__spokes" d="M600 490 600 92M600 490 946 244M600 490 946 736M600 490 600 888M600 490 254 736M600 490 254 244" />
+      </svg>
+
+      <div class="capability-core" aria-label="中心能力">
+        <span>Core</span>
+        <strong>AI Product Builder</strong>
+        <p>Problem -> Judgment -> Workflow -> Prototype -> Evaluation</p>
+      </div>
+
+      {capabilities.map((capability) => (
+        <article class={`capability-node capability-node--${capability.className}`} tabindex="0">
+          <span class="capability-node__code">{capability.code}</span>
+          <h3>{capability.title}</h3>
+          <p class="capability-node__zh">{capability.zh}</p>
+          <p class="capability-node__description">{capability.description}</p>
+          <div class="capability-node__io" aria-label={`${capability.title} 的输入和输出`}>
+            <div>
+              <span>Input</span>
+              {capability.input.map((item) => <strong>{item}</strong>)}
+            </div>
+            <div>
+              <span>Output</span>
+              {capability.output.map((item) => <strong>{item}</strong>)}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .capability-system-section {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-height: 1180px;
+    padding-block: 140px 128px;
+    background:
+      radial-gradient(circle at 50% 42%, rgba(91, 140, 255, 0.18), transparent 30%),
+      radial-gradient(circle at 20% 28%, rgba(139, 92, 246, 0.12), transparent 32%),
+      linear-gradient(180deg, #07090d 0%, #090d16 56%, #07090d 100%);
+    color: #f5f7fa;
+  }
+
+  .capability-system-section::before {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    content: "";
+    background:
+      linear-gradient(90deg, rgba(151, 185, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(180deg, rgba(151, 185, 255, 0.04) 1px, transparent 1px);
+    background-size: 96px 96px;
+    mask-image: linear-gradient(180deg, transparent, #000 16%, #000 78%, transparent);
+    opacity: 0.6;
+  }
+
+  .capability-system-section::after {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    content: "";
+    background-image: radial-gradient(rgba(255, 255, 255, 0.14) 0.55px, transparent 0.55px);
+    background-size: 3px 3px;
+    opacity: 0.11;
+    pointer-events: none;
+  }
+
+  .capability-system-heading {
+    max-width: 780px;
+  }
+
+  .capability-system-heading h2 {
+    margin: 14px 0 0;
+    max-width: 760px;
+    color: #f5f7fa;
+    font-size: 3rem;
+    font-weight: 740;
+    line-height: 1.12;
+  }
+
+  .capability-system-heading p:not(.eyebrow) {
+    max-width: 720px;
+    margin: 18px 0 0;
+    color: rgba(218, 228, 244, 0.68);
+    font-size: 1rem;
+    line-height: 1.82;
+  }
+
+  .capability-orbit {
+    position: relative;
+    min-height: 980px;
+    margin-top: 30px;
+  }
+
+  .capability-orbit__lines {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.84;
+  }
+
+  .capability-orbit__ring,
+  .capability-orbit__spokes,
+  .capability-orbit__flow {
+    fill: none;
+    stroke-linecap: round;
+  }
+
+  .capability-orbit__ring,
+  .capability-orbit__spokes {
+    stroke: url(#capability-line);
+    stroke-width: 1;
+  }
+
+  .capability-orbit__spokes {
+    stroke-dasharray: 5 14;
+  }
+
+  .capability-orbit__flow {
+    stroke: url(#capability-line-active);
+    stroke-dasharray: 132 860;
+    stroke-width: 1.5;
+    animation: capability-flow 10s linear infinite;
+  }
+
+  .capability-core {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    width: 250px;
+    min-height: 250px;
+    place-items: center;
+    transform: translate(-50%, -50%);
+    border: 1px solid rgba(191, 219, 254, 0.28);
+    border-radius: 999px;
+    padding: 34px;
+    background:
+      linear-gradient(145deg, rgba(17, 35, 65, 0.72), rgba(49, 37, 95, 0.58)),
+      rgba(255, 255, 255, 0.06);
+    box-shadow:
+      0 0 80px rgba(91, 140, 255, 0.22),
+      0 26px 80px rgba(0, 0, 0, 0.32),
+      inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    text-align: center;
+    backdrop-filter: blur(24px);
+    animation: core-breathe 6.4s ease-in-out infinite;
+  }
+
+  .capability-core span {
+    color: rgba(190, 212, 242, 0.68);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+  }
+
+  .capability-core strong {
+    color: #f5f7fa;
+    font-size: 1.58rem;
+    font-weight: 760;
+    line-height: 1.16;
+  }
+
+  .capability-core p {
+    margin: 0;
+    color: rgba(218, 228, 244, 0.58);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    line-height: 1.5;
+  }
+
+  .capability-node {
+    position: absolute;
+    width: min(300px, 28vw);
+    border: 1px solid rgba(191, 219, 254, 0.18);
+    border-radius: var(--radius-card);
+    padding: 26px;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.035)),
+      rgba(9, 15, 34, 0.68);
+    box-shadow:
+      0 20px 60px rgba(0, 0, 0, 0.28),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(18px);
+    transition:
+      transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      border-color 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      background 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .capability-node:hover,
+  .capability-node:focus-visible {
+    z-index: 5;
+    transform: translateY(-6px);
+    border-color: rgba(191, 238, 255, 0.48);
+    background:
+      linear-gradient(180deg, rgba(91, 140, 255, 0.13), rgba(139, 92, 246, 0.055)),
+      rgba(11, 18, 38, 0.82);
+  }
+
+  .capability-node:focus-visible {
+    outline: 2px solid rgba(191, 238, 255, 0.9);
+    outline-offset: 4px;
+  }
+
+  .capability-node__code {
+    color: rgba(191, 238, 255, 0.62);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+  }
+
+  .capability-node h3 {
+    margin: 14px 0 0;
+    color: #f5f7fa;
+    font-size: 1.18rem;
+    font-weight: 740;
+    line-height: 1.24;
+  }
+
+  .capability-node__zh {
+    margin: 7px 0 0;
+    color: rgba(218, 228, 244, 0.72);
+    font-size: 0.92rem;
+    font-weight: 650;
+    line-height: 1.45;
+  }
+
+  .capability-node__description {
+    margin: 14px 0 0;
+    color: rgba(218, 228, 244, 0.64);
+    font-size: 0.92rem;
+    line-height: 1.72;
+  }
+
+  .capability-node__io {
+    display: grid;
+    overflow: hidden;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    max-height: 0;
+    margin-top: 0;
+    opacity: 0;
+    transition:
+      max-height 240ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      margin-top 240ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      opacity 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .capability-node:hover .capability-node__io,
+  .capability-node:focus-visible .capability-node__io {
+    max-height: 180px;
+    margin-top: 18px;
+    opacity: 1;
+  }
+
+  .capability-node__io div {
+    border: 1px solid rgba(191, 219, 254, 0.14);
+    border-radius: var(--radius-card);
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .capability-node__io span,
+  .capability-node__io strong {
+    display: block;
+  }
+
+  .capability-node__io span {
+    color: rgba(191, 238, 255, 0.58);
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+  }
+
+  .capability-node__io strong {
+    margin-top: 6px;
+    color: rgba(245, 247, 250, 0.78);
+    font-size: 0.72rem;
+    font-weight: 560;
+    line-height: 1.36;
+  }
+
+  .capability-node--problem {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .capability-node--problem:hover,
+  .capability-node--problem:focus-visible {
+    transform: translate(-50%, -6px);
+  }
+
+  .capability-node--judgment {
+    top: 180px;
+    right: 4%;
+  }
+
+  .capability-node--workflow {
+    right: 4%;
+    bottom: 130px;
+  }
+
+  .capability-node--prototype {
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .capability-node--prototype:hover,
+  .capability-node--prototype:focus-visible {
+    transform: translate(-50%, -6px);
+  }
+
+  .capability-node--evaluation {
+    bottom: 130px;
+    left: 4%;
+  }
+
+  .capability-node--reflection {
+    top: 180px;
+    left: 4%;
+  }
+
+  @keyframes capability-flow {
+    to {
+      stroke-dashoffset: -992;
+    }
+  }
+
+  @keyframes core-breathe {
+    0%,
+    100% {
+      box-shadow:
+        0 0 76px rgba(91, 140, 255, 0.2),
+        0 26px 80px rgba(0, 0, 0, 0.32),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+
+    50% {
+      box-shadow:
+        0 0 102px rgba(91, 140, 255, 0.3),
+        0 30px 92px rgba(0, 0, 0, 0.36),
+        inset 0 1px 0 rgba(255, 255, 255, 0.16);
+    }
+  }
+
+  @media (max-width: 980px) {
+    .capability-system-section {
+      min-height: auto;
+      padding-block: 104px;
+    }
+
+    .capability-system-heading h2 {
+      font-size: 2.45rem;
+    }
+
+    .capability-orbit {
+      display: grid;
+      gap: 14px;
+      min-height: auto;
+      margin-top: 48px;
+    }
+
+    .capability-orbit__lines {
+      display: none;
+    }
+
+    .capability-core,
+    .capability-node {
+      position: static;
+      width: 100%;
+      transform: none;
+    }
+
+    .capability-core {
+      min-height: 0;
+      border-radius: var(--radius-card);
+      padding: 28px;
+    }
+
+    .capability-node:hover,
+    .capability-node:focus-visible,
+    .capability-node--problem:hover,
+    .capability-node--problem:focus-visible,
+    .capability-node--prototype:hover,
+    .capability-node--prototype:focus-visible {
+      transform: translateY(-4px);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .capability-system-section {
+      padding-block: 76px;
+    }
+
+    .capability-system-heading h2 {
+      font-size: 2rem;
+    }
+
+    .capability-node {
+      padding: 22px;
+    }
+
+    .capability-node__io {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .capability-orbit__flow,
+    .capability-core {
+      animation: none;
+    }
+
+    .capability-node,
+    .capability-node__io {
+      transition: none;
+    }
+  }
+</style>

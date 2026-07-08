@@ -1,0 +1,234 @@
+---
+const stages = [
+  {
+    code: "01",
+    name: "Understand",
+    question: "用户真正的问题是什么？",
+    outputs: ["User Insight", "Business Context"]
+  },
+  {
+    code: "02",
+    name: "Frame",
+    question: "为什么 AI 可以解决？",
+    outputs: ["AI Opportunity", "Product Direction"]
+  },
+  {
+    code: "03",
+    name: "Design",
+    question: "人与 AI 如何协作？",
+    outputs: ["Workflow", "Agent Design"]
+  },
+  {
+    code: "04",
+    name: "Prototype",
+    question: "如何快速验证？",
+    outputs: ["MVP Prototype"]
+  },
+  {
+    code: "05",
+    name: "Evaluate",
+    question: "效果如何衡量？",
+    outputs: ["Evaluation System", "Iteration Loop"]
+  }
+];
+---
+
+<section id="process" class="operating-process-section">
+  <div class="site-shell">
+    <div class="operating-process-heading">
+      <p class="eyebrow">How I Build AI Products</p>
+      <h2>我的 AI Product Operating Process</h2>
+      <p>
+        我不会从“要做一个 AI 功能”开始，而是先确认问题、AI 适配性和人机协作边界，再用最小原型建立可验证证据。
+      </p>
+    </div>
+
+    <ol class="process-rail" aria-label="AI 产品构建五阶段">
+      {stages.map((stage) => (
+        <li class="process-stage">
+          <span class="process-stage__code">{stage.code}</span>
+          <h3>{stage.name}</h3>
+          <p class="process-stage__question">{stage.question}</p>
+          <div class="process-stage__outputs">
+            <span>Output</span>
+            {stage.outputs.map((output) => <strong>{output}</strong>)}
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .operating-process-section {
+    position: relative;
+    overflow: hidden;
+    padding-block: 128px;
+    background:
+      radial-gradient(circle at 84% 8%, rgba(91, 140, 255, 0.13), transparent 28%),
+      linear-gradient(180deg, #07090d 0%, #0a0d14 100%);
+    color: #f5f7fa;
+  }
+
+  .operating-process-section::before {
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    height: 1px;
+    content: "";
+    background: linear-gradient(90deg, transparent, rgba(191, 219, 254, 0.22), transparent);
+  }
+
+  .operating-process-heading {
+    max-width: 760px;
+  }
+
+  .operating-process-heading h2 {
+    margin: 14px 0 0;
+    color: #f5f7fa;
+    font-size: 2.55rem;
+    font-weight: 740;
+    line-height: 1.14;
+  }
+
+  .operating-process-heading p:not(.eyebrow) {
+    max-width: 700px;
+    margin: 16px 0 0;
+    color: rgba(218, 228, 244, 0.66);
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .process-rail {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 14px;
+    margin: 54px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .process-stage {
+    position: relative;
+    min-height: 280px;
+    border: 1px solid rgba(191, 219, 254, 0.16);
+    border-radius: var(--radius-card);
+    padding: 24px;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.03)),
+      rgba(11, 18, 38, 0.7);
+    box-shadow:
+      0 18px 50px rgba(0, 0, 0, 0.22),
+      inset 0 1px 0 rgba(255, 255, 255, 0.07);
+    transition:
+      transform 200ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      border-color 200ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      background 200ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .process-stage:not(:last-child)::after {
+    position: absolute;
+    top: 34px;
+    right: -16px;
+    z-index: 2;
+    width: 18px;
+    height: 1px;
+    content: "";
+    background: linear-gradient(90deg, rgba(191, 238, 255, 0.28), rgba(139, 92, 246, 0.42));
+  }
+
+  .process-stage:hover {
+    transform: translateY(-6px);
+    border-color: rgba(191, 238, 255, 0.42);
+    background:
+      linear-gradient(180deg, rgba(91, 140, 255, 0.12), rgba(139, 92, 246, 0.045)),
+      rgba(11, 18, 38, 0.82);
+  }
+
+  .process-stage__code {
+    color: rgba(191, 238, 255, 0.62);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+  }
+
+  .process-stage h3 {
+    margin: 22px 0 0;
+    color: #f5f7fa;
+    font-size: 1.28rem;
+    font-weight: 740;
+    line-height: 1.2;
+  }
+
+  .process-stage__question {
+    margin: 18px 0 0;
+    color: rgba(218, 228, 244, 0.68);
+    font-size: 0.94rem;
+    line-height: 1.7;
+  }
+
+  .process-stage__outputs {
+    display: grid;
+    gap: 8px;
+    margin-top: 28px;
+  }
+
+  .process-stage__outputs span {
+    color: rgba(191, 238, 255, 0.54);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+  }
+
+  .process-stage__outputs strong {
+    display: inline-flex;
+    width: fit-content;
+    min-height: 28px;
+    align-items: center;
+    border: 1px solid rgba(191, 219, 254, 0.14);
+    border-radius: var(--radius-card);
+    padding: 0 9px;
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(245, 247, 250, 0.78);
+    font-size: 0.76rem;
+    font-weight: 580;
+    line-height: 1.35;
+  }
+
+  @media (max-width: 1080px) {
+    .process-rail {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .process-stage:not(:last-child)::after {
+      display: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .operating-process-section {
+      padding-block: 76px;
+    }
+
+    .operating-process-heading h2 {
+      font-size: 2rem;
+    }
+
+    .process-rail {
+      grid-template-columns: 1fr;
+      margin-top: 36px;
+    }
+
+    .process-stage {
+      min-height: auto;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .process-stage {
+      transition: none;
+    }
+
+    .process-stage:hover {
+      transform: none;
+    }
+  }
+</style>

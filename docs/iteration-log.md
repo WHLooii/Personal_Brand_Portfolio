@@ -4,13 +4,42 @@
 
 ## 当前状态摘要
 
-- 当前阶段：Phase 3 内容系统落地推进中；首页暗色玻璃质感 Hero、个人品牌签名层级、页眉产品身份、第一个正式 Case Study 详情页展示骨架与首页 AIPM 方法样本模块已完成
-- 最近完成：UX-008 首页精选案例重构为能力样本
+- 当前阶段：Phase 3 内容系统落地推进中；首页已升级为能力驱动个人品牌信息架构，AIPM 能力系统、AI Product Operating Process、方法样本模块与第一个正式 Case Study 详情页展示骨架已完成
+- 最近完成：UX-009 首页能力驱动信息架构升级
 - 当前阻塞：无内容 schema 阻塞；demo link、GitHub link、截图资产、真实商家反馈和真实商业指标仍为 `TBD`
 - 下一步唯一建议：执行 `prddev-increment` 的 `CS-004`，优化样本 01 详情页拆解过程表达
 - 最后更新：2026-07-08
 
 ## 迭代记录
+
+### 2026-07-08 - UX-009 首页能力驱动信息架构升级
+
+- 使用 skill：`prddev-increment`
+- 本轮目标：将首页整体叙事从 Project-driven Portfolio 升级为 Capability-driven Personal Brand，让访问者先理解巫浩林是 AI Product Manager / AI Product Builder，能通过问题定义、AI 产品判断、Workflow 设计、MVP 原型构建和评估迭代，把业务问题转化为可验证的 AI 产品。
+- 完成内容：
+  - 调整 `apps/ai-native-product-builder-portfolio/src/pages/index.astro`：首页顺序改为 Hero -> AIPM Capability System -> How I Build AI Products -> 方法样本 / 能力样本 -> 其他内容。
+  - 重写 Hero：加入 `AI PRODUCT BUILDER` 小标签、姓名“巫浩林”、`AI Product Manager` / `AI 产品原型构建者`、核心句“把业务问题转化为可验证的 AI 产品。”和六个能力关键词。
+  - 重构 `HeroAbilitySystem`：右侧从 `AI Product Prototype System` 改为 `AI Product Builder` 中心辐射图，外围节点为 Problem、Judgment、Workflow、Prototype、Evaluation、Reflection，并保留轻量呼吸与连线流动动画。
+  - 新增 `AIPMCapabilitySystem`：将首页核心能力模型以中心辐射结构呈现，六个节点包含编号、英文能力名、中文解释、说明、Input 和 Output，hover / focus 时展开输入输出。
+  - 新增 `ProductOperatingProcess`：用 Understand、Frame、Design、Prototype、Evaluate 五阶段表达 AI Product Operating Process，替换首页原普通流程图位置。
+  - 将 `UX-008` 已确认的“方法样本 / 能力样本”模块保留并后移，降低项目样本在首页的第一视觉权重。
+  - 调整 `BaseLayout` 主导航顺序为能力系统、构建流程、方法样本、案例库，避免项目案例成为导航第一关注。
+  - 同步 `docs/prd.md`、`docs/backlog.md`、`docs/decision-log.md` 和 `docs/testing.md`。
+- 修改文件：
+  - `apps/ai-native-product-builder-portfolio/src/pages/index.astro`
+  - `apps/ai-native-product-builder-portfolio/src/components/HeroAbilitySystem.astro`
+  - `apps/ai-native-product-builder-portfolio/src/components/AIPMCapabilitySystem.astro`
+  - `apps/ai-native-product-builder-portfolio/src/components/ProductOperatingProcess.astro`
+  - `apps/ai-native-product-builder-portfolio/src/layouts/BaseLayout.astro`
+  - `docs/prd.md`
+  - `docs/backlog.md`
+  - `docs/decision-log.md`
+  - `docs/testing.md`
+  - `docs/iteration-log.md`
+- 验证结果：普通 PATH 执行 `pnpm run check` 仍因 `node: not found` 失败，符合当前 testing 文档记录的本地环境限制；随后使用 Codex bundled Node / pnpm 执行 `pnpm run check`、`pnpm run build` 通过，`astro check` 结果 0 errors / 0 warnings / 0 hints，`astro build` 生成 `/`、`/projects/`、`/projects/ecommerce-review-copilot/` 3 个静态页面；构建产物可检索到 `AI PRODUCT BUILDER`、`AI Product Manager`、`AIPM Capability System`、`How I Build AI Products`、`方法样本 / 能力样本`、`样本 01`；首页构建产物未检索到旧的 `AI Product Prototype System`、`精选案例`、`查看作品集` 或 `了解能力模型`；授权启动 Astro preview 后，`http://127.0.0.1:4321/` 可访问；浏览器桌面检查无水平溢出，Hero 底部可见下一段能力系统提示；移动端 390px 宽度检查无水平溢出，Hero 节点、AIPM 能力节点和五阶段流程数量正确，AIPM 节点纵向堆叠无重叠，浏览器 error logs 为空。
+- 未做内容：未改 Ecommerce Review Copilot 详情页；未新增第二个案例；未补 demo link、GitHub link、截图资产、真实商家反馈或真实商业指标；未引入新依赖、AI runtime、复杂 3D、粒子背景或重动画。
+- 遗留问题：`查看拆解过程` 仍进入现有 Ecommerce Review Copilot 详情页，详情页的首屏和导读仍可继续贴合“方法样本 / 拆解过程”叙事；首页当前为 dark-first 能力品牌表达，后续若扩展到详情页需继续兼顾长文可读性。
+- 下一步建议：执行 `prddev-increment` 的 `CS-004`。
 
 ### 2026-07-08 - UX-008 首页精选案例重构为能力样本
 
