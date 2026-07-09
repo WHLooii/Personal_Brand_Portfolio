@@ -4,13 +4,53 @@
 
 ## 当前状态摘要
 
-- 当前阶段：Phase 3 内容系统落地推进中；首页已升级为能力驱动个人品牌信息架构，AIPM 能力系统、AI Product Operating Process、方法样本模块与第一个正式 Case Study 详情页展示骨架已完成；全局字体栈已调整为 Apple-first，正文灰色层级已切换为 Apple-ish 冷灰；首页 Typography System、Hero 杂志式姓名背景、方法样本文字结构和卡片视觉层级已精修；Hero 英文名已从暗色导航栏跨界溢出到封面；Hero 重复小徽标和能力标签组已删除；首页关键 section 标题与副标题字号已统一
-- 最近完成：UX-014 首页关键 section 标题与副标题字号统一
+- 当前阶段：Phase 3 内容系统落地推进中；首页已升级为能力驱动个人品牌信息架构，AIPM 能力系统、AI Product Operating Process、方法样本模块与第一个正式 Case Study 详情页展示骨架已完成；全局字体栈已调整为 Apple-first，正文灰色层级已切换为 Apple-ish 冷灰；首页 Typography System、Hero 杂志式姓名背景、方法样本文字结构和卡片视觉层级已精修；Hero 英文名已从暗色导航栏跨界溢出到封面；Hero 重复小徽标和能力标签组已删除；首页关键 section 标题与副标题字号已统一；样本 01 详情页已升级为深色承接、浅色透出和白色内容上浮的过渡型案例详情页；详情页右侧“案例摘要”已修正为顶部原位、滚动后栏内垂直居中的浮动摘要
+- 最近完成：CS-005 修正详情页案例摘要栏内居中浮动
 - 当前阻塞：无内容 schema 阻塞；demo link、GitHub link、截图资产、真实商家反馈和真实商业指标仍为 `TBD`
-- 下一步唯一建议：执行 `prddev-increment` 的 `CS-004`，优化样本 01 详情页拆解过程表达
+- 下一步唯一建议：执行 `prddev-checkpoint`，复核 CS-005 后的项目状态与后续 backlog；若继续开发，先由用户确认下一轮视觉或内容增量。
 - 最后更新：2026-07-09
 
 ## 迭代记录
+
+### 2026-07-09 - CS-005 修正详情页案例摘要栏内居中浮动
+
+- 使用 skill：`prddev-increment`
+- 本轮目标：根据用户对截图位置的澄清，让详情页右侧“案例摘要”顶部仍保持在白色内容壳右栏原位，滚动进入正文后再在右栏可视区域垂直居中浮动。
+- 完成内容：
+  - 调整 `apps/ai-native-product-builder-portfolio/src/layouts/CaseStudyLayout.astro`：把右侧摘要卡从固定 `top:96px` 改为 `--case-summary-sticky-top` 动态 sticky top；桌面端根据视口高度和卡片实际高度计算中线位置，CSS fallback 使用 `max(96px, calc(50svh - 260px))`。
+  - 保留摘要卡在文档流中的原始右栏位置，不再用 `translateY(-50%)` 把卡片提前拉进 Hero；移动端仍回到普通单列流。
+  - 同步 `docs/backlog.md` 和 `docs/testing.md`，记录本轮细节修正与验证结果。
+- 修改文件：
+  - `apps/ai-native-product-builder-portfolio/src/layouts/CaseStudyLayout.astro`
+  - `docs/backlog.md`
+  - `docs/testing.md`
+  - `docs/iteration-log.md`
+- 验证结果：使用 Codex bundled Node / pnpm 执行 `pnpm run check`、`pnpm run build`、`pnpm run lint` 均通过；`astro check` 结果 0 errors / 0 warnings / 0 hints；`astro build` 生成 `/`、`/projects/`、`/projects/ecommerce-review-copilot/` 3 个静态页面；授权启动 Astro preview，本轮因 `4329` 已占用自动切到 `http://127.0.0.1:4330/`，并用 curl 确认 `/projects/ecommerce-review-copilot/` 返回 200 OK；源码和构建产物可检索到 `case-summary-sticky-top` 与 `50svh` fallback；详情摘要卡样式不再检索到错误的 `top:50vh` 或 `translateY(-50%)`。
+- 未做内容：未修改首页样本区核心文案；未改 Case Study 内容源或 schema；未新增第二个案例；未新增截图、真实指标、demo、GitHub、CMS、AI runtime 或新视觉模块。
+- 遗留问题：本轮仍以源码、构建产物和命令验证为主；截图级视觉 QA 需要在本地 preview 中人工确认。
+- 下一步建议：执行 `prddev-checkpoint`，或根据用户人工查看 preview 后的反馈继续拆一个更小的视觉细节增量。
+
+### 2026-07-09 - CS-004 优化样本 01 详情页拆解过程表达
+
+- 使用 skill：`prddev-increment`
+- 本轮目标：在不修改首页样本区核心文案的前提下，让“查看拆解过程”进入的 Ecommerce Review Copilot 详情页从纯白文档页升级为能承接首页深色视觉的过渡型案例详情页。
+- 完成内容：
+  - 调整 `apps/ai-native-product-builder-portfolio/src/pages/index.astro`：只微调方法样本 section 的底部浅灰蓝光感、卡片底部光晕和“查看拆解过程”按钮的明亮入口质感；保留样本区标题、段落、问题 / 判断 / 原型方向、能力证明列表、流程步骤和按钮文字。
+  - 调整 `apps/ai-native-product-builder-portfolio/src/layouts/CaseStudyLayout.astro`：将案例详情页 header 切换为暗色变体；新增深色详情 Hero，承载返回链接、主要能力、案例标题、一句话说明和状态 / 角色 / 用户 / 周期；右侧新增 AIPM 判断链路预览卡片。
+  - 将原白色详情正文放入 `case-content-shell` 上浮内容壳，形成深色 Hero 底部浅色透出、白色内容卡片向上浮出的视觉过渡；保留原有 Product Judgment、AI Workflow、Evaluation、Outcome 和 Reflection 内容结构与同一 MDX 内容源。
+  - 增加轻量进入动效、`prefers-reduced-motion` 降级和桌面 / 移动端响应式布局。
+  - 根据用户截图反馈，修正右侧“案例摘要”卡片的 sticky 方式：默认仍位于白色内容壳右栏，不覆盖 Hero；向下滚动长正文时吸附在导航下方保持可见；移动端仍回到普通单列流。
+  - 同步 `docs/backlog.md` 和 `docs/testing.md`，记录本轮增量与验证结果。
+- 修改文件：
+  - `apps/ai-native-product-builder-portfolio/src/pages/index.astro`
+  - `apps/ai-native-product-builder-portfolio/src/layouts/CaseStudyLayout.astro`
+  - `docs/backlog.md`
+  - `docs/testing.md`
+  - `docs/iteration-log.md`
+- 验证结果：使用 Codex bundled Node / pnpm 执行 `pnpm run check`、`pnpm run build`、`pnpm run lint` 均通过；`astro check` 结果 0 errors / 0 warnings / 0 hints；`astro build` 生成 `/`、`/projects/`、`/projects/ecommerce-review-copilot/` 3 个静态页面；授权启动 Astro preview，前次 `http://127.0.0.1:4328/` 首页和详情页 HTTP 访问均返回 200 OK；本轮复核时 `4328` 已占用，Astro preview 自动切到 `http://127.0.0.1:4329/`，并用 curl 确认 `/projects/ecommerce-review-copilot/` 返回 200 OK；源码与构建产物检索确认保留“一个样本，展示完整 AIPM 判断链路”“样本 01：从非结构化评论到运营决策”“查看拆解过程”，且未检索到旧的“样本 01：从非结构化评论到运营决策 Copilot”；详情页构建产物可检索到 `case-detail-hero`、`case-content-shell`、`AIPM Judgment Chain` 和右侧摘要卡 `top:96px` 栏内 sticky 样式，未检索到错误的 `top:50vh` / `translateY(-50%)`。
+- 未做内容：未修改首页样本区核心文案；未新增第二个案例；未改变 Case Study schema；未编造 demo、GitHub、截图、真实指标、用户反馈或上线证据；未新增 CMS、AI runtime、真实 LLM、3D 或重动画。
+- 遗留问题：Playwright 自动截图 QA 因本机缺少 Playwright browser executable 未执行；仍建议用户在本地 preview 中做一次人工视觉确认。
+- 下一步建议：执行 `prddev-checkpoint`，或基于用户对当前视觉效果的反馈再拆一个更小的细节增量。
 
 ### 2026-07-09 - UX-014 首页关键 section 标题与副标题字号统一
 

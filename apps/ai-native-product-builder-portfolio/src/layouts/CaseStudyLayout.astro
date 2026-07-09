@@ -29,23 +29,53 @@ const outcomeLinks = [
 ];
 ---
 
-<BaseLayout title={`${data.basic.title} | 巫浩林`}>
-  <article class="site-shell section">
-    <a class="text-sm text-[var(--color-text-muted)]" href="/projects/">返回项目案例</a>
-    <header class="mt-8 max-w-3xl">
-      <p class="eyebrow">{getCapabilityLabel(data.brand_evidence.primary_capability)}</p>
-      <h1 class="mt-4 text-4xl font-semibold leading-tight md:text-6xl">{data.basic.title}</h1>
-      <p class="mt-5 text-lg leading-8 text-[var(--color-text-secondary)]">{data.basic.tagline}</p>
-      <dl class="mt-8 grid gap-4 text-sm text-[var(--color-text-secondary)] md:grid-cols-4">
-        <div><dt class="font-semibold text-[var(--color-text-primary)]">状态</dt><dd>{getStatusLabel(data.basic.status)}</dd></div>
-        <div><dt class="font-semibold text-[var(--color-text-primary)]">角色</dt><dd>{data.basic.role}</dd></div>
-        <div><dt class="font-semibold text-[var(--color-text-primary)]">用户</dt><dd>{data.basic.user}</dd></div>
-        <div><dt class="font-semibold text-[var(--color-text-primary)]">周期</dt><dd>{data.basic.timeline}</dd></div>
-      </dl>
-    </header>
+<BaseLayout title={`${data.basic.title} | 巫浩林`} description={data.basic.tagline} headerVariant="dark">
+  <article class="case-detail-page">
+    <section class="case-detail-hero" aria-labelledby="case-detail-title">
+      <div class="site-shell case-hero-inner">
+        <div class="case-hero-copy">
+          <a class="case-back-link" href="/projects/">返回项目案例</a>
+          <p class="case-hero-kicker">{getCapabilityLabel(data.brand_evidence.primary_capability)}</p>
+          <h1 id="case-detail-title">{data.basic.title}</h1>
+          <p class="case-hero-summary">{data.basic.tagline}</p>
+          <dl class="case-meta-row">
+            <div>
+              <dt>状态</dt>
+              <dd>{getStatusLabel(data.basic.status)}</dd>
+            </div>
+            <div>
+              <dt>角色</dt>
+              <dd>{data.basic.role}</dd>
+            </div>
+            <div>
+              <dt>用户</dt>
+              <dd>{data.basic.user}</dd>
+            </div>
+            <div>
+              <dt>周期</dt>
+              <dd>{data.basic.timeline}</dd>
+            </div>
+          </dl>
+        </div>
 
-    <div class="mt-14 grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px]">
-      <div class="space-y-12">
+        <aside class="case-hero-panel" aria-label="AIPM 判断链路预览">
+          <p class="case-panel-kicker">AIPM Judgment Chain</p>
+          <h2>从评论洞察到运营决策</h2>
+          <ol class="case-chain-list">
+            {["Problem", "Judgment", "Workflow", "Prototype", "Evaluation"].map((step, index) => (
+              <li>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <strong>{step}</strong>
+              </li>
+            ))}
+          </ol>
+        </aside>
+      </div>
+    </section>
+
+    <section class="case-content-shell" aria-label="案例拆解内容">
+      <div class="case-content-grid">
+        <div class="case-main-stack">
         <section class="surface-card p-6">
           <p class="eyebrow">案例概览</p>
           <h2 class="mt-3 text-2xl font-semibold">能力证明</h2>
@@ -307,7 +337,7 @@ const outcomeLinks = [
         <Timeline items={data.reflection.future_iterations} title="下一轮迭代" />
       </div>
 
-      <aside class="surface-card h-fit p-6 lg:sticky lg:top-8">
+      <aside class="case-side-card">
         <p class="eyebrow">案例摘要</p>
         <h2 class="mt-3 text-xl font-semibold leading-snug">{data.basic.title}</h2>
         <p class="mt-4 text-sm leading-6 text-[var(--color-text-secondary)]">{data.brand_evidence.proof_statement}</p>
@@ -331,5 +361,430 @@ const outcomeLinks = [
         </dl>
       </aside>
     </div>
+    </section>
   </article>
+
+  <script is:inline>
+    (() => {
+      const desktopQuery = window.matchMedia("(min-width: 981px)");
+
+      const updateSummaryStickyTop = () => {
+        const card = document.querySelector(".case-side-card");
+        if (!(card instanceof HTMLElement)) return;
+
+        if (!desktopQuery.matches) {
+          card.style.removeProperty("--case-summary-sticky-top");
+          return;
+        }
+
+        const headerReserve = 96;
+        const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+        const cardHeight = card.getBoundingClientRect().height;
+        const centeredTop = Math.max(headerReserve, Math.round((viewportHeight - cardHeight) / 2));
+
+        card.style.setProperty("--case-summary-sticky-top", `${centeredTop}px`);
+      };
+
+      const scheduleSummaryUpdate = () => window.requestAnimationFrame(updateSummaryStickyTop);
+
+      scheduleSummaryUpdate();
+      window.addEventListener("resize", scheduleSummaryUpdate, { passive: true });
+      window.addEventListener("orientationchange", scheduleSummaryUpdate, { passive: true });
+      document.fonts?.ready.then(scheduleSummaryUpdate);
+    })();
+  </script>
 </BaseLayout>
+
+<style>
+  .case-detail-page {
+    min-height: 100vh;
+    overflow-x: hidden;
+    background: #f6f7fb;
+    color: #1f2430;
+  }
+
+  .case-detail-hero {
+    position: relative;
+    overflow: hidden;
+    min-height: 720px;
+    color: #f7f9ff;
+    background:
+      radial-gradient(circle at 72% 24%, rgba(120, 145, 255, 0.2), transparent 34%),
+      radial-gradient(circle at 34% 12%, rgba(40, 190, 220, 0.1), transparent 30%),
+      radial-gradient(circle at 50% 96%, rgba(246, 247, 251, 0.34), transparent 36%),
+      linear-gradient(
+        180deg,
+        #050814 0%,
+        #07101d 42%,
+        #101528 68%,
+        rgba(16, 21, 40, 0.72) 82%,
+        rgba(246, 247, 251, 0) 100%
+      );
+  }
+
+  .case-detail-hero::before {
+    position: absolute;
+    inset: 0;
+    content: "";
+    background:
+      linear-gradient(90deg, rgba(147, 197, 253, 0.045) 1px, transparent 1px),
+      linear-gradient(180deg, rgba(147, 197, 253, 0.035) 1px, transparent 1px);
+    background-size: 82px 82px;
+    mask-image: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.66) 44%, transparent 96%);
+    opacity: 0.52;
+    pointer-events: none;
+    transform: perspective(760px) rotateX(58deg) translateY(96px) scale(1.22);
+    transform-origin: center bottom;
+  }
+
+  .case-detail-hero::after {
+    position: absolute;
+    left: 50%;
+    bottom: -170px;
+    width: min(980px, 86vw);
+    height: 340px;
+    border-radius: 999px;
+    background: rgba(246, 247, 251, 0.78);
+    content: "";
+    filter: blur(58px);
+    opacity: 0.72;
+    pointer-events: none;
+    transform: translateX(-50%);
+  }
+
+  .case-hero-inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
+    gap: 68px;
+    align-items: center;
+    min-height: 640px;
+    padding-block: 86px 180px;
+  }
+
+  .case-hero-copy {
+    max-width: 760px;
+    opacity: 0;
+    transform: translateY(18px);
+    animation: caseHeroIn 520ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .case-back-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 36px;
+    border: 1px solid rgba(191, 219, 254, 0.16);
+    border-radius: var(--radius-card);
+    padding: 0 12px;
+    background: rgba(255, 255, 255, 0.045);
+    color: rgba(218, 228, 244, 0.72);
+    font-size: 0.86rem;
+    font-weight: 650;
+    transition:
+      transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      border-color 180ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      color 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    backdrop-filter: blur(14px);
+  }
+
+  .case-back-link:hover {
+    transform: translateY(-1px);
+    border-color: rgba(191, 238, 255, 0.34);
+    color: #f7f9ff;
+  }
+
+  .case-hero-kicker,
+  .case-panel-kicker {
+    margin: 28px 0 0;
+    color: rgba(191, 238, 255, 0.82);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  .case-hero-copy h1 {
+    max-width: 760px;
+    margin: 18px 0 0;
+    color: rgba(248, 251, 255, 0.98);
+    font-size: 4.35rem;
+    font-weight: 740;
+    line-height: 1.04;
+  }
+
+  .case-hero-summary {
+    max-width: 680px;
+    margin: 24px 0 0;
+    color: rgba(228, 237, 252, 0.7);
+    font-size: 1.1rem;
+    line-height: 1.86;
+  }
+
+  .case-meta-row {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    margin: 38px 0 0;
+  }
+
+  .case-meta-row div {
+    min-width: 0;
+    border: 1px solid rgba(191, 219, 254, 0.13);
+    border-radius: var(--radius-card);
+    padding: 14px;
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(14px);
+  }
+
+  .case-meta-row dt {
+    color: rgba(191, 238, 255, 0.76);
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+
+  .case-meta-row dd {
+    margin: 8px 0 0;
+    color: rgba(245, 247, 250, 0.82);
+    font-size: 0.9rem;
+    font-weight: 620;
+    line-height: 1.5;
+  }
+
+  .case-hero-panel {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(191, 219, 254, 0.16);
+    border-radius: 24px;
+    padding: 30px;
+    background:
+      radial-gradient(circle at 78% 18%, rgba(191, 238, 255, 0.14), transparent 34%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.092), rgba(255, 255, 255, 0.036));
+    box-shadow:
+      0 36px 90px rgba(0, 0, 0, 0.24),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(22px);
+  }
+
+  .case-hero-panel::after {
+    position: absolute;
+    inset-inline: 22px;
+    bottom: -42px;
+    height: 90px;
+    border-radius: 999px;
+    background: rgba(217, 228, 255, 0.18);
+    content: "";
+    filter: blur(32px);
+    pointer-events: none;
+  }
+
+  .case-panel-kicker {
+    margin-top: 0;
+  }
+
+  .case-hero-panel h2 {
+    position: relative;
+    z-index: 1;
+    max-width: 300px;
+    margin: 16px 0 0;
+    color: rgba(248, 251, 255, 0.96);
+    font-size: 1.85rem;
+    font-weight: 720;
+    line-height: 1.15;
+  }
+
+  .case-chain-list {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 12px;
+    margin: 28px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .case-chain-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    border: 1px solid rgba(191, 219, 254, 0.12);
+    border-radius: var(--radius-card);
+    padding: 12px 14px;
+    background: rgba(255, 255, 255, 0.045);
+    color: rgba(226, 235, 255, 0.78);
+  }
+
+  .case-chain-list span {
+    color: rgba(191, 238, 255, 0.62);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+  }
+
+  .case-chain-list strong {
+    color: rgba(248, 251, 255, 0.88);
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+
+  .case-content-shell {
+    position: relative;
+    z-index: 2;
+    width: min(1160px, calc(100% - 48px));
+    margin: -150px auto 0;
+    border: 1px solid rgba(20, 28, 45, 0.08);
+    border-radius: 32px 32px 0 0;
+    padding: 36px;
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow:
+      0 -24px 80px rgba(8, 12, 24, 0.2),
+      0 24px 80px rgba(20, 28, 45, 0.08);
+    opacity: 0;
+    transform: translateY(56px);
+    animation: caseShellIn 680ms cubic-bezier(0.22, 1, 0.36, 1) 120ms forwards;
+    backdrop-filter: blur(18px);
+  }
+
+  .case-content-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 340px;
+    gap: 32px;
+    align-items: start;
+  }
+
+  .case-main-stack {
+    display: grid;
+    gap: 48px;
+  }
+
+  .case-detail-page .surface-card,
+  .case-side-card {
+    border-color: rgba(20, 28, 45, 0.08);
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow: 0 16px 42px rgba(20, 28, 45, 0.045);
+  }
+
+  .case-side-card {
+    position: sticky;
+    top: var(--case-summary-sticky-top, max(96px, calc(50svh - 260px)));
+    align-self: start;
+    height: fit-content;
+    max-height: min(620px, calc(100svh - 120px));
+    overflow: auto;
+    padding: 24px;
+  }
+
+  @keyframes caseHeroIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes caseShellIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 980px) {
+    .case-detail-hero {
+      min-height: 780px;
+    }
+
+    .case-hero-inner {
+      grid-template-columns: 1fr;
+      gap: 34px;
+      min-height: 700px;
+      padding-block: 72px 150px;
+    }
+
+    .case-hero-copy h1 {
+      font-size: 3.4rem;
+    }
+
+    .case-meta-row {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .case-hero-panel {
+      max-width: 520px;
+    }
+
+    .case-content-shell {
+      width: calc(100% - 24px);
+      margin-top: -106px;
+      border-radius: 24px 24px 0 0;
+      padding: 20px;
+    }
+
+    .case-content-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .case-side-card {
+      position: static;
+      max-height: none;
+      overflow: visible;
+      transform: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .case-detail-hero {
+      min-height: 820px;
+    }
+
+    .case-hero-inner {
+      padding-block: 54px 136px;
+    }
+
+    .case-hero-copy h1 {
+      font-size: 2.66rem;
+      line-height: 1.08;
+    }
+
+    .case-hero-summary {
+      font-size: 1rem;
+      line-height: 1.72;
+    }
+
+    .case-meta-row {
+      grid-template-columns: 1fr;
+    }
+
+    .case-hero-panel {
+      border-radius: 20px;
+      padding: 22px;
+    }
+
+    .case-hero-panel h2 {
+      font-size: 1.45rem;
+    }
+
+    .case-content-shell {
+      padding: 16px;
+    }
+
+    .case-main-stack {
+      gap: 32px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .case-back-link {
+      transition: none;
+    }
+
+    .case-back-link:hover,
+    .case-hero-copy,
+    .case-content-shell {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
