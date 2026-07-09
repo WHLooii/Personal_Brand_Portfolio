@@ -337,28 +337,30 @@ const outcomeLinks = [
         <Timeline items={data.reflection.future_iterations} title="下一轮迭代" />
       </div>
 
-      <aside class="case-side-card">
-        <p class="eyebrow">案例摘要</p>
-        <h2 class="mt-3 text-xl font-semibold leading-snug">{data.basic.title}</h2>
-        <p class="mt-4 text-sm leading-6 text-[var(--color-text-secondary)]">{data.brand_evidence.proof_statement}</p>
-        <dl class="mt-6 space-y-4 text-sm text-[var(--color-text-secondary)]">
-          <div>
-            <dt class="font-semibold text-[var(--color-text-primary)]">主要能力</dt>
-            <dd>{getCapabilityLabel(data.brand_evidence.primary_capability)}</dd>
-          </div>
-          <div>
-            <dt class="font-semibold text-[var(--color-text-primary)]">项目类型</dt>
-            <dd>{data.basic.category}</dd>
-          </div>
-          <div>
-            <dt class="font-semibold text-[var(--color-text-primary)]">技术栈</dt>
-            <dd>{data.basic.tech_stack_summary.join(" / ")}</dd>
-          </div>
-          <div>
-            <dt class="font-semibold text-[var(--color-text-primary)]">验证状态</dt>
-            <dd>{data.evaluation.validation_status}</dd>
-          </div>
-        </dl>
+      <aside class="case-side-rail" aria-label="案例摘要">
+        <div class="case-side-card">
+          <p class="eyebrow">案例摘要</p>
+          <h2 class="mt-3 text-xl font-semibold leading-snug">{data.basic.title}</h2>
+          <p class="mt-4 text-sm leading-6 text-[var(--color-text-secondary)]">{data.brand_evidence.proof_statement}</p>
+          <dl class="mt-6 space-y-4 text-sm text-[var(--color-text-secondary)]">
+            <div>
+              <dt class="font-semibold text-[var(--color-text-primary)]">主要能力</dt>
+              <dd>{getCapabilityLabel(data.brand_evidence.primary_capability)}</dd>
+            </div>
+            <div>
+              <dt class="font-semibold text-[var(--color-text-primary)]">项目类型</dt>
+              <dd>{data.basic.category}</dd>
+            </div>
+            <div>
+              <dt class="font-semibold text-[var(--color-text-primary)]">技术栈</dt>
+              <dd>{data.basic.tech_stack_summary.join(" / ")}</dd>
+            </div>
+            <div>
+              <dt class="font-semibold text-[var(--color-text-primary)]">验证状态</dt>
+              <dd>{data.evaluation.validation_status}</dd>
+            </div>
+          </dl>
+        </div>
       </aside>
     </div>
     </section>
@@ -370,9 +372,14 @@ const outcomeLinks = [
 
       const updateSummaryStickyTop = () => {
         const card = document.querySelector(".case-side-card");
+        const rail = document.querySelector(".case-side-rail");
         if (!(card instanceof HTMLElement)) return;
+        if (!(rail instanceof HTMLElement)) return;
 
-        if (!desktopQuery.matches) {
+        const railColumns = getComputedStyle(rail.parentElement || rail).gridTemplateColumns;
+        const hasSideRail = railColumns.split(" ").length > 1;
+
+        if (!desktopQuery.matches || !hasSideRail) {
           card.style.removeProperty("--case-summary-sticky-top");
           return;
         }
@@ -398,7 +405,7 @@ const outcomeLinks = [
 <style>
   .case-detail-page {
     min-height: 100vh;
-    overflow-x: hidden;
+    overflow-x: clip;
     background: #f6f7fb;
     color: #1f2430;
   }
@@ -666,6 +673,11 @@ const outcomeLinks = [
     box-shadow: 0 16px 42px rgba(20, 28, 45, 0.045);
   }
 
+  .case-side-rail {
+    align-self: stretch;
+    min-height: 100%;
+  }
+
   .case-side-card {
     position: sticky;
     top: var(--case-summary-sticky-top, max(96px, calc(50svh - 260px)));
@@ -686,7 +698,7 @@ const outcomeLinks = [
   @keyframes caseShellIn {
     to {
       opacity: 1;
-      transform: translateY(0);
+      transform: none;
     }
   }
 
@@ -723,6 +735,10 @@ const outcomeLinks = [
 
     .case-content-grid {
       grid-template-columns: 1fr;
+    }
+
+    .case-side-rail {
+      min-height: 0;
     }
 
     .case-side-card {

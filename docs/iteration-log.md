@@ -4,13 +4,36 @@
 
 ## 当前状态摘要
 
-- 当前阶段：Phase 3 内容系统落地推进中；首页已升级为能力驱动个人品牌信息架构，AIPM 能力系统、AI Product Operating Process、方法样本模块与第一个正式 Case Study 详情页展示骨架已完成；全局字体栈已调整为 Apple-first，正文灰色层级已切换为 Apple-ish 冷灰；首页 Typography System、Hero 杂志式姓名背景、方法样本文字结构和卡片视觉层级已精修；Hero 英文名已从暗色导航栏跨界溢出到封面；Hero 重复小徽标和能力标签组已删除；首页关键 section 标题与副标题字号已统一；样本 01 详情页已升级为深色承接、浅色透出和白色内容上浮的过渡型案例详情页；详情页右侧“案例摘要”已修正为顶部原位、滚动后栏内垂直居中的浮动摘要
-- 最近完成：CS-005 修正详情页案例摘要栏内居中浮动
+- 当前阶段：Phase 3 内容系统落地推进中；首页已升级为能力驱动个人品牌信息架构，AIPM 能力系统、AI Product Operating Process、方法样本模块与第一个正式 Case Study 详情页展示骨架已完成；全局字体栈已调整为 Apple-first，正文灰色层级已切换为 Apple-ish 冷灰；首页 Typography System、Hero 杂志式姓名背景、方法样本文字结构和卡片视觉层级已精修；Hero 英文名已从暗色导航栏跨界溢出到封面；Hero 重复小徽标和能力标签组已删除；首页关键 section 标题与副标题字号已统一；样本 01 详情页已升级为深色承接、浅色透出和白色内容上浮的过渡型案例详情页；详情页右侧“案例摘要”已修正为顶部原位、滚动后栏内垂直居中的浮动摘要，且 sticky 失效根因已修复
+- 最近完成：CS-006 修复详情页案例摘要 sticky 失效
 - 当前阻塞：无内容 schema 阻塞；demo link、GitHub link、截图资产、真实商家反馈和真实商业指标仍为 `TBD`
-- 下一步唯一建议：执行 `prddev-checkpoint`，复核 CS-005 后的项目状态与后续 backlog；若继续开发，先由用户确认下一轮视觉或内容增量。
+- 下一步唯一建议：执行 `prddev-checkpoint`，复核 CS-006 后的项目状态与后续 backlog；若继续开发，先由用户确认下一轮视觉或内容增量。
 - 最后更新：2026-07-09
 
 ## 迭代记录
+
+### 2026-07-09 - CS-006 修复详情页案例摘要 sticky 失效
+
+- 使用 skill：`prddev-increment`
+- 本轮目标：分析并修复右侧“案例摘要”设置 sticky 后仍不移动、无法保持在右栏可视区域中线的问题。
+- 原因分析：
+  - 当前内置浏览器实际 CSS 宽度为 560px，会触发 `max-width: 980px` 移动端规则，此时摘要卡按设计是 `position: static`，不会 sticky。
+  - 在桌面测试视口下，摘要卡虽然计算出了 `--case-summary-sticky-top: 231px`，但仍随正文上移；原因是右侧摘要卡直接作为 grid item，缺少一个与正文等高的右栏轨道作为 sticky 活动空间。
+  - 同时 `.case-detail-page` 的 `overflow-x: hidden` 被浏览器计算为 `overflow-y: auto`，形成非真实滚动祖先，会破坏 sticky 参照。
+- 完成内容：
+  - 调整 `apps/ai-native-product-builder-portfolio/src/layouts/CaseStudyLayout.astro`：为右侧摘要新增 `.case-side-rail` 包裹层，让内部 `.case-side-card` 在完整右栏轨道内 sticky。
+  - 将 `.case-detail-page` 的 `overflow-x: hidden` 改为 `overflow-x: clip`，避免产生破坏 sticky 的纵向 overflow。
+  - 保留移动端单列降级：窄视口下 `.case-side-card` 继续为 `position: static`。
+  - 同步 `docs/backlog.md` 和 `docs/testing.md`，记录本轮修复和验证结果。
+- 修改文件：
+  - `apps/ai-native-product-builder-portfolio/src/layouts/CaseStudyLayout.astro`
+  - `docs/backlog.md`
+  - `docs/testing.md`
+  - `docs/iteration-log.md`
+- 验证结果：使用 Codex bundled Node / pnpm 执行 `pnpm run check`、`pnpm run build`、`pnpm run lint` 均通过；`astro check` 结果 0 errors / 0 warnings / 0 hints；桌面 1440x1000 测试视口下，滚动样本 `scrollY=500/900/1300/1769/2600/4200` 时摘要卡 `cardTop` 均稳定为 `231px`，等于右栏中线计算值；祖先 overflow 复核确认 `.case-detail-page` 为 `overflow-x: clip` / `overflow-y: visible`。
+- 未做内容：未修改首页样本区核心文案；未改 Case Study 内容源或 schema；未新增第二个案例；未新增截图、真实指标、demo、GitHub、CMS、AI runtime 或新视觉模块。
+- 遗留问题：当前 Codex 内置浏览器默认宽度为 560px，会触发移动端单列规则；如需在内置浏览器直接观察右侧栏 sticky，需要把可视区域切到桌面宽度或使用外部宽屏浏览器。
+- 下一步建议：执行 `prddev-checkpoint`，或根据用户在桌面宽屏下的人工查看结果继续拆分更小的视觉细节增量。
 
 ### 2026-07-09 - CS-005 修正详情页案例摘要栏内居中浮动
 

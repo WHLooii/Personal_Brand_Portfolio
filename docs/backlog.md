@@ -49,6 +49,7 @@
 | UX-014 | done | 首页关键 section 标题与副标题字号统一 | 根据用户反馈统一 AIPM 能力系统、AI Product Operating Process、方法样本三处标题和副标题的字体层级，并确保能力系统标题桌面单行显示 | 仅调整三处首页 section heading 的 h2 容器宽度、字号、字重、行高、副标题宽度和移动端字号；能力系统标题桌面使用单行显示，窄屏恢复正常换行 | 不改信息架构；不改 Hero、详情页、项目内容、动画、配色、组件结构或新增依赖 | bundled Node 环境下 `pnpm run check` / `pnpm run build` / `pnpm run lint` 通过；浏览器 1280px 检查三处标题均为 44px / 50.16px / 740，副标题均为 16px / 29.76px，能力系统标题单行且无水平溢出；390px 移动端三处标题均为 31.2px / 35.568px / 740，副标题一致且无水平溢出，error logs 为空 | `UX-013` |
 | CS-004 | done | 优化样本 01 详情页拆解过程表达 | 让“查看拆解过程”进入的 Ecommerce Review Copilot 详情页更贴近方法拆解，而不是只像传统项目说明页 | 在现有 Case Study Detail 和同一内容源基础上，加强样本 01 的视觉承接、首屏摘要和深色到浅色的阅读过渡；首页样本区只做背景光感和按钮入口微调；右侧案例摘要在桌面端保持栏内 sticky 可见 | 不新增第二个案例；不改变 schema；不修改首页样本区核心文案；不编造截图、真实指标、用户反馈或上线证据；不新增 CMS、AI runtime 或真实 LLM | bundled Node 环境下 `pnpm run check` / `pnpm run build` / `pnpm run lint` 通过；详情页首屏改为深色 Hero，白色内容壳上浮承接正文；右侧摘要卡桌面端默认留在白色内容壳右栏，向下滚动后吸附在导航下方保持可见；首页和详情页 preview HTTP 访问 200；源码和构建产物确认样本区核心文案未被替换 | `UX-009` |
 | CS-005 | done | 修正详情页案例摘要栏内居中浮动 | 根据用户确认，让右侧“案例摘要”在页面顶部保留原右栏位置，滚入正文后浮动在右栏可视区域的垂直中线附近 | 仅调整 `CaseStudyLayout` 中右侧摘要卡的 sticky top 计算、fallback 和桌面 / 移动端行为；同步 backlog、iteration-log、testing | 不改首页样本区核心文案；不改 Case Study 内容或 schema；不新增案例、截图、真实指标、demo、GitHub、CMS、AI runtime 或新视觉模块 | bundled Node 环境下 `pnpm run check` / `pnpm run build` / `pnpm run lint` 通过；源码和构建产物可检索到 `case-summary-sticky-top` 与 `50svh` fallback；右侧摘要卡不再使用错误的 `top:50vh` / `translateY(-50%)` 方案；移动端仍为普通单列流 | `CS-004` |
+| CS-006 | done | 修复详情页案例摘要 sticky 失效 | 解决右侧“案例摘要”虽然设置 sticky 但滚动时仍跟随正文上移的问题，让它真正保持在右栏可视区域中线 | 为摘要卡新增右栏轨道 `.case-side-rail`，让 sticky 卡片拥有整段正文高度作为活动空间；将外层 `overflow-x:hidden` 改为 `overflow-x:clip`，避免生成破坏 sticky 的纵向 overflow；保留移动端单列降级 | 不改首页样本区核心文案；不改 Case Study 内容或 schema；不新增案例、截图、真实指标、demo、GitHub、CMS、AI runtime 或新视觉模块 | bundled Node 环境下 `pnpm run check` / `pnpm run build` / `pnpm run lint` 通过；桌面 1440x1000 测试视口下，滚动样本 `scrollY=500/900/1300/1769/2600/4200` 时 `cardTop` 均稳定为 `231px`，等于右栏中线计算值；窄视口继续触发移动端 `position:static` | `CS-005` |
 | CS-003 | deferred | 创建第二个 Featured Case Study 内容骨架 | 用 TalentSignal AI 验证统一 Case Study schema 和详情页骨架可以复用到第二个重点项目 | 选择 TalentSignal AI，按 `docs/case-study-template-schema.md` 补齐一版内容骨架；允许未确认字段为 `TBD`，但不删除 Product Judgment、AI Workflow、Evaluation、Outcome、Reflection | 不改详情页结构；不新增第三个案例；不编造 demo、GitHub、截图、用户反馈或商业指标；不新增 CMS、AI runtime 或真实 LLM | 未来恢复多 Featured 案例策略后，`pnpm run check` / `pnpm run build` / `pnpm run lint` 通过；Projects 列表出现第二个正式案例；详情页复用 `CS-002` 的完整展示骨架 | `CS-002` |
 
 ## 推荐执行顺序
@@ -82,12 +83,13 @@
 | 25 | UX-014 | 已完成；首页 AIPM 能力系统、Operating Process 和方法样本三处 section 标题与副标题字号已统一 |
 | 26 | CS-004 | 已完成；“查看拆解过程”进入的详情页已改为深色承接、浅色透出和白色内容上浮的过渡型案例详情页 |
 | 27 | CS-005 | 已完成；详情页右侧“案例摘要”已从固定导航下方修正为顶部原位、滚动后栏内垂直居中的浮动摘要 |
-| 28 | CS-003 | 已延后；当前公开阶段先不增加第二个 Featured 案例，待证据补齐后复核 |
+| 28 | CS-006 | 已完成；详情页右侧“案例摘要”的 sticky 失效问题已修复，桌面滚动时稳定保持在右栏可视区域中线 |
+| 29 | CS-003 | 已延后；当前公开阶段先不增加第二个 Featured 案例，待证据补齐后复核 |
 
 ## Foundation 后下一步
 
-- 当前下一步唯一建议：执行 `prddev-checkpoint`，复核 CS-005 后的项目状态与后续 backlog；若继续开发，先由用户确认下一轮视觉或内容增量。
-- 说明：`CS-005` 已完成，详情页右侧“案例摘要”已按用户确认改为顶部保留原右栏位置、滚入正文后在右栏可视区域垂直居中浮动；`CS-004` 已完成，“查看拆解过程”进入的 Ecommerce Review Copilot 详情页已升级为深色 Hero 承接、浅色底部透出和白色内容壳上浮的过渡型案例详情页；首页方法样本区只做背景光感与按钮入口微调，核心文案保持不变。`UX-014` 已完成，首页 AIPM 能力系统、Operating Process 和方法样本三处 section 标题与副标题字号已统一；`UX-013` 已完成，首页 Hero 已删除重复小徽标和能力标签组；`UX-012` 已完成，Hero 英文名已从暗色导航栏跨界溢出到封面；`UX-011` 已完成，首页 Typography System、Hero 杂志式姓名背景、方法样本文字结构和卡片视觉层级已精修；`UX-010` 已完成，字体栈已改为 Apple-first；`UX-009` 已完成，首页已从项目展示型作品集升级为能力驱动个人品牌首页。
+- 当前下一步唯一建议：执行 `prddev-checkpoint`，复核 CS-006 后的项目状态与后续 backlog；若继续开发，先由用户确认下一轮视觉或内容增量。
+- 说明：`CS-006` 已完成，详情页右侧“案例摘要”的 sticky 失效根因已修复：右栏现在有完整高度轨道，外层不再生成破坏 sticky 的纵向 overflow；`CS-005` 已完成，详情页右侧“案例摘要”已按用户确认改为顶部保留原右栏位置、滚入正文后在右栏可视区域垂直居中浮动；`CS-004` 已完成，“查看拆解过程”进入的 Ecommerce Review Copilot 详情页已升级为深色 Hero 承接、浅色底部透出和白色内容壳上浮的过渡型案例详情页；首页方法样本区只做背景光感与按钮入口微调，核心文案保持不变。`UX-014` 已完成，首页 AIPM 能力系统、Operating Process 和方法样本三处 section 标题与副标题字号已统一；`UX-013` 已完成，首页 Hero 已删除重复小徽标和能力标签组；`UX-012` 已完成，Hero 英文名已从暗色导航栏跨界溢出到封面；`UX-011` 已完成，首页 Typography System、Hero 杂志式姓名背景、方法样本文字结构和卡片视觉层级已精修；`UX-010` 已完成，字体栈已改为 Apple-first；`UX-009` 已完成，首页已从项目展示型作品集升级为能力驱动个人品牌首页。
 - 目标：先停止连续开发，等待用户对当前详情页视觉承接效果的反馈，再决定是否拆分新的细节增量或恢复被延后的多案例内容工作。
 - 不做：不自动进入第二个案例；不补未确认 demo / GitHub 链接；不迁移截图资产；不新增 CMS、登录、数据库、AI runtime 或复杂 Demo。
 - 前置：`UX-010` 已完成，当前项目已通过 `check` / `build` / `lint`。
