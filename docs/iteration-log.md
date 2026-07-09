@@ -4,13 +4,31 @@
 
 ## 当前状态摘要
 
-- 当前阶段：Phase 3 内容系统落地推进中；首页已升级为能力驱动个人品牌信息架构，AIPM 能力系统、AI Product Operating Process、方法样本模块与第一个正式 Case Study 详情页展示骨架已完成
-- 最近完成：UX-009 首页能力驱动信息架构升级
+- 当前阶段：Phase 3 内容系统落地推进中；首页已升级为能力驱动个人品牌信息架构，AIPM 能力系统、AI Product Operating Process、方法样本模块与第一个正式 Case Study 详情页展示骨架已完成；全局字体栈已调整为 Apple-first，正文灰色层级已切换为 Apple-ish 冷灰
+- 最近完成：UX-010 Apple-first 字体栈与正文冷灰 token 精修
 - 当前阻塞：无内容 schema 阻塞；demo link、GitHub link、截图资产、真实商家反馈和真实商业指标仍为 `TBD`
 - 下一步唯一建议：执行 `prddev-increment` 的 `CS-004`，优化样本 01 详情页拆解过程表达
-- 最后更新：2026-07-08
+- 最后更新：2026-07-09
 
 ## 迭代记录
+
+### 2026-07-09 - UX-010 Apple-first 字体栈与正文冷灰 token 精修
+
+- 使用 skill：`prddev-increment`
+- 本轮目标：根据用户确认，将项目默认字体改为 Apple-first 策略，并只把原本就是灰色文字的层级调整为 Apple-ish 冷灰。
+- 完成内容：
+  - 调整 `apps/ai-native-product-builder-portfolio/src/styles/tokens.css`：将 `--font-sans` 改为 `-apple-system`、`BlinkMacSystemFont`、`SF Pro Text`、`SF Pro Display` 优先；非 Apple 设备先 fallback 到 `Segoe UI`、`Roboto`、`Helvetica Neue`、`Arial` 等系统西文字体；中文 fallback 保留 `PingFang SC`。
+  - 将 `--color-text-primary`、`--color-text-secondary`、`--color-text-muted` 分别调整为 `#1d1d1f`、`#6e6e73`、`#86868b`，让正文层级更接近 Apple 官网常见冷灰气质。
+  - 同步 `docs/backlog.md` 和 `docs/testing.md`，记录本轮视觉 token 小增量。
+- 修改文件：
+  - `apps/ai-native-product-builder-portfolio/src/styles/tokens.css`
+  - `docs/backlog.md`
+  - `docs/testing.md`
+  - `docs/iteration-log.md`
+- 验证结果：使用 Codex bundled Node / pnpm 执行 `pnpm run check`、`pnpm run build`、`pnpm run lint` 通过；`astro check` 结果 0 errors / 0 warnings / 0 hints；`astro build` 生成 `/`、`/projects/`、`/projects/ecommerce-review-copilot/` 3 个静态页面；源码检索确认 `tokens.css` 包含 `-apple-system`、`SF Pro Text`、`Segoe UI`、`Roboto`、`PingFang SC`、`#1d1d1f`、`#6e6e73` 和 `#86868b`。
+- 未做内容：未接入已下载的 SF Pro 字体文件；未修改背景、卡片、边框、accent、暗色 Hero 特有颜色、页面结构或内容；未新增依赖或外部 Web Font。
+- 遗留问题：未做截图级视觉 QA；本轮是全局 token 小修，后续若继续精修 Apple-ish 风格，需要单独拆分页面级视觉验收。
+- 下一步建议：执行 `prddev-increment` 的 `CS-004`。
 
 ### 2026-07-08 - UX-009 首页能力驱动信息架构升级
 
