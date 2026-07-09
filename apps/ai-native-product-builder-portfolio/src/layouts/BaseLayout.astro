@@ -14,6 +14,7 @@ const {
 } = Astro.props;
 
 const headerClass = headerVariant === "dark" ? "site-header--dark" : "site-header--default";
+const editorialNameWords = ["HAOLIN", "WU"].map((word) => word.split(""));
 ---
 
 <!doctype html>
@@ -26,7 +27,27 @@ const headerClass = headerVariant === "dark" ? "site-header--dark" : "site-heade
   </head>
   <body>
     <header class={`site-header ${headerClass}`}>
-      {headerVariant === "dark" && <span class="site-header__editorial-name" aria-hidden="true">HAOLIN WU</span>}
+      {
+        headerVariant === "dark" && (
+          <span class="site-header__editorial-name" data-name="HAOLIN WU" aria-hidden="true">
+            {editorialNameWords.map((word, wordIndex) => (
+              <>
+                {wordIndex > 0 && <span class="site-header__editorial-space">{" "}</span>}
+                <span class="site-header__editorial-word">
+                  {word.map((letter, letterIndex) => (
+                    <>
+                      {letterIndex > 0 && <span class="site-header__editorial-gap" />}
+                      <span class="site-header__editorial-piece">
+                        <span class="site-header__editorial-letter">{letter}</span>
+                      </span>
+                    </>
+                  ))}
+                </span>
+              </>
+            ))}
+          </span>
+        )
+      }
       <div class="site-shell site-header__inner">
         <a class="site-header__brand" href="/">AI Native Product Builder</a>
         <nav class="site-header__nav" aria-label="主导航">

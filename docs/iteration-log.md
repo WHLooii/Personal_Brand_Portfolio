@@ -4,13 +4,296 @@
 
 ## 当前状态摘要
 
-- 当前阶段：Phase 3 内容系统落地推进中；首页已升级为能力驱动个人品牌信息架构，AIPM 能力系统、AI Product Operating Process、方法样本模块与第一个正式 Case Study 详情页展示骨架已完成；全局字体栈已调整为 Apple-first，正文灰色层级已切换为 Apple-ish 冷灰；首页 Typography System、Hero 杂志式姓名背景、方法样本文字结构和卡片视觉层级已精修；Hero 英文名已从暗色导航栏跨界溢出到封面；Hero 重复小徽标和能力标签组已删除；首页关键 section 标题与副标题字号已统一；样本 01 详情页已升级为深色承接、浅色透出和白色内容上浮的过渡型案例详情页；详情页右侧“案例摘要”已修正为顶部原位、滚动后栏内垂直居中的浮动摘要，且 sticky 失效根因已修复
-- 最近完成：CS-006 修复详情页案例摘要 sticky 失效
+- 当前阶段：Phase 3 内容系统落地推进中；首页已升级为能力驱动个人品牌信息架构，AIPM 能力系统、AI Product Operating Process、方法样本模块与第一个正式 Case Study 详情页展示骨架已完成；全局字体栈已调整为 Apple-first，正文灰色层级已切换为 Apple-ish 冷灰；首页 Typography System、Hero 杂志式姓名背景、方法样本文字结构和卡片视觉层级已精修；Hero 英文名已从暗色导航栏跨界溢出到封面；Hero 重复小徽标和能力标签组已删除；首页关键 section 标题与副标题字号已统一；暗色页眉 `HAOLIN WU` 装饰字已改为两个词组和分段画线方案，整条 header 下线不再穿过字母，字母内部不再透出明显横线，线只保留在左右侧、字母间和词间；当前暗色页眉已进一步透明化为覆盖式 header，`HAOLIN WU` 更浅更明显，分段下线更清楚且仍避开字母实体；样本 01 详情页已升级为深色承接、浅色透出和白色内容上浮的过渡型案例详情页；详情页 Hero 主体已在透明 header 后整体下移，返回按钮、标题、元信息卡片和右侧判断链路面板不再被 `HAOLIN WU` 装饰字压住；详情页右侧“案例摘要”已修正为顶部原位、滚动后栏内垂直居中的浮动摘要，且 sticky 失效根因已修复；详情页 Hero 标题已按用户截图反馈改为两行断行和轻微冷蓝紫渐变强调；详情页 Hero 背景左右两侧黑白过渡已进一步加密为 12 段停靠点渐变，且中间泛白光感保持原参数；详情页右侧判断链路面板中的英文 kicker 和编号已统一为 Apple-first 无衬线字体；详情页白色内容壳后方已新增柔化裙边，让白壳顶边和左右边缘参与灰蓝背景融合
+- 详情页背景渐变已按用户确认方案继续细腻化：使用 OKLab 色彩插值、更长向下过渡、密集停靠点和极轻 dither 抗色带；不改字体、不改标题文字渐变、不改变 Hero 中央 `50% 96%` 泛白光。
+- 最近完成：UX-020 详情页 Hero 主体下移避让装饰字
 - 当前阻塞：无内容 schema 阻塞；demo link、GitHub link、截图资产、真实商家反馈和真实商业指标仍为 `TBD`
-- 下一步唯一建议：执行 `prddev-checkpoint`，复核 CS-006 后的项目状态与后续 backlog；若继续开发，先由用户确认下一轮视觉或内容增量。
-- 最后更新：2026-07-09
+- 下一步唯一建议：执行 `prddev-checkpoint`，复核 UX-020 后的项目状态与后续 backlog；若继续开发，先由用户确认下一轮视觉或内容增量。
+- 最后更新：2026-07-10
 
 ## 迭代记录
+
+### 2026-07-10 - UX-020 详情页 Hero 主体下移避让装饰字
+
+- 使用 skill：`prddev-increment`
+- 本轮目标：根据用户截图反馈，只下移 Ecommerce Review Copilot 详情页 Hero 主体内容，避免返回按钮、标题、元信息卡片和右侧判断链路面板被透明 header 下的 `HAOLIN WU` 装饰字压住；顶部 header 和字母样式保持不变。
+- 完成内容：
+  - 调整 `apps/ai-native-product-builder-portfolio/src/layouts/CaseStudyLayout.astro`：桌面端 `.case-detail-hero` 最小高度从 `720px` 增至 `790px`，`.case-hero-inner` 最小高度从 `640px` 增至 `710px`，`padding-block` 从 `86px 180px` 调整为 `132px 190px`。
+  - 同步调整 `980px` 和 `640px` 响应式断点的 Hero 最小高度与上内边距，让窄屏下返回按钮也和装饰字留出空位。
+  - 保持 `apps/ai-native-product-builder-portfolio/src/styles/global.css` 中透明 header、`HAOLIN WU` 字母色、分段下线、品牌和导航文字层级不变。
+- 修改文件：
+  - `apps/ai-native-product-builder-portfolio/src/layouts/CaseStudyLayout.astro`
+  - `docs/backlog.md`
+  - `docs/testing.md`
+  - `docs/iteration-log.md`
+- 验证结果：使用 Codex bundled Node / pnpm 执行 `pnpm run check`、`pnpm run build`、`pnpm run lint` 均通过；`astro check` 结果 0 errors / 0 warnings / 0 hints；`astro build` 生成 `/`、`/projects/`、`/projects/ecommerce-review-copilot/` 3 个静态页面；授权 dev server 于 `http://127.0.0.1:4339/` 检查详情页，1280px 视口下 `HAOLIN WU` 底部约 `72px`，返回按钮 top 约 `133px`，留出约 `61px` 空位，右侧面板 bottom 约 `583px`，白色内容壳 top 约 `646px`；390px 视口下无水平溢出，返回按钮 top 约 `132px`。
+- 未做内容：未修改顶部 header、`HAOLIN WU` 字母样式、导航文案、Hero 文案、详情页背景渐变、内容源、schema、截图资产、真实指标、demo、GitHub、CMS、AI runtime 或其他视觉模块。
+- 遗留问题：主体下移后的最终视觉密度仍属主观判断，需要用户在实际页面上确认是否还要再多或再少一点留白。
+- 下一步建议：执行 `prddev-checkpoint`，或等待用户确认是否继续拆一个更小的视觉细节增量。
+
+### 2026-07-10 - UX-019 暗色页眉透明化与英文名层级微调
+
+- 使用 skill：`prddev-increment`
+- 本轮目标：根据用户确认的截图反馈，只调整首页和 Ecommerce Review Copilot 详情页共享暗色页眉：header 完全透明，保留更清楚的底部分段线；`HAOLIN WU` 更浅、更明显，并继续避免横线穿过字母实体。
+- 完成内容：
+  - 调整 `apps/ai-native-product-builder-portfolio/src/styles/global.css`：将 `.site-header--dark` 从深色背景改为 `position:absolute` 的覆盖式透明 header，让首屏 Hero 背景自然透出。
+  - 将 `--site-header-line-color` 从 `rgba(161, 188, 255, 0.11)` 提升为 `rgba(176, 205, 255, 0.24)`，让 header 下线更明显。
+  - 将 `--editorial-letter-color` 从 `rgb(19, 23, 37)` 提亮为 `rgb(26, 32, 52)`，并把 `--editorial-text-top` 调整为 `2px`，让 `HAOLIN WU` 更早进入 header 顶部区域。
+  - 去掉 dark header 品牌和导航文字背后的半透明背景块与 box-shadow，保留轻微 text-shadow，确保 header 本身完全透明。
+  - 保留 `HAOLIN` / `WU` 两个词组、字母间隔线和词间线；不恢复整条下线穿过字母的方案。
+- 修改文件：
+  - `apps/ai-native-product-builder-portfolio/src/styles/global.css`
+  - `docs/backlog.md`
+  - `docs/testing.md`
+  - `docs/iteration-log.md`
+- 验证结果：使用 Codex bundled Node / pnpm 执行 `pnpm run check`、`pnpm run build`、`pnpm run lint` 均通过；`astro check` 结果 0 errors / 0 warnings / 0 hints；`astro build` 生成 `/`、`/projects/`、`/projects/ecommerce-review-copilot/` 3 个静态页面；构建产物可检索到 dark header 透明、覆盖式定位、增强后的线色和提亮后的字母色；授权 dev server 于 `http://127.0.0.1:4339/` 启动，浏览器检查首页和详情页 1280px / 390px 视口均无水平溢出，顶部截图确认分段线不穿过字母实体。
+- 未做内容：未修改页面文案、导航内容、Hero 正文、详情页背景渐变、内容壳、右侧摘要、Case Study 内容源、schema、截图资产、真实指标、demo、GitHub、CMS、AI runtime 或其他视觉模块。
+- 遗留问题：`HAOLIN WU` 的最终明暗仍属主观视觉判断，需要用户在实际显示器上确认是否还要再浅或再低调。
+- 下一步建议：执行 `prddev-checkpoint`，或等待用户确认是否继续拆一个更小的页眉视觉细节增量。
+
+### 2026-07-10 - CS-014 详情页背景渐变 OKLab 细腻化
+
+- 使用 skill：`prddev-increment`
+- 本轮目标：根据用户确认方案，只优化 Ecommerce Review Copilot 详情页背景从深色到浅色的细腻过渡，使用 OKLab 色彩插值、更长向下过渡、密集停靠点和极轻抗色带；保持原字体和 Hero 中央泛白光感不变。
+- 完成内容：
+  - 调整 `apps/ai-native-product-builder-portfolio/src/layouts/CaseStudyLayout.astro`：降低 `--case-mist-dither` 的可见强度，将 fractal-noise alpha 从 `.026` 降到 `.018`，仅用于打散低对比渐变色带。
+  - 将 `.case-detail-page::before` 页面级雾面带调整为 `top:548px` / `height:840px`，让灰蓝到浅底色的过渡距离向下拉长。
+  - 为页面级雾面带增加更密集的左右径向停靠点和 16 段纵向透明度停靠点，减少从灰蓝到近白之间的阶梯感。
+  - 新增 `@supports (background: linear-gradient(180deg in oklab, #000, #fff))`，在支持浏览器里让页面级雾面带和 Hero 底部左右背景渐变使用 `oklab` 色彩插值。
+  - 保留 Hero 顶部两处彩色 light、中央 `radial-gradient(circle at 50% 96%, rgba(246, 247, 251, 0.34), transparent 36%)` 和 `.case-detail-hero::after` 原参数不变。
+- 修改文件：
+  - `apps/ai-native-product-builder-portfolio/src/layouts/CaseStudyLayout.astro`
+  - `docs/backlog.md`
+  - `docs/testing.md`
+  - `docs/iteration-log.md`
+- 验证结果：使用 Codex bundled Node / pnpm 执行 `pnpm run check`、`pnpm run build`、`pnpm run lint` 均通过；`astro check` 结果 0 errors / 0 warnings / 0 hints；`astro build` 生成 `/`、`/projects/`、`/projects/ecommerce-review-copilot/` 3 个静态页面；授权 preview 于 `http://127.0.0.1:4338/` 启动，授权 HTTP 检查确认 `/projects/ecommerce-review-copilot/` 返回 200 OK。
+- 未做内容：未修改字体、标题文字渐变、页面文案、Hero 中央泛白光、`.case-detail-hero::after` 参数、页眉、内容壳尺寸、正文卡片、右侧摘要、首页、内容源、schema、截图资产、真实指标、demo、GitHub、CMS 或 AI runtime。
+- 遗留问题：渐变细腻度最终仍受浏览器、显示器、亮度和截图压缩影响，需要用户在目标页面上主观确认。
+- 下一步建议：执行 `prddev-checkpoint`，或等待用户确认是否继续拆一个更小的视觉细节增量。
+
+### 2026-07-10 - UX-018 暗色页眉字母内部残留横线彻底隐藏
+
+- 使用 skill：`prddev-increment`
+- 本轮目标：根据用户最新截图反馈，修正 UX-017 后 `HAOLIN WU` 字母内部仍能看到明显横线的问题；保持字母两侧、字母间和词间的横线存在。
+- 问题原因：
+  - UX-017 仍保留过“整条 header 下线 + 遮挡 / 补线”的思路，容易在半透明大字下方留下可见痕迹。
+  - 更关键的是，装饰字使用 `rgba(255,255,255,0.055)` 半透明白色，header 与 Hero 的背景分界会透过字母本身，看起来像字母内部还有一条横线。
+- 完成内容：
+  - 调整 `apps/ai-native-product-builder-portfolio/src/styles/global.css`：关闭 `.site-header--dark::after` 的整条下线绘制，避免线从字母下方经过。
+  - 改由 `.site-header__editorial-name::before` / `::after` 绘制装饰字左侧和右侧的 header 下线段。
+  - 保留 `.site-header__editorial-gap::before` 和 `.site-header__editorial-space::before`，只在字母之间和 `HAOLIN` / `WU` 词间绘制同色 1px 线段。
+  - 将 `.site-header__editorial-letter` 从半透明白色改为等效低对比实色 `rgb(19, 23, 37)`，避免背景分界透过字母形成内部横线。
+  - 左右线段宽度使用 `--editorial-left` 和 `calc(100vw - var(--editorial-left) - 100%)` 收紧到视口内，避免伪元素造成水平滚动。
+- 修改文件：
+  - `apps/ai-native-product-builder-portfolio/src/styles/global.css`
+  - `docs/backlog.md`
+  - `docs/testing.md`
+  - `docs/iteration-log.md`
+- 验证结果：使用 Codex bundled Node / pnpm 执行 `pnpm run check`、`pnpm run build`、`pnpm run lint` 均通过；`astro check` 结果 0 errors / 0 warnings / 0 hints；`astro build` 生成 `/`、`/projects/`、`/projects/ecommerce-review-copilot/` 3 个静态页面；构建产物确认 `.site-header--dark:after{content:none}`、左右线段、字母间 / 词间线段和 `--editorial-letter-color` 生效；授权 preview 于 `http://127.0.0.1:4321/`，Chrome 打开 `/?v=ux018-solid` 和 `/projects/ecommerce-review-copilot/?v=ux018-solid`，确认两页字母内部不再有明显横线。
+- 未做内容：未修改页面布局、Hero 文案、导航内容、案例内容、详情页 Hero 背景、字体体系、schema、截图资产、真实指标、demo、GitHub、CMS 或 AI runtime。
+- 遗留问题：装饰字现在使用低对比实色而非透明白色，能避免背景分界透出；如果后续要微调大字明暗，应只调整 `--editorial-letter-color`，不要恢复半透明文字。
+- 下一步建议：执行 `prddev-checkpoint`，或用户确认后继续拆一个更小的页眉视觉细节增量。
+
+### 2026-07-10 - UX-017 暗色页眉英文名分段线可见修正
+
+- 使用 skill：`prddev-increment`
+- 本轮目标：根据用户反馈，修正 UX-016 在实际页面中视觉变化不明显的问题，让首页和 Ecommerce Review Copilot 详情页左上角 `HAOLIN WU` 明确显示词间距，并让 header 下线真正避开字母实体。
+- 问题原因：
+  - 之前 `0.28em` 词间距没有继承大号装饰字的 `font-size`，实际只按普通正文尺寸计算，所以视觉上几乎看不到空格。
+  - 之前用于遮挡横线的偏移是估算值，未直接锚定到 header 底部，容易没有压到真正的导航下线。
+- 完成内容：
+  - 调整 `apps/ai-native-product-builder-portfolio/src/layouts/BaseLayout.astro`：将装饰字数据从单个字母数组改为 `HAOLIN` / `WU` 两个词组。
+  - 在每个词的字母之间插入 `.site-header__editorial-gap`，在两个词之间插入 `.site-header__editorial-space`，让字母间横线和词间横线由明确节点承载。
+  - 调整 `apps/ai-native-product-builder-portfolio/src/styles/global.css`：将装饰字父级改为继承大号字号的 inline-flex 容器，让 `em` 词间距按 8.75rem 计算。
+  - 将 header 下线遮挡层改为锚定在 `.site-header__editorial-name` 的 `bottom:0`，不再使用估算的 `--editorial-line-offset`。
+  - 字母之间和词间距内用同色 1px 线段补回 header 下线，保持与顶层导航栏下线一致。
+- 修改文件：
+  - `apps/ai-native-product-builder-portfolio/src/layouts/BaseLayout.astro`
+  - `apps/ai-native-product-builder-portfolio/src/styles/global.css`
+  - `docs/backlog.md`
+  - `docs/testing.md`
+  - `docs/iteration-log.md`
+- 验证结果：使用 Codex bundled Node / pnpm 执行 `pnpm run check`、`pnpm run build`、`pnpm run lint` 均通过；`astro check` 结果 0 errors / 0 warnings / 0 hints；`astro build` 生成 `/`、`/projects/`、`/projects/ecommerce-review-copilot/` 3 个静态页面；构建产物确认首页和详情页均包含 `data-name="HAOLIN WU"`、2 个 `.site-header__editorial-word`、6 个 `.site-header__editorial-gap` 和 1 个真实 `.site-header__editorial-space`；授权 preview 于 `http://127.0.0.1:4337/`，Chrome 打开 `/?v=ux017-home` 和 `/projects/ecommerce-review-copilot/`，确认两页左上角 `HAOLIN WU` 词间距可见，横线对齐 header 底部。
+- 未做内容：未修改页面布局、Hero 文案、导航内容、案例内容、详情页 Hero 背景、字体体系、schema、截图资产、真实指标、demo、GitHub、CMS 或 AI runtime。
+- 遗留问题：当前横线颜色仍与原 header 下线一致，属于低透明细线；如果后续需要更明显的视觉效果，应由用户确认是否允许提高该线透明度。
+- 下一步建议：执行 `prddev-checkpoint`，或用户确认后继续拆一个更小的页眉视觉细节增量。
+
+### 2026-07-09 - CS-013 详情页内容壳边缘融合柔化
+
+- 使用 skill：`prddev-increment`
+- 本轮目标：根据用户反馈，在背景渐变和抗色带处理仍显得不够自然时，换用“内容壳边缘参与融合”的方式，让 Ecommerce Review Copilot 详情页白色内容壳和两侧灰蓝背景之间不再像硬贴合。
+- 完成内容：
+  - 调整 `apps/ai-native-product-builder-portfolio/src/layouts/CaseStudyLayout.astro`：为 `.case-content-shell` 增加 `isolation:isolate` 和 `overflow:visible`。
+  - 新增 `.case-content-shell::before`，放在内容壳后方，使用大面积低透明白雾和侧向浅灰雾构成柔化裙边。
+  - 柔边层从内容壳顶边向外扩散，桌面端为 `height:320px` / `filter:blur(34px)` / `opacity:0.9`，用于让白色内容壳顶边和左右边缘自然融入灰蓝背景。
+  - 为 `max-width:980px` 移动端缩小柔边为 `height:230px` / `filter:blur(28px)`，避免小屏过曝。
+  - 保留原中间 `radial-gradient(circle at 50% 96%, rgba(246, 247, 251, 0.34), transparent 36%)` 不变。
+  - 保留 `.case-detail-hero::after` 的 `bottom:-170px`、`width:min(980px, 86vw)`、`height:340px`、`background:rgba(246, 247, 251, 0.78)`、`blur(58px)` 和 `opacity:0.72` 不变。
+- 修改文件：
+  - `apps/ai-native-product-builder-portfolio/src/layouts/CaseStudyLayout.astro`
+  - `docs/backlog.md`
+  - `docs/testing.md`
+  - `docs/iteration-log.md`
+- 验证结果：使用 Codex bundled Node / pnpm 执行 `pnpm run check`、`pnpm run build`、`pnpm run lint` 均通过；`astro check` 结果 0 errors / 0 warnings / 0 hints；`astro build` 生成 `/`、`/projects/`、`/projects/ecommerce-review-copilot/` 3 个静态页面；授权 HTTP 检查确认 `http://127.0.0.1:4336/projects/ecommerce-review-copilot/` 返回 200 OK；浏览器检查确认 `.case-content-shell::before` 为 `blur(34px)`、`opacity:0.9`、`z-index:-1`，内容壳为 `isolation:isolate` 且 `overflow:visible`；中间 `50% 96%` 光感和 `::after` 原参数保持不变。
+- 未做内容：未修改 Hero 顶部渐变、标题文字渐变、页面背景雾面强度、内容壳尺寸 / 圆角 / 卡片、右侧摘要、Case Study 内容源、schema、首页样本区、导航、截图资产、真实指标、demo、GitHub、CMS、AI runtime 或其他视觉模块。
+- 遗留问题：该调整解决的是“壳体边缘与背景融合”问题；最终自然度仍需用户在目标显示器上确认。
+- 下一步建议：执行 `prddev-checkpoint`，或根据用户人工查看后的反馈继续拆一个更小的视觉细节增量。
+
+### 2026-07-09 - CS-012 详情页内容壳两侧渐变抗色带细化
+
+- 使用 skill：`prddev-increment`
+- 本轮目标：根据用户反馈，在明显色块已经消除但细腻度仍不足的基础上，换用低对比长距离渐变叠加极轻 dither 的方式，让 Ecommerce Review Copilot 详情页白色内容壳两侧灰白过渡更自然。
+- 完成内容：
+  - 调整 `apps/ai-native-product-builder-portfolio/src/layouts/CaseStudyLayout.astro`：继续细化 `.case-detail-page::before` 页面级衔接雾面带。
+  - 将衔接带从 `top:604px / height:500px` 调整为 `top:574px / height:660px`，让灰蓝到浅底色的变化距离更长。
+  - 降低左右灰蓝径向层和纵向透明度渐变的峰值透明度，减少局部对比造成的色阶感。
+  - 新增 `--case-mist-dither`，使用极低透明度 SVG `feTurbulence` fractal-noise 作为背景栈最上层，并通过 `background-blend-mode: soft-light` 轻量混合，用于打散浏览器低对比渐变的 banding。
+  - 保留原中间 `radial-gradient(circle at 50% 96%, rgba(246, 247, 251, 0.34), transparent 36%)` 不变。
+  - 保留 `.case-detail-hero::after` 的 `bottom:-170px`、`width:min(980px, 86vw)`、`height:340px`、`background:rgba(246, 247, 251, 0.78)`、`blur(58px)` 和 `opacity:0.72` 不变。
+- 修改文件：
+  - `apps/ai-native-product-builder-portfolio/src/layouts/CaseStudyLayout.astro`
+  - `docs/backlog.md`
+  - `docs/testing.md`
+  - `docs/iteration-log.md`
+- 验证结果：使用 Codex bundled Node / pnpm 执行 `pnpm run check`、`pnpm run build`、`pnpm run lint` 均通过；`astro check` 结果 0 errors / 0 warnings / 0 hints；`astro build` 生成 `/`、`/projects/`、`/projects/ecommerce-review-copilot/` 3 个静态页面；授权 preview 于 `http://127.0.0.1:4336/` 启动，并用授权 HTTP 检查确认 `/projects/ecommerce-review-copilot/` 返回 200 OK；源码与构建产物可检索到 `--case-mist-dither`、`feTurbulence`、`.case-detail-page::before` 的 `top:574px`、`height:660px`、`background-blend-mode:soft-light`；中间 `50% 96%` 光感和 `::after` 原参数保持不变。
+- 未做内容：未修改 Hero 顶部渐变、标题文字渐变、内容壳尺寸 / 圆角 / 卡片、右侧摘要、Case Study 内容源、schema、首页样本区、导航、截图资产、真实指标、demo、GitHub、CMS、AI runtime 或其他视觉模块。
+- 遗留问题：dither 主要用于降低浏览器渐变色带感，实际细腻度仍受显示器、浏览器、截图压缩和亮度设置影响，需要用户在目标显示器上主观确认。
+- 下一步建议：执行 `prddev-checkpoint`，或根据用户人工查看后的反馈继续拆一个更小的视觉细节增量。
+
+### 2026-07-09 - CS-011 详情页内容壳两侧衔接雾面细腻化
+
+- 使用 skill：`prddev-increment`
+- 本轮目标：根据用户反馈，在明显色块已经消除的基础上，继续提高 Ecommerce Review Copilot 详情页白色内容壳两侧灰蓝到浅底色过渡的细腻度。
+- 完成内容：
+  - 调整 `apps/ai-native-product-builder-portfolio/src/layouts/CaseStudyLayout.astro`：继续细化 `.case-detail-page::before` 页面级衔接雾面带。
+  - 将衔接带从 `top:620px / height:420px` 调整为 `top:604px / height:500px`，让过渡距离更长。
+  - 将左右主径向层细化为 `ellipse 48% 74%`，并新增左右次级 `ellipse 58% 82%` 柔化层。
+  - 将纵向透明度渐变从较少停靠点加密为 10 段，降低灰蓝、浅灰和近白之间的跳变感。
+  - 保留原中间 `radial-gradient(circle at 50% 96%, rgba(246, 247, 251, 0.34), transparent 36%)` 不变。
+  - 保留 `.case-detail-hero::after` 的 `bottom:-170px`、`width:min(980px, 86vw)`、`height:340px`、`background:rgba(246, 247, 251, 0.78)`、`blur(58px)` 和 `opacity:0.72` 不变。
+- 修改文件：
+  - `apps/ai-native-product-builder-portfolio/src/layouts/CaseStudyLayout.astro`
+  - `docs/backlog.md`
+  - `docs/testing.md`
+  - `docs/iteration-log.md`
+- 验证结果：使用 Codex bundled Node / pnpm 执行 `pnpm run check`、`pnpm run build`、`pnpm run lint` 均通过；`astro check` 结果 0 errors / 0 warnings / 0 hints；`astro build` 生成 `/`、`/projects/`、`/projects/ecommerce-review-copilot/` 3 个静态页面；授权 HTTP 检查确认 `http://127.0.0.1:4334/projects/ecommerce-review-copilot/` 返回 200 OK；源码与构建产物可检索到 `.case-detail-page::before` 的 `top:604px`、`height:500px`、左右 `ellipse 48% 74%` / `ellipse 58% 82%` 和 10 段纵向渐变；中间 `50% 96%` 光感和 `::after` 原参数保持不变。
+- 未做内容：未修改 Hero 顶部渐变、标题文字渐变、内容壳尺寸 / 圆角 / 卡片、右侧摘要、Case Study 内容源、schema、首页样本区、导航、截图资产、真实指标、demo、GitHub、CMS、AI runtime 或其他视觉模块。
+- 遗留问题：本轮未完成截图级浏览器视觉 QA；衔接细腻度仍需要用户在实际显示器上做主观确认。
+- 下一步建议：执行 `prddev-checkpoint`，或根据用户人工查看后的反馈继续拆一个更小的视觉细节增量。
+
+### 2026-07-09 - UX-016 暗色页眉英文名横线避让字母
+
+- 使用 skill：`prddev-increment`
+- 本轮目标：根据用户截图反馈，修正首页和 Ecommerce Review Copilot 详情页左上角 `HAOLIN WU` 装饰字被导航下线贯穿的问题；同时保持字母停留在原左上位置，不向右扩散。
+- 完成内容：
+  - 调整 `apps/ai-native-product-builder-portfolio/src/layouts/BaseLayout.astro`：将暗色页眉装饰字拆为紧凑单字母节点，并把词间距保留为真实空格节点，整体文案仍是 `HAOLIN WU`。
+  - 调整 `apps/ai-native-product-builder-portfolio/src/styles/global.css`：恢复暗色页眉 `::after` 作为 header 底部导航下线；通过每个字母内部的遮挡带盖住下线穿过字母的部分，让线只在左右两侧、字母自然间隙和词间距中露出。
+  - 同步移动端遮挡带位置，避免移动端下线穿过字母内部。
+- 修改文件：
+  - `apps/ai-native-product-builder-portfolio/src/layouts/BaseLayout.astro`
+  - `apps/ai-native-product-builder-portfolio/src/styles/global.css`
+  - `docs/backlog.md`
+  - `docs/testing.md`
+  - `docs/iteration-log.md`
+- 验证结果：使用 Codex bundled Node / pnpm 执行 `pnpm run check`、`pnpm run build`、`pnpm run lint` 均通过；`astro check` 结果 0 errors / 0 warnings / 0 hints；`astro build` 生成 `/`、`/projects/`、`/projects/ecommerce-review-copilot/` 3 个静态页面；授权 preview 于 `http://127.0.0.1:4335/` 检查首页和 `/projects/ecommerce-review-copilot/`，两页 `HAOLIN WU` 左上位置均为 `40px`、宽度约 `773px`、最大字母间距约 `6.48px`，导航下线 `::after` 位于 header `bottom:0`；构建产物确认 `.site-header__editorial-space` 内保留真实空格；浏览器 error logs 为空且无水平溢出。
+- 未做内容：未修改页面布局、Hero 文案、导航内容、案例内容、详情页 Hero 背景、字体体系、schema、截图资产、真实指标、demo、GitHub、CMS 或 AI runtime。
+- 遗留问题：字母遮挡带使用当前暗色页眉背景色；如果未来 header 背景透明度或 Hero 顶部底色大幅变化，需要同步复核遮挡色。
+- 下一步建议：执行 `prddev-checkpoint`，或根据用户人工查看后的反馈继续拆一个更小的视觉细节增量。
+
+### 2026-07-09 - CS-010 详情页内容壳两侧背景衔接柔化
+
+- 使用 skill：`prddev-increment`
+- 本轮目标：根据用户标注，处理 Ecommerce Review Copilot 详情页白色内容壳两侧背景在 Hero 结束处突然变成浅白、形成横向纯白硬界限的问题；保持上方已调好的 Hero 渐变和中间泛白扩散光不变。
+- 完成内容：
+  - 调整 `apps/ai-native-product-builder-portfolio/src/layouts/CaseStudyLayout.astro`：为 `.case-detail-page` 增加页面级 `::before` 衔接雾面带。
+  - 衔接带从 Hero 底部附近开始，用两侧灰蓝径向层和纵向透明度渐变，让外侧背景从灰蓝雾面自然淡出到页面浅底色。
+  - 保留原中间 `radial-gradient(circle at 50% 96%, rgba(246, 247, 251, 0.34), transparent 36%)` 不变。
+  - 保留 `.case-detail-hero::after` 的 `bottom:-170px`、`width:min(980px, 86vw)`、`height:340px`、`background:rgba(246, 247, 251, 0.78)`、`blur(58px)` 和 `opacity:0.72` 不变。
+- 修改文件：
+  - `apps/ai-native-product-builder-portfolio/src/layouts/CaseStudyLayout.astro`
+  - `docs/backlog.md`
+  - `docs/testing.md`
+  - `docs/iteration-log.md`
+- 验证结果：使用 Codex bundled Node / pnpm 执行 `pnpm run check`、`pnpm run build`、`pnpm run lint` 均通过；`astro check` 结果 0 errors / 0 warnings / 0 hints；`astro build` 生成 `/`、`/projects/`、`/projects/ecommerce-review-copilot/` 3 个静态页面；授权 HTTP 检查确认 `http://127.0.0.1:4334/projects/ecommerce-review-copilot/` 返回 200 OK；源码与构建产物可检索到 `.case-detail-page::before`、`top:620px`、两侧 `ellipse 42% 68%` 衔接层，中间 `50% 96%` 光感和 `::after` 原参数保持不变。
+- 未做内容：未修改 Hero 顶部渐变、标题文字渐变、内容壳尺寸 / 圆角 / 卡片、右侧摘要、Case Study 内容源、schema、首页样本区、导航、截图资产、真实指标、demo、GitHub、CMS、AI runtime 或其他视觉模块。
+- 遗留问题：本轮未完成截图级浏览器视觉 QA；该问题仍以实际显示器上的主观视觉确认最准确。
+- 下一步建议：执行 `prddev-checkpoint`，或根据用户人工查看后的反馈继续拆一个更小的视觉细节增量。
+
+### 2026-07-09 - UX-015 详情页判断链路面板 Apple-first 字体统一
+
+- 使用 skill：`prddev-increment`
+- 本轮目标：根据用户截图反馈，选择方案一，让详情页 Hero 右侧判断链路面板中的 `AIPM Judgment Chain` 与 `Problem / Judgment / Workflow / Prototype / Evaluation` 使用同一 Apple-first 无衬线字体气质。
+- 完成内容：
+  - 调整 `apps/ai-native-product-builder-portfolio/src/layouts/CaseStudyLayout.astro`：将 `.case-panel-kicker` 所在 kicker 组的 `font-family` 从 `var(--font-mono)` 改为 `var(--font-sans)`。
+  - 将 `.case-chain-list span` 中的 01-05 编号从 `var(--font-mono)` 改为 `var(--font-sans)`，并补充 `font-weight: 700`，让编号仍有清晰层级。
+  - 保留项目既有 Apple-first 字体栈，不接入外部 SF Pro 字体文件。
+- 修改文件：
+  - `apps/ai-native-product-builder-portfolio/src/layouts/CaseStudyLayout.astro`
+  - `docs/backlog.md`
+  - `docs/testing.md`
+  - `docs/iteration-log.md`
+- 验证结果：使用 Codex bundled Node / pnpm 执行 `pnpm run check`、`pnpm run build`、`pnpm run lint` 均通过；`astro check` 结果 0 errors / 0 warnings / 0 hints；`astro build` 生成 `/`、`/projects/`、`/projects/ecommerce-review-copilot/` 3 个静态页面；源码和构建产物检索确认 `.case-panel-kicker` 与 `.case-chain-list span` 使用 `font-family: var(--font-sans)`，且 `AIPM Judgment Chain` 仍存在。
+- 未做内容：未修改 Hero 背景、标题、右侧列表内容、正文结构、首页、内容源、schema、截图资产、真实指标、demo、GitHub、CMS、AI runtime 或其他视觉模块。
+- 遗留问题：本轮未启动浏览器截图级 QA；变更为局部字体栈调整，建议用户在实际页面上确认主观观感。
+- 下一步建议：执行 `prddev-checkpoint`，或根据用户人工查看后的反馈继续拆一个更小的视觉细节增量。
+
+### 2026-07-09 - CS-009 详情页 Hero 背景渐变停靠点加密
+
+- 使用 skill：`prddev-increment`
+- 本轮目标：根据用户反馈，继续弱化 Ecommerce Review Copilot 详情页 Hero 背景左右两侧黑白过渡的色彩分层，让深色到浅色的变化更细腻、舒适；中间泛白光感保持原位置、原强度和原扩散范围。
+- 完成内容：
+  - 调整 `apps/ai-native-product-builder-portfolio/src/layouts/CaseStudyLayout.astro`：将 `.case-detail-hero` 背景栈中左右底部径向过渡层从较粗停靠点扩展为 `ellipse 82% 58%` 的 12 段渐变。
+  - 左右侧过渡使用更小透明度步进，从浅白到深蓝黑逐层衰减，减少红框区域两侧的明显色带感。
+  - 保留原中间 `radial-gradient(circle at 50% 96%, rgba(246, 247, 251, 0.34), transparent 36%)` 不变。
+  - 保留 `.case-detail-hero::after` 的 `bottom:-170px`、`width:min(980px, 86vw)`、`height:340px`、`background:rgba(246, 247, 251, 0.78)`、`blur(58px)` 和 `opacity:0.72` 不变。
+- 修改文件：
+  - `apps/ai-native-product-builder-portfolio/src/layouts/CaseStudyLayout.astro`
+  - `docs/backlog.md`
+  - `docs/testing.md`
+  - `docs/iteration-log.md`
+- 验证结果：使用 Codex bundled Node / pnpm 执行 `pnpm run check`、`pnpm run build`、`pnpm run lint` 均通过；`astro check` 结果 0 errors / 0 warnings / 0 hints；`astro build` 生成 `/`、`/projects/`、`/projects/ecommerce-review-copilot/` 3 个静态页面；授权启动 Astro preview 于 `http://127.0.0.1:4334/`，并用授权 HTTP 检查确认 `/projects/ecommerce-review-copilot/` 返回 200 OK；源码与构建产物可检索到左右 `ellipse 82% 58%` / 12 段停靠点渐变，中间 `50% 96%` 光感和 `::after` 原参数保持不变。
+- 未做内容：未修改标题文字渐变、Case Study 内容源、schema、首页样本区、右侧摘要、正文结构、导航、截图资产、真实指标、demo、GitHub、CMS、AI runtime 或其他视觉模块。
+- 遗留问题：渐变细腻度仍建议用户在实际显示器上做主观确认，因为屏幕色彩、浏览器抗锯齿和截图压缩都会影响色带感观感。
+- 下一步建议：执行 `prddev-checkpoint`，或根据用户人工查看后的反馈继续拆一个更小的视觉细节增量。
+
+### 2026-07-09 - CS-008 详情页 Hero 背景左右过渡细腻化
+
+- 使用 skill：`prddev-increment`
+- 本轮目标：根据用户澄清，只优化 Ecommerce Review Copilot 详情页 Hero 背景左右两侧从深色到浅色的黑白过渡，减少明显色彩分层；中间泛白光感保持原位置、原强度和原扩散范围。
+- 完成内容：
+  - 调整 `apps/ai-native-product-builder-portfolio/src/layouts/CaseStudyLayout.astro`：在 `.case-detail-hero` 背景栈中新增左右底部低透明度径向过渡层。
+  - 保留原中间 `radial-gradient(circle at 50% 96%, rgba(246, 247, 251, 0.34), transparent 36%)` 不变。
+  - 保留 `.case-detail-hero::after` 的 `bottom:-170px`、`width:min(980px, 86vw)`、`height:340px`、`background:rgba(246, 247, 251, 0.78)`、`blur(58px)` 和 `opacity:0.72` 不变。
+  - 未新增内容壳顶部光效，避免改变红框上方中间光感。
+- 修改文件：
+  - `apps/ai-native-product-builder-portfolio/src/layouts/CaseStudyLayout.astro`
+  - `docs/backlog.md`
+  - `docs/testing.md`
+  - `docs/iteration-log.md`
+- 验证结果：使用 Codex bundled Node / pnpm 执行 `pnpm run check`、`pnpm run build`、`pnpm run lint` 均通过；`astro check` 结果 0 errors / 0 warnings / 0 hints；`astro build` 生成 `/`、`/projects/`、`/projects/ecommerce-review-copilot/` 3 个静态页面；授权启动 Astro preview 于 `http://127.0.0.1:4333/`，并在浏览器打开 `/projects/ecommerce-review-copilot/`；浏览器 1280x720 检查确认左右侧背景层已生效，中间泛白光和 `::after` 原参数保持不变，页面无水平溢出；滚动到过渡区域后截图确认白色内容壳位置未改变。
+- 未做内容：未修改标题文字渐变、Case Study 内容源、schema、首页样本区、右侧摘要、正文结构、导航、截图资产、真实指标、demo、GitHub、CMS、AI runtime 或其他视觉模块。
+- 遗留问题：渐变细腻度仍建议用户在实际显示器上做主观确认，因为屏幕色彩和浏览器抗锯齿会影响色带感观感。
+- 下一步建议：执行 `prddev-checkpoint`，或根据用户人工查看后的反馈继续拆一个更小的视觉细节增量。
+
+### 2026-07-09 - CS-007 详情页 Hero 标题断行与强调
+
+- 使用 skill：`prddev-increment`
+- 本轮目标：根据用户截图反馈，将 Ecommerce Review Copilot 详情页 Hero 标题从不自然的“运营决 / 策 AI Copilot”断行改为“电商评论洞察与运营 / 决策 AI Copilot”，并让第二行略小、带轻微冷蓝紫渐变。
+- 完成内容：
+  - 调整 `apps/ai-native-product-builder-portfolio/src/layouts/CaseStudyLayout.astro`：新增 Hero 标题格式化逻辑，仅在当前案例标题为 `电商评论洞察与运营决策 AI Copilot` 时拆成两行展示。
+  - 将第一行渲染为 `电商评论洞察与运营`，第二行渲染为 `决策 AI Copilot`，避免“决策”两个字被拆开。
+  - 为第二行新增 `.case-hero-title__line--accent` 样式，使用 `#f7f9ff -> #bfeeff -> #c8b7ff` 的克制冷色渐变，并将第二行字号设为略小。
+  - 增加移动端 split title 字号规则，降低窄屏水平溢出风险。
+  - 同步 `docs/backlog.md` 和 `docs/testing.md`，记录本轮视觉微增量与验证结果。
+- 修改文件：
+  - `apps/ai-native-product-builder-portfolio/src/layouts/CaseStudyLayout.astro`
+  - `docs/backlog.md`
+  - `docs/testing.md`
+  - `docs/iteration-log.md`
+- 验证结果：使用 Codex bundled Node / pnpm 执行 `pnpm run check`、`pnpm run build`、`pnpm run lint` 均通过；`astro check` 结果 0 errors / 0 warnings / 0 hints；`astro build` 生成 `/`、`/projects/`、`/projects/ecommerce-review-copilot/` 3 个静态页面；授权启动 Astro preview 于 `http://127.0.0.1:4331/`，并在授权环境下确认 `/projects/ecommerce-review-copilot/` 返回 200 OK；构建产物可检索到 `case-hero-title--split`、`case-hero-title__line--accent`、`电商评论洞察与运营`、`决策 AI Copilot`、`#bfeeff` 和 `#c8b7ff`。
+- 未做内容：未修改 Case Study 内容源标题、schema、首页方法样本区、右侧摘要、详情正文结构、导航、截图资产、真实指标、demo、GitHub、CMS、AI runtime 或其他视觉模块。
+- 遗留问题：本轮尝试 Playwright 浏览器级测量，但当前环境缺少 Playwright Chromium executable；改用系统 Chrome channel 时浏览器进程启动后异常退出，未完成自动 bounding box 测量。建议用户在本地 preview 中做一次人工视觉确认。
+- 下一步建议：执行 `prddev-checkpoint`，或根据用户人工查看后的反馈继续拆一个更小的标题视觉细节增量。
 
 ### 2026-07-09 - CS-006 修复详情页案例摘要 sticky 失效
 
