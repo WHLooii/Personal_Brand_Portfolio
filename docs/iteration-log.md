@@ -4,13 +4,57 @@
 
 ## 当前状态摘要
 
-- 当前阶段：Phase 3 内容系统落地推进中；首页已升级为能力驱动个人品牌信息架构，AIPM 能力系统、AI Product Operating Process、方法样本模块与第一个正式 Case Study 详情页展示骨架已完成；全局字体栈已调整为 Apple-first，正文灰色层级已切换为 Apple-ish 冷灰
-- 最近完成：UX-010 Apple-first 字体栈与正文冷灰 token 精修
+- 当前阶段：Phase 3 内容系统落地推进中；首页已升级为能力驱动个人品牌信息架构，AIPM 能力系统、AI Product Operating Process、方法样本模块与第一个正式 Case Study 详情页展示骨架已完成；全局字体栈已调整为 Apple-first，正文灰色层级已切换为 Apple-ish 冷灰；首页 Typography System、Hero 杂志式姓名背景、方法样本文字结构和卡片视觉层级已精修；Hero 英文名已从暗色导航栏跨界溢出到封面
+- 最近完成：UX-012 Hero 英文名跨导航溢出微调
 - 当前阻塞：无内容 schema 阻塞；demo link、GitHub link、截图资产、真实商家反馈和真实商业指标仍为 `TBD`
 - 下一步唯一建议：执行 `prddev-increment` 的 `CS-004`，优化样本 01 详情页拆解过程表达
 - 最后更新：2026-07-09
 
 ## 迭代记录
+
+### 2026-07-09 - UX-012 Hero 英文名跨导航溢出微调
+
+- 使用 skill：`prddev-increment`
+- 本轮目标：根据用户反馈，让封面左上角 `HAOLIN WU` 的上半部分进入顶行导航区域，形成半透明溢出感，同时不影响 `AI Native Product Builder` 和导航文案阅读。
+- 完成内容：
+  - 调整 `apps/ai-native-product-builder-portfolio/src/layouts/BaseLayout.astro`：将 `HAOLIN WU` 从 Hero 内部移动到暗色 header 的装饰层，只在 `headerVariant="dark"` 时渲染。
+  - 调整 `apps/ai-native-product-builder-portfolio/src/pages/index.astro`：移除旧的 Hero 内 `.hero-editorial-name` 节点和对应样式，避免重复显示。
+  - 调整 `apps/ai-native-product-builder-portfolio/src/styles/global.css`：让暗色 header 允许装饰字 overflow；把装饰字置于 header 内容下方并跨过 header 底线进入 Hero；为品牌与导航文字加暗色保护层和 text shadow，让文案处轻微隐藏装饰字。
+  - 同步 `docs/backlog.md` 和 `docs/testing.md`，记录本轮微增量和验证结果。
+- 修改文件：
+  - `apps/ai-native-product-builder-portfolio/src/layouts/BaseLayout.astro`
+  - `apps/ai-native-product-builder-portfolio/src/pages/index.astro`
+  - `apps/ai-native-product-builder-portfolio/src/styles/global.css`
+  - `docs/backlog.md`
+  - `docs/testing.md`
+  - `docs/iteration-log.md`
+- 验证结果：使用 Codex bundled Node / pnpm 执行 `pnpm run check`、`pnpm run build`、`pnpm run lint` 均通过；`astro check` 结果 0 errors / 0 warnings / 0 hints；`astro build` 生成 `/`、`/projects/`、`/projects/ecommerce-review-copilot/` 3 个静态页面；浏览器桌面 1280px 与移动 390px 检查确认 `HAOLIN WU` 从 header 内开始并跨过 header 底线进入 Hero，`AI Native Product Builder` 仍可见，旧的 `.hero-editorial-name` 不再存在，无水平溢出，浏览器 error logs 为空。
+- 未做内容：未改导航文案、Hero 正文、页面信息架构、动画、方法样本、详情页、其他模块或新增依赖。
+- 遗留问题：本轮只处理封面英文名溢出细节；详情页承接方法样本叙事仍留给 `CS-004`。
+- 下一步建议：执行 `prddev-increment` 的 `CS-004`。
+
+### 2026-07-09 - UX-011 首页 Typography System 与方法样本视觉精修
+
+- 使用 skill：`prddev-increment`
+- 本轮目标：根据用户确认，在不改信息架构、动画、页面切换和复杂视觉元素的前提下，优化首页 Typography System，让首页更像 AI Product Builder Personal Brand，而不是普通 Portfolio Landing Page。
+- 完成内容：
+  - 调整 `apps/ai-native-product-builder-portfolio/src/pages/index.astro`：在 Hero 顶部加入 `HAOLIN WU` 大号半透明杂志式背景字，保持在 Hero 内裁切显示且不影响顶部导航；保留“AI 产品原型构建者”原文案。
+  - 将 Hero 核心句拆成“把业务问题 / 转化为 / 可验证的 AI 产品”三行 Display rhythm，并取消 Hero 字号的 viewport-based clamp，改为固定桌面字号与移动断点。
+  - 将方法样本卡片结构调整为 `Problem Framing` 系统标签、主标题“找到 AI 真正应该解决的问题”、副标题“样本 01：从非结构化评论到运营决策”，保留原有问题、判断、原型方向和能力证明内容。
+  - 调整首页暗色背景为更接近 Deep Navy Black 的层级；统一 Hero、AIPM 能力系统、Operating Process、方法样本和联系卡中的标题宽度、正文行高、正文透明度、section 留白、卡片 border / background / ambient glow。
+  - 同步 `docs/backlog.md` 和 `docs/testing.md`，记录本轮视觉增量与验证结果。
+- 修改文件：
+  - `apps/ai-native-product-builder-portfolio/src/pages/index.astro`
+  - `apps/ai-native-product-builder-portfolio/src/components/HeroAbilitySystem.astro`
+  - `apps/ai-native-product-builder-portfolio/src/components/AIPMCapabilitySystem.astro`
+  - `apps/ai-native-product-builder-portfolio/src/components/ProductOperatingProcess.astro`
+  - `docs/backlog.md`
+  - `docs/testing.md`
+  - `docs/iteration-log.md`
+- 验证结果：使用 Codex bundled Node / pnpm 执行 `pnpm run check`、`pnpm run build`、`pnpm run lint` 均通过；`astro check` 结果 0 errors / 0 warnings / 0 hints；`astro build` 生成 `/`、`/projects/`、`/projects/ecommerce-review-copilot/` 3 个静态页面；源码与构建产物可检索到 `HAOLIN WU`、三行 Hero 核心句、`AI 产品原型构建者`、`Problem Framing` 和“找到 AI 真正应该解决的问题”；构建产物未检索到旧的“样本 01：从非结构化评论到运营决策 Copilot”；授权启动 Astro preview 后，`http://127.0.0.1:4325/` 首页返回 200 OK；浏览器桌面 1280px 和移动 390px 检查无水平溢出，浏览器 error logs 为空。
+- 未做内容：未改页面信息架构；未改动画效果或页面切换效果；未改 Case Study 详情页；未新增第二个案例、复杂视觉元素、3D、icon、runtime content、依赖、demo link、GitHub link、截图资产、真实商家反馈或真实商业指标。
+- 遗留问题：本轮没有继续优化“查看拆解过程”进入的详情页，详情页仍需要 `CS-004` 承接首页方法样本叙事。
+- 下一步建议：执行 `prddev-increment` 的 `CS-004`。
 
 ### 2026-07-09 - UX-010 Apple-first 字体栈与正文冷灰 token 精修
 

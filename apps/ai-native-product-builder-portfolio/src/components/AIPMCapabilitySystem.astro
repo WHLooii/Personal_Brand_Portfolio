@@ -120,11 +120,11 @@ const capabilities = [
     isolation: isolate;
     overflow: hidden;
     min-height: 1180px;
-    padding-block: 140px 128px;
+    padding-block: 152px 136px;
     background:
       radial-gradient(circle at 50% 42%, rgba(91, 140, 255, 0.18), transparent 30%),
       radial-gradient(circle at 20% 28%, rgba(139, 92, 246, 0.12), transparent 32%),
-      linear-gradient(180deg, #07090d 0%, #090d16 56%, #07090d 100%);
+      linear-gradient(180deg, #050816 0%, #080b14 56%, #050816 100%);
     color: #f5f7fa;
   }
 
@@ -153,7 +153,7 @@ const capabilities = [
   }
 
   .capability-system-heading {
-    max-width: 780px;
+    max-width: 900px;
   }
 
   .capability-system-heading h2 {
@@ -162,15 +162,15 @@ const capabilities = [
     color: #f5f7fa;
     font-size: 3rem;
     font-weight: 740;
-    line-height: 1.12;
+    line-height: 1.14;
   }
 
   .capability-system-heading p:not(.eyebrow) {
-    max-width: 720px;
+    max-width: 600px;
     margin: 18px 0 0;
-    color: rgba(218, 228, 244, 0.68);
+    color: rgba(255, 255, 255, 0.65);
     font-size: 1rem;
-    line-height: 1.82;
+    line-height: 1.86;
   }
 
   .capability-orbit {
@@ -225,7 +225,7 @@ const capabilities = [
     padding: 34px;
     background:
       linear-gradient(145deg, rgba(17, 35, 65, 0.72), rgba(49, 37, 95, 0.58)),
-      rgba(255, 255, 255, 0.06);
+      rgba(255, 255, 255, 0.04);
     box-shadow:
       0 0 80px rgba(91, 140, 255, 0.22),
       0 26px 80px rgba(0, 0, 0, 0.32),
@@ -251,7 +251,7 @@ const capabilities = [
 
   .capability-core p {
     margin: 0;
-    color: rgba(218, 228, 244, 0.58);
+    color: rgba(255, 255, 255, 0.42);
     font-family: var(--font-mono);
     font-size: 0.72rem;
     line-height: 1.5;
@@ -260,15 +260,16 @@ const capabilities = [
   .capability-node {
     position: absolute;
     width: min(300px, 28vw);
-    border: 1px solid rgba(191, 219, 254, 0.18);
+    border: 1px solid rgba(191, 219, 254, 0.12);
     border-radius: var(--radius-card);
     padding: 26px;
     background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.035)),
-      rgba(9, 15, 34, 0.68);
+      linear-gradient(180deg, rgba(255, 255, 255, 0.052), rgba(255, 255, 255, 0.026)),
+      rgba(255, 255, 255, 0.03);
     box-shadow:
-      0 20px 60px rgba(0, 0, 0, 0.28),
-      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      0 24px 68px rgba(0, 0, 0, 0.22),
+      0 18px 56px rgba(91, 140, 255, 0.06),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
     backdrop-filter: blur(18px);
     transition:
       transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
@@ -315,9 +316,9 @@ const capabilities = [
 
   .capability-node__description {
     margin: 14px 0 0;
-    color: rgba(218, 228, 244, 0.64);
+    color: rgba(255, 255, 255, 0.62);
     font-size: 0.92rem;
-    line-height: 1.72;
+    line-height: 1.78;
   }
 
   .capability-node__io {
@@ -345,7 +346,7 @@ const capabilities = [
     border: 1px solid rgba(191, 219, 254, 0.14);
     border-radius: var(--radius-card);
     padding: 10px;
-    background: rgba(255, 255, 255, 0.035);
+    background: rgba(255, 255, 255, 0.03);
   }
 
   .capability-node__io span,

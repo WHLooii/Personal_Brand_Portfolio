@@ -46,8 +46,9 @@ const methodCapabilities = [
           <span>AI 产品原型构建者</span>
         </div>
         <p class="hero-statement">
-          把业务问题转化为
-          <span>可验证的 AI 产品。</span>
+          <span>把业务问题</span>
+          <span>转化为</span>
+          <span class="hero-statement__accent">可验证的 AI 产品</span>
         </p>
         <p class="hero-subtitle">
           我关注的不是“做了多少项目”，而是如何发现值得 AI 化的产品机会，设计可控的 AI Workflow，并用 MVP 快速验证。
@@ -83,7 +84,9 @@ const methodCapabilities = [
           <p class="method-sample-stage">
             当前验证阶段：V0.1 方法样本，重点验证产品判断链路、交互闭环与评估方法。
           </p>
-          <h3>样本 01：从非结构化评论到运营决策 Copilot</h3>
+          <p class="method-sample-system-label">Problem Framing</p>
+          <h3>找到 AI 真正应该解决的问题</h3>
+          <p class="method-sample-subtitle">样本 01：从非结构化评论到运营决策</p>
 
           <div class="method-sample-blocks">
             <div class="method-sample-block">
@@ -155,7 +158,7 @@ const methodCapabilities = [
     background:
       radial-gradient(circle at 76% 32%, rgba(91, 140, 255, 0.2), transparent 29%),
       radial-gradient(circle at 92% 62%, rgba(139, 92, 246, 0.14), transparent 34%),
-      linear-gradient(135deg, #05070e 0%, #071426 45%, #11152e 100%);
+      linear-gradient(135deg, #050816 0%, #07111f 47%, #10142b 100%);
     color: rgba(247, 250, 255, 0.96);
   }
 
@@ -188,9 +191,11 @@ const methodCapabilities = [
   }
 
   .hero-grid {
+    position: relative;
+    z-index: 1;
     display: grid;
     grid-template-columns: minmax(0, 1.08fr) minmax(420px, 0.92fr);
-    gap: 64px;
+    gap: 72px;
     align-items: center;
   }
 
@@ -209,22 +214,23 @@ const methodCapabilities = [
     font-family: var(--font-mono);
     font-size: 0.74rem;
     font-weight: 680;
+    line-height: 1.45;
   }
 
   .hero-name {
     margin: 0;
     color: rgba(248, 251, 255, 0.98);
-    font-size: clamp(64px, 6.5vw, 80px);
+    font-size: 4rem;
     font-weight: 760;
-    line-height: 1.02;
+    line-height: 1;
   }
 
   .hero-position {
     display: grid;
     gap: 6px;
     margin-top: 18px;
-    color: rgba(218, 228, 244, 0.72);
-    font-size: clamp(22px, 2.1vw, 28px);
+    color: rgba(191, 238, 255, 0.86);
+    font-size: 1.375rem;
     font-weight: 620;
     line-height: 1.25;
   }
@@ -236,17 +242,20 @@ const methodCapabilities = [
   }
 
   .hero-statement {
-    max-width: 600px;
-    margin: 30px 0 0;
+    max-width: 720px;
+    margin: 34px 0 0;
     color: rgba(245, 247, 250, 0.94);
-    font-size: clamp(32px, 3vw, 38px);
+    font-size: 3.25rem;
     font-weight: 720;
-    line-height: 1.2;
+    line-height: 1.03;
   }
 
   .hero-statement span {
     display: block;
     width: fit-content;
+  }
+
+  .hero-statement__accent {
     background: linear-gradient(90deg, #c7f7ff 0%, #8fb8ff 48%, #a98cff 100%);
     background-clip: text;
     color: transparent;
@@ -256,11 +265,11 @@ const methodCapabilities = [
   }
 
   .hero-subtitle {
-    max-width: 640px;
-    margin: 18px 0 0;
-    color: rgba(219, 231, 249, 0.68);
-    font-size: 1.04rem;
-    line-height: 1.82;
+    max-width: 600px;
+    margin: 22px 0 0;
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 1.02rem;
+    line-height: 1.86;
   }
 
   .hero-keywords {
@@ -279,7 +288,7 @@ const methodCapabilities = [
     border-radius: var(--radius-card);
     padding: 7px 10px;
     background: rgba(255, 255, 255, 0.04);
-    color: rgba(218, 228, 244, 0.72);
+    color: rgba(255, 255, 255, 0.62);
     font-size: 0.82rem;
     font-weight: 620;
     line-height: 1.25;
@@ -334,10 +343,10 @@ const methodCapabilities = [
   .method-sample-section {
     position: relative;
     overflow: hidden;
-    padding-block: 128px;
+    padding-block: 144px;
     background:
       radial-gradient(circle at 15% 16%, rgba(139, 92, 246, 0.1), transparent 30%),
-      linear-gradient(180deg, #0a0d14 0%, #07090d 100%);
+      linear-gradient(180deg, #080b12 0%, #050816 100%);
     color: #f5f7fa;
   }
 
@@ -351,44 +360,58 @@ const methodCapabilities = [
   }
 
   .method-sample-heading {
-    max-width: 880px;
-    margin-bottom: 34px;
+    max-width: 900px;
+    margin-bottom: 42px;
   }
 
   .method-sample-heading h2 {
     margin: 12px 0 0;
     color: #f5f7fa;
-    font-size: 2.28rem;
+    font-size: 2.875rem;
     font-weight: 720;
-    line-height: 1.18;
+    line-height: 1.14;
   }
 
   .method-sample-heading p:not(.eyebrow) {
-    max-width: 800px;
+    max-width: 600px;
     margin: 14px 0 0;
-    color: rgba(218, 228, 244, 0.66);
+    color: rgba(255, 255, 255, 0.65);
     font-size: 1rem;
-    line-height: 1.8;
+    line-height: 1.86;
   }
 
   .method-sample-card {
+    position: relative;
     display: grid;
     overflow: hidden;
     grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.78fr);
-    border: 1px solid rgba(191, 219, 254, 0.16);
+    border: 1px solid rgba(191, 219, 254, 0.12);
     border-radius: var(--radius-card);
     background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.032)),
-      rgba(9, 15, 34, 0.72);
+      linear-gradient(180deg, rgba(255, 255, 255, 0.052), rgba(255, 255, 255, 0.026)),
+      rgba(255, 255, 255, 0.03);
     box-shadow:
-      0 28px 80px rgba(0, 0, 0, 0.28),
-      inset 0 1px 0 rgba(255, 255, 255, 0.07);
+      0 36px 92px rgba(0, 0, 0, 0.24),
+      0 28px 80px rgba(91, 140, 255, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
     backdrop-filter: blur(18px);
+  }
+
+  .method-sample-card::after {
+    position: absolute;
+    inset-inline: 12%;
+    bottom: -34px;
+    height: 72px;
+    content: "";
+    background: radial-gradient(ellipse at center, rgba(132, 105, 255, 0.2), transparent 68%);
+    pointer-events: none;
   }
 
   .method-sample-card__main,
   .method-sample-proof {
-    padding: 36px;
+    position: relative;
+    z-index: 1;
+    padding: 44px;
   }
 
   .method-sample-stage {
@@ -398,23 +421,42 @@ const methodCapabilities = [
     border-radius: var(--radius-card);
     padding: 8px 11px;
     background: rgba(91, 140, 255, 0.08);
-    color: rgba(191, 238, 255, 0.76);
+    color: rgba(255, 255, 255, 0.42);
     font-size: 0.82rem;
     font-weight: 650;
     line-height: 1.5;
   }
 
+  .method-sample-system-label {
+    margin: 0 0 16px;
+    color: rgba(191, 238, 255, 0.88);
+    font-family: var(--font-mono);
+    font-size: 0.86rem;
+    font-weight: 700;
+    line-height: 1.45;
+    text-transform: uppercase;
+  }
+
   .method-sample-card h3 {
-    max-width: 720px;
+    max-width: 620px;
     margin: 0;
     color: #f5f7fa;
-    font-size: 2rem;
+    font-size: 2.45rem;
     font-weight: 720;
-    line-height: 1.18;
+    line-height: 1.12;
+  }
+
+  .method-sample-subtitle {
+    max-width: 560px;
+    margin: 14px 0 0;
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 1.08rem;
+    font-weight: 600;
+    line-height: 1.62;
   }
 
   .method-sample-blocks {
-    margin-top: 30px;
+    margin-top: 34px;
   }
 
   .method-sample-block {
@@ -433,16 +475,16 @@ const methodCapabilities = [
 
   .method-sample-label {
     margin: 0 0 10px;
-    color: rgba(245, 247, 250, 0.9);
+    color: rgba(255, 255, 255, 0.9);
     font-size: 0.96rem;
     font-weight: 700;
   }
 
   .method-sample-block p:not(.method-sample-label) {
     margin: 0;
-    color: rgba(218, 228, 244, 0.66);
+    color: rgba(255, 255, 255, 0.65);
     font-size: 0.98rem;
-    line-height: 1.82;
+    line-height: 1.86;
   }
 
   .method-workflow {
@@ -461,7 +503,7 @@ const methodCapabilities = [
     border-radius: var(--radius-card);
     padding: 0 10px;
     background: rgba(255, 255, 255, 0.045);
-    color: rgba(245, 247, 250, 0.82);
+    color: rgba(255, 255, 255, 0.78);
     font-size: 0.85rem;
     font-weight: 620;
   }
@@ -474,9 +516,7 @@ const methodCapabilities = [
 
   .method-sample-proof {
     border-left: 1px solid rgba(191, 219, 254, 0.12);
-    background:
-      linear-gradient(180deg, rgba(91, 140, 255, 0.08), rgba(139, 92, 246, 0.025)),
-      rgba(255, 255, 255, 0.025);
+    background: rgba(255, 255, 255, 0.032);
   }
 
   .method-sample-proof h4 {
@@ -498,9 +538,9 @@ const methodCapabilities = [
   .method-sample-proof li {
     position: relative;
     padding-left: 18px;
-    color: rgba(218, 228, 244, 0.66);
+    color: rgba(255, 255, 255, 0.65);
     font-size: 0.94rem;
-    line-height: 1.68;
+    line-height: 1.76;
   }
 
   .method-sample-proof li::before {
@@ -540,7 +580,7 @@ const methodCapabilities = [
 
   .contact-section {
     padding-block: 0 128px;
-    background: #07090d;
+    background: #050816;
     color: #f5f7fa;
   }
 
@@ -600,11 +640,12 @@ const methodCapabilities = [
     }
 
     .hero-name {
-      font-size: 54px;
+      font-size: 3.35rem;
     }
 
     .hero-statement {
-      font-size: 31px;
+      font-size: 2.52rem;
+      line-height: 1.05;
     }
 
     .hero-subtitle {
