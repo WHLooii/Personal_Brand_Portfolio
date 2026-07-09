@@ -11,15 +11,6 @@ const methodSampleHref = methodSampleProject
   ? `/projects/${getProjectSlug(methodSampleProject)}/`
   : "/projects/ecommerce-review-copilot/";
 
-const heroKeywords = [
-  "Problem Framing",
-  "AI Judgment",
-  "Workflow Design",
-  "Prototype",
-  "Evaluation",
-  "Iteration"
-];
-
 const methodWorkflow = ["评论输入", "主题聚类", "差评归因", "风险提示", "建议卡片", "人工复盘", "指标评估"];
 
 const methodCapabilities = [
@@ -39,7 +30,6 @@ const methodCapabilities = [
   <section class="hero-section">
     <div class="site-shell hero-grid">
       <div class="hero-copy">
-        <p class="hero-kicker">AI PRODUCT BUILDER</p>
         <h1 class="hero-name">巫浩林</h1>
         <div class="hero-position" aria-label="职业定位">
           <span>AI Product Manager</span>
@@ -53,9 +43,6 @@ const methodCapabilities = [
         <p class="hero-subtitle">
           我关注的不是“做了多少项目”，而是如何发现值得 AI 化的产品机会，设计可控的 AI Workflow，并用 MVP 快速验证。
         </p>
-        <ul class="hero-keywords" aria-label="核心能力关键词">
-          {heroKeywords.map((keyword) => <li>{keyword}</li>)}
-        </ul>
         <div class="hero-actions" aria-label="首页主要操作">
           <a class="hero-cta hero-cta-primary" href="#capabilities">查看能力系统</a>
           <a class="hero-cta hero-cta-secondary" href="#method-sample">查看方法样本</a>
@@ -203,20 +190,6 @@ const methodCapabilities = [
     max-width: 760px;
   }
 
-  .hero-kicker {
-    width: fit-content;
-    margin: 0 0 22px;
-    border: 1px solid rgba(191, 219, 254, 0.18);
-    border-radius: var(--radius-card);
-    padding: 8px 10px;
-    background: rgba(255, 255, 255, 0.045);
-    color: rgba(191, 238, 255, 0.78);
-    font-family: var(--font-mono);
-    font-size: 0.74rem;
-    font-weight: 680;
-    line-height: 1.45;
-  }
-
   .hero-name {
     margin: 0;
     color: rgba(248, 251, 255, 0.98);
@@ -272,33 +245,11 @@ const methodCapabilities = [
     line-height: 1.86;
   }
 
-  .hero-keywords {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    max-width: 760px;
-    margin: 22px 0 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .hero-keywords li {
-    min-height: 32px;
-    border: 1px solid rgba(191, 219, 254, 0.16);
-    border-radius: var(--radius-card);
-    padding: 7px 10px;
-    background: rgba(255, 255, 255, 0.04);
-    color: rgba(255, 255, 255, 0.62);
-    font-size: 0.82rem;
-    font-weight: 620;
-    line-height: 1.25;
-  }
-
   .hero-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
-    margin-top: 24px;
+    margin-top: 32px;
   }
 
   .hero-cta {
@@ -360,21 +311,22 @@ const methodCapabilities = [
   }
 
   .method-sample-heading {
-    max-width: 900px;
+    max-width: 980px;
     margin-bottom: 42px;
   }
 
   .method-sample-heading h2 {
-    margin: 12px 0 0;
+    max-width: 980px;
+    margin: 14px 0 0;
     color: #f5f7fa;
-    font-size: 2.875rem;
-    font-weight: 720;
+    font-size: 2.75rem;
+    font-weight: 740;
     line-height: 1.14;
   }
 
   .method-sample-heading p:not(.eyebrow) {
-    max-width: 600px;
-    margin: 14px 0 0;
+    max-width: 640px;
+    margin: 16px 0 0;
     color: rgba(255, 255, 255, 0.65);
     font-size: 1rem;
     line-height: 1.86;
@@ -666,7 +618,10 @@ const methodCapabilities = [
       padding-block: 76px;
     }
 
-    .method-sample-heading h2,
+    .method-sample-heading h2 {
+      font-size: 1.95rem;
+    }
+
     .method-sample-card h3 {
       font-size: 1.62rem;
     }

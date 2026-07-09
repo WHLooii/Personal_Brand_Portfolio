@@ -4,13 +4,53 @@
 
 ## 当前状态摘要
 
-- 当前阶段：Phase 3 内容系统落地推进中；首页已升级为能力驱动个人品牌信息架构，AIPM 能力系统、AI Product Operating Process、方法样本模块与第一个正式 Case Study 详情页展示骨架已完成；全局字体栈已调整为 Apple-first，正文灰色层级已切换为 Apple-ish 冷灰；首页 Typography System、Hero 杂志式姓名背景、方法样本文字结构和卡片视觉层级已精修；Hero 英文名已从暗色导航栏跨界溢出到封面
-- 最近完成：UX-012 Hero 英文名跨导航溢出微调
+- 当前阶段：Phase 3 内容系统落地推进中；首页已升级为能力驱动个人品牌信息架构，AIPM 能力系统、AI Product Operating Process、方法样本模块与第一个正式 Case Study 详情页展示骨架已完成；全局字体栈已调整为 Apple-first，正文灰色层级已切换为 Apple-ish 冷灰；首页 Typography System、Hero 杂志式姓名背景、方法样本文字结构和卡片视觉层级已精修；Hero 英文名已从暗色导航栏跨界溢出到封面；Hero 重复小徽标和能力标签组已删除；首页关键 section 标题与副标题字号已统一
+- 最近完成：UX-014 首页关键 section 标题与副标题字号统一
 - 当前阻塞：无内容 schema 阻塞；demo link、GitHub link、截图资产、真实商家反馈和真实商业指标仍为 `TBD`
 - 下一步唯一建议：执行 `prddev-increment` 的 `CS-004`，优化样本 01 详情页拆解过程表达
 - 最后更新：2026-07-09
 
 ## 迭代记录
+
+### 2026-07-09 - UX-014 首页关键 section 标题与副标题字号统一
+
+- 使用 skill：`prddev-increment`
+- 本轮目标：根据用户反馈，统一首页 `从业务问题到可验证 AI 产品的能力系统`、`我的 AI Product Operating Process`、`一个样本，展示完整 AIPM 判断链路` 三处关键 section 标题和副标题的字体层级，并确保第一处标题桌面单行显示。
+- 完成内容：
+  - 调整 `apps/ai-native-product-builder-portfolio/src/components/AIPMCapabilitySystem.astro`：将能力系统标题从 48px 收敛到 44px，统一 h2 宽度、字重、行高和副标题宽度；桌面使用 `white-space: nowrap`，窄屏恢复正常换行。
+  - 调整 `apps/ai-native-product-builder-portfolio/src/components/ProductOperatingProcess.astro`：统一 Operating Process 标题容器宽度、副标题宽度和移动端字号。
+  - 调整 `apps/ai-native-product-builder-portfolio/src/pages/index.astro`：统一方法样本模块标题字号、字重、行高、副标题宽度和移动端 h2 字号，避免与前两段层级不一致。
+  - 同步 `docs/backlog.md` 和 `docs/testing.md`，记录本轮视觉一致性增量与验证结果。
+- 修改文件：
+  - `apps/ai-native-product-builder-portfolio/src/components/AIPMCapabilitySystem.astro`
+  - `apps/ai-native-product-builder-portfolio/src/components/ProductOperatingProcess.astro`
+  - `apps/ai-native-product-builder-portfolio/src/pages/index.astro`
+  - `docs/backlog.md`
+  - `docs/testing.md`
+  - `docs/iteration-log.md`
+- 验证结果：使用 Codex bundled Node / pnpm 执行 `pnpm run check`、`pnpm run build`、`pnpm run lint` 均通过；`astro check` 结果 0 errors / 0 warnings / 0 hints；`astro build` 生成 `/`、`/projects/`、`/projects/ecommerce-review-copilot/` 3 个静态页面；授权启动 Astro preview 于 `http://127.0.0.1:4327/`；浏览器 1280px 检查确认三处标题均为 44px / 50.16px / 740，副标题均为 16px / 29.76px，第一处标题单行且无水平溢出；390px 移动端三处标题均为 31.2px / 35.568px / 740，副标题一致，允许正常换行且无水平溢出；浏览器 error logs 为空。
+- 未做内容：未改首页信息架构、Hero、右侧能力系统节点、方法样本卡片内容、详情页、项目内容、动画、配色或新增依赖。
+- 遗留问题：本轮只处理首页三处关键 section heading；`查看拆解过程` 对应详情页仍建议由 `CS-004` 继续优化。
+- 下一步建议：执行 `prddev-increment` 的 `CS-004`。
+
+### 2026-07-09 - UX-013 删除 Hero 重复徽标与能力标签
+
+- 使用 skill：`prddev-increment`
+- 本轮目标：根据用户反馈，删除首页封面中重复表达的 `AI PRODUCT BUILDER` 小徽标和六个能力关键词标签，让首屏更聚焦姓名、定位、核心句、CTA 与右侧能力系统。
+- 完成内容：
+  - 调整 `apps/ai-native-product-builder-portfolio/src/pages/index.astro`：删除 `heroKeywords` 数据、Hero 左侧 `AI PRODUCT BUILDER` 小徽标和六个能力关键词标签。
+  - 删除 `.hero-kicker`、`.hero-keywords` 及其子项样式。
+  - 将 `.hero-actions` 上方间距从 24px 调整为 32px，避免删掉标签后 CTA 与说明文字显得过近。
+  - 同步 `docs/backlog.md` 和 `docs/testing.md`，记录本轮微增量和验证结果。
+- 修改文件：
+  - `apps/ai-native-product-builder-portfolio/src/pages/index.astro`
+  - `docs/backlog.md`
+  - `docs/testing.md`
+  - `docs/iteration-log.md`
+- 验证结果：直接使用绝对路径 `pnpm run check` 时因脚本内 `node: not found` 触发已知本地环境限制；随后使用 Codex bundled Node 写入 PATH 后执行 `pnpm run check`、`pnpm run build`、`pnpm run lint` 均通过；`astro check` 结果 0 errors / 0 warnings / 0 hints；`astro build` 生成 `/`、`/projects/`、`/projects/ecommerce-review-copilot/` 3 个静态页面；源码与构建产物负向检索确认不再包含 `hero-kicker`、`hero-keywords` 和 `AI PRODUCT BUILDER`。
+- 未做内容：未改右侧 Hero 能力系统、页面信息架构、导航、方法样本、详情页、动画、内容数据或新增依赖。
+- 遗留问题：本轮未做截图级视觉 QA；详情页承接方法样本叙事仍留给 `CS-004`。
+- 下一步建议：执行 `prddev-increment` 的 `CS-004`。
 
 ### 2026-07-09 - UX-012 Hero 英文名跨导航溢出微调
 

@@ -45,6 +45,8 @@
 | UX-010 | done | Apple-first 字体栈与正文冷灰 token 精修 | 让项目默认字体更贴近 Apple 系统字体策略，并让原本灰色的正文层级转为 Apple-ish 冷灰 | 仅调整全局 `--font-sans` 为 Apple-first，并补齐非 Apple 设备的系统西文字体 fallback；仅将 `--color-text-primary`、`--color-text-secondary`、`--color-text-muted` 改为冷灰 | 不接入下载的 SF Pro 字体文件；不改背景、卡片、边框、accent、暗色 Hero 特有颜色、页面结构或内容 | bundled Node 环境下 `pnpm run check` / `pnpm run build` / `pnpm run lint` 通过；`tokens.css` 可检索到 `-apple-system`、`SF Pro Text`、`Segoe UI`、`Roboto`、`PingFang SC`、`#1d1d1f`、`#6e6e73` 和 `#86868b` | `UX-009` |
 | UX-011 | done | 首页 Typography System 与方法样本视觉精修 | 将首页从普通 Landing Page 质感进一步收敛为 AI Product Builder Personal Brand，强化字体层级、Hero 杂志式姓名背景、方法样本文字结构和卡片视觉层级 | 在首页 Hero、右侧能力系统、AIPM 能力系统、Operating Process、方法样本卡和联系卡内调整文字层级、暗色背景、正文透明度、section 留白、卡片 border / background / ambient glow；按用户确认新增 `HAOLIN WU` 半透明背景字、三行核心句、`Problem Framing` 标签和“找到 AI 真正应该解决的问题”主标题 | 不改信息架构；不改动画或页面切换；不改详情页；不新增项目、复杂视觉元素、3D、icon、runtime content 或依赖；不把“AI 产品原型构建者”改成英文 | bundled Node 环境下 `pnpm run check` / `pnpm run build` / `pnpm run lint` 通过；本地预览首页返回 200 OK；桌面 1280px 和移动 390px 浏览器检查无水平溢出，浏览器 error logs 为空；构建产物可检索到 `HAOLIN WU`、三行 Hero 核心句、`AI 产品原型构建者`、`Problem Framing` 和“找到 AI 真正应该解决的问题” | `UX-010` |
 | UX-012 | done | Hero 英文名跨导航溢出微调 | 让 `HAOLIN WU` 的上半部分进入暗色导航栏，形成半透明杂志式溢出感，同时不影响 `AI Native Product Builder` 和导航文案阅读 | 将 `HAOLIN WU` 从 Hero 内部移动到暗色 header 装饰层；让装饰字跨过 header 底线进入封面；为品牌和导航文字加暗色保护层；保留首页原文案和布局 | 不改页面信息架构；不改 Hero 正文、导航文案、动画、方法样本、详情页或其他模块；不新增依赖或复杂视觉元素 | bundled Node 环境下 `pnpm run check` / `pnpm run build` / `pnpm run lint` 通过；浏览器桌面 1280px 与移动 390px 检查确认装饰字跨过 header 底线、`AI Native Product Builder` 可见、无水平溢出且 error logs 为空 | `UX-011` |
+| UX-013 | done | 删除 Hero 重复徽标与能力标签 | 根据用户反馈减少首页封面重复表达，让首屏更聚焦姓名、定位、核心句、CTA 和右侧能力系统 | 删除 Hero 左侧 `AI PRODUCT BUILDER` 小徽标、六个能力关键词标签和对应样式；轻微增加 CTA 上方间距 | 不改右侧能力系统；不改页面信息架构、导航、方法样本、详情页、动画或新内容；不新增依赖 | bundled Node 环境下 `pnpm run check` / `pnpm run build` / `pnpm run lint` 通过；源码与构建产物不再检索到 `hero-kicker`、`hero-keywords` 和 `AI PRODUCT BUILDER` | `UX-012` |
+| UX-014 | done | 首页关键 section 标题与副标题字号统一 | 根据用户反馈统一 AIPM 能力系统、AI Product Operating Process、方法样本三处标题和副标题的字体层级，并确保能力系统标题桌面单行显示 | 仅调整三处首页 section heading 的 h2 容器宽度、字号、字重、行高、副标题宽度和移动端字号；能力系统标题桌面使用单行显示，窄屏恢复正常换行 | 不改信息架构；不改 Hero、详情页、项目内容、动画、配色、组件结构或新增依赖 | bundled Node 环境下 `pnpm run check` / `pnpm run build` / `pnpm run lint` 通过；浏览器 1280px 检查三处标题均为 44px / 50.16px / 740，副标题均为 16px / 29.76px，能力系统标题单行且无水平溢出；390px 移动端三处标题均为 31.2px / 35.568px / 740，副标题一致且无水平溢出，error logs 为空 | `UX-013` |
 | CS-004 | todo | 优化样本 01 详情页拆解过程表达 | 让“查看拆解过程”进入的 Ecommerce Review Copilot 详情页更贴近方法拆解，而不是只像传统项目说明页 | 在现有 Case Study Detail 和同一内容源基础上，加强样本 01 的 Problem / Product Judgment / AI Workflow / Evaluation 导读、锚点和首屏摘要 | 不新增第二个案例；不改变 schema；不编造截图、真实指标、用户反馈或上线证据；不新增 CMS、AI runtime 或真实 LLM | `pnpm run check` / `pnpm run build` / `pnpm run lint` 通过；详情页能更清楚承接首页“查看拆解过程”入口，并突出产品判断链路、Human-in-the-loop 和评估闭环 | `UX-009` |
 | CS-003 | deferred | 创建第二个 Featured Case Study 内容骨架 | 用 TalentSignal AI 验证统一 Case Study schema 和详情页骨架可以复用到第二个重点项目 | 选择 TalentSignal AI，按 `docs/case-study-template-schema.md` 补齐一版内容骨架；允许未确认字段为 `TBD`，但不删除 Product Judgment、AI Workflow、Evaluation、Outcome、Reflection | 不改详情页结构；不新增第三个案例；不编造 demo、GitHub、截图、用户反馈或商业指标；不新增 CMS、AI runtime 或真实 LLM | 未来恢复多 Featured 案例策略后，`pnpm run check` / `pnpm run build` / `pnpm run lint` 通过；Projects 列表出现第二个正式案例；详情页复用 `CS-002` 的完整展示骨架 | `CS-002` |
 
@@ -75,13 +77,15 @@
 | 21 | UX-010 | 已完成；字体栈已改为 Apple-first，原本灰色的正文层级已改为 Apple-ish 冷灰 |
 | 22 | UX-011 | 已完成；首页 Typography System、Hero 杂志式姓名背景、方法样本文字结构和卡片视觉层级已精修 |
 | 23 | UX-012 | 已完成；Hero 英文名已从暗色导航栏跨界溢出到封面，且不影响导航文案阅读 |
-| 24 | CS-004 | 下一步建议；让“查看拆解过程”进入的详情页更贴合方法样本叙事 |
-| 25 | CS-003 | 已延后；当前公开阶段先不增加第二个 Featured 案例，待证据补齐后复核 |
+| 24 | UX-013 | 已完成；首页 Hero 已删除重复小徽标和能力标签组，首屏更聚焦核心定位与右侧能力系统 |
+| 25 | UX-014 | 已完成；首页 AIPM 能力系统、Operating Process 和方法样本三处 section 标题与副标题字号已统一 |
+| 26 | CS-004 | 下一步建议；让“查看拆解过程”进入的详情页更贴合方法样本叙事 |
+| 27 | CS-003 | 已延后；当前公开阶段先不增加第二个 Featured 案例，待证据补齐后复核 |
 
 ## Foundation 后下一步
 
 - 当前下一步唯一建议：执行 `prddev-increment` 的 `CS-004`。
-- 说明：`UX-012` 已完成，Hero 英文名已从暗色导航栏跨界溢出到封面，且不影响导航文案阅读；`UX-011` 已完成，首页 Typography System、Hero 杂志式姓名背景、方法样本文字结构和卡片视觉层级已精修；`UX-010` 已完成，字体栈已改为 Apple-first，原本灰色的正文层级已调整为 Apple-ish 冷灰；`UX-009` 已完成，首页已从项目展示型作品集升级为能力驱动个人品牌首页；`UX-008` 已完成，首页方法样本已保留但后移；`CS-002` 已完成，Ecommerce Review Copilot 的详情页已能展示 Product Judgment、AI Workflow、Product Solution、Evaluation、Outcome 和 Reflection 的主要内容。
+- 说明：`UX-014` 已完成，首页 AIPM 能力系统、Operating Process 和方法样本三处 section 标题与副标题字号已统一，能力系统标题在桌面单行显示；`UX-013` 已完成，首页 Hero 已删除重复小徽标和能力标签组；`UX-012` 已完成，Hero 英文名已从暗色导航栏跨界溢出到封面，且不影响导航文案阅读；`UX-011` 已完成，首页 Typography System、Hero 杂志式姓名背景、方法样本文字结构和卡片视觉层级已精修；`UX-010` 已完成，字体栈已改为 Apple-first，原本灰色的正文层级已调整为 Apple-ish 冷灰；`UX-009` 已完成，首页已从项目展示型作品集升级为能力驱动个人品牌首页；`UX-008` 已完成，首页方法样本已保留但后移；`CS-002` 已完成，Ecommerce Review Copilot 的详情页已能展示 Product Judgment、AI Workflow、Product Solution、Evaluation、Outcome 和 Reflection 的主要内容。
 - 目标：优化 Ecommerce Review Copilot 详情页的“拆解过程”表达，让它更好承接首页“查看拆解过程”按钮，并突出产品判断链路、Human-in-the-loop 与评估闭环。
 - 不做：不新增第二个案例；不改变 schema；不迁移截图资产；不补未确认 demo / GitHub 链接；不新增 CMS、登录、数据库、AI runtime 或复杂 Demo。
 - 前置：`UX-010` 已完成，当前项目已通过 `check` / `build` / `lint`。
