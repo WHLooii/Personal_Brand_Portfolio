@@ -67,6 +67,8 @@
 | CS-015 | done | 详情页内容区两侧纵深网格背景 | 根据用户确认，在 Case Study 正文内容壳左右留白区增加浅色、半透明、非均匀的纵深网格，减少纯白留白的单调感 | 仅在 `CaseStudyLayout` 的 `.case-content-shell` 内新增左右 `case-depth-grid` 装饰层，并微调内容壳浅色背景；使用近 / 远不同间距网格、低透明浅米灰 / 浅青灰底雾和少量透视线；移动端隐藏该装饰 | 不改 Hero、页眉、正文卡片、右侧摘要、内容源、schema、截图资产、真实指标、demo、GitHub、CMS、AI runtime 或其他页面 | bundled Node 环境下 `pnpm run check` / `pnpm run build` / `pnpm run lint` 通过；preview 于 `http://127.0.0.1:4341/projects/ecommerce-review-copilot/` 返回 200 OK；源码与构建产物可检索到 `case-depth-grid--left`、`case-depth-grid--right`、`background-size:32px 32px`、`background-size:68px 68px` 和移动端 `display:none`；可见 Chrome 检查确认左右留白出现浅色纵深网格且正文卡片仍在上层 | `CS-014` |
 | CS-016 | done | 详情页外侧留白纵深网格背景 | 根据用户红框反馈，撤销本轮放在内容壳内部的网格尝试，把深色低透明纵深网格移动到页面最外侧左右留白区，并让外侧网格顶部完全透明 | 仅在 `CaseStudyLayout` 的 article 顶层新增左右 `case-outer-grid` 装饰层；外侧网格使用近 / 远不同间距、斜向透视线、浅米 / 浅青底雾；通过 `--case-outer-grid-start` 让顶部留出完全透明区，并在 `1180px` 以下隐藏 | 不改 Hero、页眉、正文卡片、右侧摘要、内容源、schema、截图资产、真实指标、demo、GitHub、CMS、AI runtime 或其他页面；不在正文和摘要之间铺网格；不让外侧顶部出现线条残影 | bundled Node 环境下 `pnpm run check` / `pnpm run build` / `pnpm run lint` 通过；preview 于 `http://127.0.0.1:4342/projects/ecommerce-review-copilot/?v=outer-grid-clear` 可见检查确认网格位于用户标注的页面外侧留白，外侧顶部保持完全透明，内容壳内部恢复干净白底 | `CS-015` |
 | UX-021 | done | 首页 AIPM 能力系统半圆轮盘 | 根据用户确认，把首页 AIPM Capability System 从六卡静态辐射图改为桌面一屏三卡半圆轮盘，保留中心 `AI Product Builder` 圆圈 | 仅调整 `AIPMCapabilitySystem.astro`：桌面端 section 高度为一屏，能力卡片按 `left / top / right / hidden` 槽位轮换；原生 JS 支持滚轮、触控板横向滑动和左右方向键单步循环；移动端继续六卡纵向列表 | 不改 Hero、构建流程、方法样本、案例详情页、内容源、schema、截图资产、真实指标、demo、GitHub、CMS、AI runtime 或新增依赖 | bundled Node 环境下 `pnpm run check` / `pnpm run build` / `pnpm run lint` 通过；preview 于 `http://127.0.0.1:4344/#capabilities` 浏览器验证桌面 1280x720 初始只显示 `01/02/03`，键盘、滚轮和水平滑动均按单步循环到 `02/03/04`、`03/04/05`、`04/05/06`、`05/06/01`、`06/01/02`；移动 390x844 下 6 张卡恢复 `static` 纵向列表且水平溢出为 0 | `UX-014` |
+| UX-022 | done | 首页前三屏满视口与垂直重心校准 | 让 Hero、AIPM 能力系统和 AI Product Operating Process 在宽桌面端各自完整占满一个视口，消除 Hero 底部露出的下一屏背景，并让主体视觉重心略低于几何中心 | 仅调整首页 Hero、能力系统和构建流程的 section 高度与内容组垂直偏移；宽度不足以容纳五列流程卡时，保留内容自适应；移动端维持自然内容高度 | 不改方法样本与后续区块、导航叠层逻辑、文本内容、能力轮盘交互、案例详情页、内容源、schema、截图资产、真实指标、demo、GitHub、CMS、AI runtime 或新增依赖 | bundled Node 环境下 `pnpm run check` / `pnpm run build` / `pnpm run lint` 通过；浏览器 1440x900 下前三个 section 的 `top` 分别为 `0/900/1800`、高度均为 `900px`、无水平溢出；主体内容中心相对各 section 中线下移约 `18-39px`；移动 390x844 下三段均回退为自然高度且无水平溢出 | `UX-021` |
+| UX-023 | done | 首页前三屏滚动吸附 | 让宽桌面端用户滚动浏览首页前三屏时，靠近页面边界即可自动对齐完整一屏，而无需手动找齐位置 | 仅为首页根节点增加 `y proximity` scroll snap；Hero、AIPM 能力系统与构建流程为吸附目标，方法样本与后续模块不设吸附；移动端与窄桌面端不启用 | 不修改前三屏内容与高度、导航逻辑、能力轮盘交互、方法样本与后续模块、案例详情页、内容源、schema、截图资产、真实指标、demo、GitHub、CMS、AI runtime 或依赖 | bundled Node 环境下 `pnpm run check` / `pnpm run build` / `pnpm run lint` 通过；浏览器 1440x900 下靠近首屏 / 第二屏边界滚动后分别稳定在 `scrollY=900` / `1800`；继续进入方法样本可停在非吸附位置；390x844 下 `scroll-snap-type:none` 且无水平溢出 | `UX-022` |
 | CS-003 | deferred | 创建第二个 Featured Case Study 内容骨架 | 用 TalentSignal AI 验证统一 Case Study schema 和详情页骨架可以复用到第二个重点项目 | 选择 TalentSignal AI，按 `docs/case-study-template-schema.md` 补齐一版内容骨架；允许未确认字段为 `TBD`，但不删除 Product Judgment、AI Workflow、Evaluation、Outcome、Reflection | 不改详情页结构；不新增第三个案例；不编造 demo、GitHub、截图、用户反馈或商业指标；不新增 CMS、AI runtime 或真实 LLM | 未来恢复多 Featured 案例策略后，`pnpm run check` / `pnpm run build` / `pnpm run lint` 通过；Projects 列表出现第二个正式案例；详情页复用 `CS-002` 的完整展示骨架 | `CS-002` |
 
 ## 推荐执行顺序
@@ -118,11 +120,15 @@
 | 43 | CS-015 | 已完成；详情页正文内容壳左右留白区已增加浅色非均匀纵深网格，减少纯白留白单调感 |
 | 44 | CS-016 | 已完成；详情页网格已按用户红框反馈移到页面最外侧左右留白区，外侧顶部完全透明，正文和摘要之间恢复干净 |
 | 45 | UX-021 | 已完成；首页 AIPM 能力系统已改为桌面一屏半圆轮盘，初始只显示 `01/02/03`，滚轮、触控板横向滑动和左右方向键可单步循环，移动端保持纵向列表 |
-| 46 | CS-003 | 已延后；当前公开阶段先不增加第二个 Featured 案例，待证据补齐后复核 |
+| 46 | UX-022 | 已完成；首页前三屏在宽桌面端各自占满一个视口，主体视觉重心轻微下移；窄屏保持内容自适应 |
+| 47 | UX-023 | 已完成；首页前三屏在宽桌面端支持接近边界时自动吸附对齐，方法样本与后续不受影响 |
+| 48 | CS-003 | 已延后；当前公开阶段先不增加第二个 Featured 案例，待证据补齐后复核 |
 
 ## Foundation 后下一步
 
-- 当前下一步唯一建议：执行 `prddev-checkpoint`，复核 UX-021 后的项目状态与后续 backlog；若继续开发，先由用户确认下一轮视觉或内容增量。
+- 当前下一步唯一建议：请用户在目标电脑屏幕体验 UX-023 的滚动吸附力度；如无调整，执行 `prddev-checkpoint` 同步当前首页视觉状态。
+- 本轮说明：`UX-023` 已完成，首页前三屏在宽桌面端采用 `scroll-snap-type: y proximity`，靠近边界时自动对齐完整一屏；方法样本及其后续内容没有 snap target，因此不会被强制拉回第三屏；能力轮盘内部滚轮继续保留其单步切换能力节点的既有逻辑。
+- 本轮说明：`UX-022` 已完成，首页 Hero、AIPM 能力系统和 AI Product Operating Process 在宽桌面端均为完整一屏；Hero 不再扣除绝对定位导航的高度，因此底部不再提前露出下一模块。三个内容组都轻微下移，移动和空间不足的窄屏保持自然高度，避免内容被截断；方法样本及其后续模块未改动。
 - 本轮说明：`UX-021` 已完成，首页 AIPM 能力系统已从六卡静态辐射图改为桌面一屏三卡半圆轮盘；中心 `AI Product Builder` 圆圈保留，初始显示 `01/02/03`，滚轮、触控板横向滑动和左右方向键按单步循环；本轮只调整 `AIPMCapabilitySystem.astro`，不改 Hero、构建流程、方法样本、案例详情页、内容源、schema、截图资产、真实指标、demo、GitHub、CMS 或 AI runtime。
 - 本轮说明：`CS-016` 已完成，Ecommerce Review Copilot 详情页网格已从内容壳内部撤出，改为显示在用户红框标注的页面最外侧左右留白区；根据最新反馈，外侧网格顶部已通过 `--case-outer-grid-start: 840px` 保持完全透明，网格从更下方出现；本轮只新增 article 顶层左右外侧装饰层，不改 Hero、页眉、正文卡片、右侧摘要、内容源、schema、截图资产、真实指标、demo、GitHub、CMS 或 AI runtime。
 - 本轮说明：`CS-015` 已完成，Ecommerce Review Copilot 详情页正文内容壳左右留白区已增加浅色非均匀纵深网格；本轮只新增内容壳内的左右装饰层和浅色底雾，不改 Hero、页眉、正文卡片、右侧摘要、内容源、schema、截图资产、真实指标、demo、GitHub、CMS 或 AI runtime。

@@ -4,14 +4,54 @@
 
 ## 当前状态摘要
 
-- 当前阶段：Phase 3 内容系统落地推进中；首页已升级为能力驱动个人品牌信息架构，AIPM 能力系统、AI Product Operating Process、方法样本模块与第一个正式 Case Study 详情页展示骨架已完成；AIPM 能力系统已改为桌面一屏半圆轮盘，中心 `AI Product Builder` 圆圈保留，初始只显示 `01/02/03`，滚轮、触控板横向滑动和左右方向键可单步循环；全局字体栈已调整为 Apple-first，正文灰色层级已切换为 Apple-ish 冷灰；首页 Typography System、Hero 杂志式姓名背景、方法样本文字结构和卡片视觉层级已精修；Hero 英文名已从暗色导航栏跨界溢出到封面；Hero 重复小徽标和能力标签组已删除；首页关键 section 标题与副标题字号已统一；暗色页眉 `HAOLIN WU` 装饰字已改为两个词组和分段画线方案，整条 header 下线不再穿过字母，字母内部不再透出明显横线，线只保留在左右侧、字母间和词间；当前暗色页眉已进一步透明化为覆盖式 header，`HAOLIN WU` 更浅更明显，分段下线更清楚且仍避开字母实体；样本 01 详情页已升级为深色承接、浅色透出和白色内容上浮的过渡型案例详情页；详情页 Hero 主体已在透明 header 后整体下移，返回按钮、标题、元信息卡片和右侧判断链路面板不再被 `HAOLIN WU` 装饰字压住；详情页右侧“案例摘要”已修正为顶部原位、滚动后栏内垂直居中的浮动摘要，且 sticky 失效根因已修复；详情页 Hero 标题已按用户截图反馈改为两行断行和轻微冷蓝紫渐变强调；详情页 Hero 背景左右两侧黑白过渡已进一步加密为 12 段停靠点渐变，且中间泛白光感保持原参数；详情页右侧判断链路面板中的英文 kicker 和编号已统一为 Apple-first 无衬线字体；详情页白色内容壳后方已新增柔化裙边，让白壳顶边和左右边缘参与灰蓝背景融合
+- 当前阶段：Phase 3 内容系统落地推进中；首页已升级为能力驱动个人品牌信息架构，AIPM 能力系统、AI Product Operating Process、方法样本模块与第一个正式 Case Study 详情页展示骨架已完成；首页前三屏（Hero、AIPM 能力系统、AI Product Operating Process）现已在宽桌面端各自完整占满一个视口，主体内容组轻微下移，并在靠近页面边界时自动吸附对齐；Hero 不再因绝对定位导航而在底部露出下一模块，方法样本与后续内容不参与吸附；AIPM 能力系统已改为桌面一屏半圆轮盘，中心 `AI Product Builder` 圆圈保留，初始只显示 `01/02/03`，滚轮、触控板横向滑动和左右方向键可单步循环；全局字体栈已调整为 Apple-first，正文灰色层级已切换为 Apple-ish 冷灰；首页 Typography System、Hero 杂志式姓名背景、方法样本文字结构和卡片视觉层级已精修；Hero 英文名已从暗色导航栏跨界溢出到封面；Hero 重复小徽标和能力标签组已删除；首页关键 section 标题与副标题字号已统一；暗色页眉 `HAOLIN WU` 装饰字已改为两个词组和分段画线方案，整条 header 下线不再穿过字母，字母内部不再透出明显横线，线只保留在左右侧、字母间和词间；当前暗色页眉已进一步透明化为覆盖式 header，`HAOLIN WU` 更浅更明显，分段下线更清楚且仍避开字母实体；样本 01 详情页已升级为深色承接、浅色透出和白色内容上浮的过渡型案例详情页；详情页 Hero 主体已在透明 header 后整体下移，返回按钮、标题、元信息卡片和右侧判断链路面板不再被 `HAOLIN WU` 装饰字压住；详情页右侧“案例摘要”已修正为顶部原位、滚动后栏内垂直居中的浮动摘要，且 sticky 失效根因已修复；详情页 Hero 标题已按用户截图反馈改为两行断行和轻微冷蓝紫渐变强调；详情页 Hero 背景左右两侧黑白过渡已进一步加密为 12 段停靠点渐变，且中间泛白光感保持原参数；详情页右侧判断链路面板中的英文 kicker 和编号已统一为 Apple-first 无衬线字体；详情页白色内容壳后方已新增柔化裙边，让白壳顶边和左右边缘参与灰蓝背景融合
 - 详情页背景渐变已按用户确认方案继续细腻化：使用 OKLab 色彩插值、更长向下过渡、密集停靠点和极轻 dither 抗色带；根据用户红框反馈，网格不应在正文和摘要之间，而应位于页面最外侧左右留白区，本轮已改为深色低透明外侧纵深网格，并让外侧网格顶部完全透明；不改字体、不改标题文字渐变、不改变 Hero 中央 `50% 96%` 泛白光。
-- 最近完成：UX-021 首页 AIPM 能力系统半圆轮盘
+- 最近完成：UX-023 首页前三屏滚动吸附
 - 当前阻塞：无内容 schema 阻塞；demo link、GitHub link、截图资产、真实商家反馈和真实商业指标仍为 `TBD`
-- 下一步唯一建议：执行 `prddev-checkpoint`，复核 UX-021 后的项目状态与后续 backlog；若继续开发，先由用户确认下一轮视觉或内容增量。
+- 下一步唯一建议：请用户在目标电脑屏幕体验 UX-023 的滚动吸附力度；如无调整，执行 `prddev-checkpoint` 同步当前首页视觉状态。
 - 最后更新：2026-07-10
 
 ## 迭代记录
+
+### 2026-07-10 - UX-023 首页前三屏滚动吸附
+
+- 使用 skill：`prddev-increment`
+- 本轮目标：让首页前三屏在宽桌面端滚动时自动吸附为完整一屏，减少用户手动找齐页面边界的成本；方法样本与后续内容保持自由滚动。
+- 完成内容：
+  - 调整 `apps/ai-native-product-builder-portfolio/src/layouts/BaseLayout.astro`：新增可选 `pageClass`，仅向需要页面行为的路由添加根节点 class。
+  - 调整 `apps/ai-native-product-builder-portfolio/src/pages/index.astro`：为首页传入 `home-scroll-snap` page class。
+  - 调整 `apps/ai-native-product-builder-portfolio/src/styles/global.css`：仅在 `1081px` 及以上给首页根节点配置 `scroll-snap-type: y proximity`；前三屏使用 `scroll-snap-align: start` 与 `scroll-snap-stop: always`。方法样本与后续 section 没有 snap target。
+- 修改文件：
+  - `apps/ai-native-product-builder-portfolio/src/layouts/BaseLayout.astro`
+  - `apps/ai-native-product-builder-portfolio/src/pages/index.astro`
+  - `apps/ai-native-product-builder-portfolio/src/styles/global.css`
+  - `docs/backlog.md`
+  - `docs/testing.md`
+  - `docs/iteration-log.md`
+- 验证结果：bundled Node / pnpm 下 `pnpm run check`、`pnpm run build`、`pnpm run lint` 均通过，`astro check` 为 0 errors / 0 warnings / 0 hints；浏览器 1440x900 下确认根节点的 `scrollSnapType` 为 `y`、三个目标均为 `start / always`；从首屏和能力系统附近向下滚动后分别稳定在 `scrollY=900`、`1800`；继续滚入方法样本可停在 `scrollY=2900`，没有被拉回第三屏；移动 390x844 下 scroll snap 为 `none`，水平溢出为 0。
+- 未做内容：未改动前三屏内容与高度、导航锚点、能力轮盘的滚轮 / 方向键切换、方法样本及后续模块、案例详情页、内容源、schema、截图资产、真实指标、demo、GitHub、CMS、AI runtime 或依赖。
+- 遗留问题：能力系统轮盘内部仍优先捕获滚轮以切换能力节点；要切换到下一屏时，在该轮盘外侧区域继续滚动即可触发页面吸附。
+- 下一步建议：等待用户体验目标电脑上的吸附力度；如无需微调，执行 `prddev-checkpoint`。
+
+### 2026-07-10 - UX-022 首页前三屏满视口与垂直重心校准
+
+- 使用 skill：`prddev-increment`
+- 本轮目标：根据用户确认，让首页 Hero、AIPM 能力系统和 AI Product Operating Process 在宽桌面端各自完整占满一屏；导航继续覆盖在 Hero 内；三个模块的主体内容应在垂直中心附近并轻微向下；方法样本与后续模块不处理。
+- 完成内容：
+  - 调整 `apps/ai-native-product-builder-portfolio/src/pages/index.astro`：Hero 高度由扣除 77px 的 `min-height` 改为完整 `100svh`，修正绝对定位导航不占布局高度造成的底部黑条；Hero 内容组轻微下移。
+  - 调整 `apps/ai-native-product-builder-portfolio/src/components/AIPMCapabilitySystem.astro`：明确桌面 section 为 `100svh`，能力系统内容组轻微下移；`980px` 以下移除该偏移并维持原有纵向列表。
+  - 调整 `apps/ai-native-product-builder-portfolio/src/components/ProductOperatingProcess.astro`：宽桌面端改为完整 `100svh` 的居中承载，流程内容组轻微下移；`1080px` 以下回退为自然高度，避免两列 / 单列卡片被强制截断。
+- 修改文件：
+  - `apps/ai-native-product-builder-portfolio/src/pages/index.astro`
+  - `apps/ai-native-product-builder-portfolio/src/components/AIPMCapabilitySystem.astro`
+  - `apps/ai-native-product-builder-portfolio/src/components/ProductOperatingProcess.astro`
+  - `docs/backlog.md`
+  - `docs/testing.md`
+  - `docs/iteration-log.md`
+- 验证结果：bundled Node / pnpm 下 `pnpm run check`、`pnpm run build`、`pnpm run lint` 均通过，`astro check` 为 0 errors / 0 warnings / 0 hints；浏览器在 1440x900 下确认前三个 section 的边界为 `0-900`、`900-1800`、`1800-2700`，高度均为 900px，水平溢出为 0；三个内容组中心相对各自 section 中线分别下移约 23px、39px、18px；移动 390x844 下三段保持自然内容高度、构建流程回退为 block，水平溢出为 0。
+- 未做内容：未修改方法样本、其他内容、导航叠层逻辑、文本、能力轮盘交互、案例详情页、内容源、schema、截图资产、真实指标、demo、GitHub、CMS、AI runtime 或依赖。
+- 遗留问题：宽桌面端的“轻微下移”已按约 18-39px 落地，最终视觉重心仍建议用户在目标电脑屏幕主观确认。
+- 下一步建议：等待用户确认 UX-022 的目标显示器效果；如无需继续微调，执行 `prddev-checkpoint`。
 
 ### 2026-07-10 - UX-021 首页 AIPM 能力系统半圆轮盘
 

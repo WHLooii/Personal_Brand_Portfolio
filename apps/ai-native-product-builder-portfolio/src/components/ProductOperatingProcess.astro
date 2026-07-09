@@ -62,12 +62,21 @@ const stages = [
 <style>
   .operating-process-section {
     position: relative;
+    box-sizing: border-box;
+    display: grid;
+    min-height: 100svh;
+    height: 100svh;
+    align-items: center;
     overflow: hidden;
-    padding-block: 136px;
+    padding-block: clamp(64px, 8svh, 96px);
     background:
       radial-gradient(circle at 84% 8%, rgba(91, 140, 255, 0.13), transparent 28%),
       linear-gradient(180deg, #050816 0%, #080b12 100%);
     color: #f5f7fa;
+  }
+
+  .operating-process-section > .site-shell {
+    transform: translateY(clamp(14px, 2svh, 24px));
   }
 
   .operating-process-section::before {
@@ -196,6 +205,17 @@ const stages = [
   }
 
   @media (max-width: 1080px) {
+    .operating-process-section {
+      display: block;
+      min-height: auto;
+      height: auto;
+      padding-block: 104px;
+    }
+
+    .operating-process-section > .site-shell {
+      transform: none;
+    }
+
     .process-rail {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }

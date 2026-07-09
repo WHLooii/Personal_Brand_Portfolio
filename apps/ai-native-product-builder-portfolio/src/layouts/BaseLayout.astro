@@ -5,12 +5,14 @@ interface Props {
   title?: string;
   description?: string;
   headerVariant?: "default" | "dark";
+  pageClass?: string;
 }
 
 const {
   title = "巫浩林 | AI 产品案例库",
   description = "一个结构化 AI 产品案例库，用于呈现产品判断、AI Workflow、原型构建与评估迭代能力。",
-  headerVariant = "default"
+  headerVariant = "default",
+  pageClass = ""
 } = Astro.props;
 
 const headerClass = headerVariant === "dark" ? "site-header--dark" : "site-header--default";
@@ -18,7 +20,7 @@ const editorialNameWords = ["HAOLIN", "WU"].map((word) => word.split(""));
 ---
 
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" class={pageClass}>
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />

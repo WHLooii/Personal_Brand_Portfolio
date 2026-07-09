@@ -26,6 +26,7 @@ const methodCapabilities = [
   title="巫浩林 | AI Product Builder"
   description="巫浩林的 AI Product Builder 个人品牌首页，展示 AI 产品判断、Workflow 设计、MVP 原型构建与评估迭代能力。"
   headerVariant="dark"
+  pageClass="home-scroll-snap"
 >
   <section class="hero-section">
     <div class="site-shell hero-grid">
@@ -138,7 +139,8 @@ const methodCapabilities = [
     isolation: isolate;
     box-sizing: border-box;
     overflow: hidden;
-    min-height: calc(100svh - 77px);
+    min-height: 100svh;
+    height: 100svh;
     display: grid;
     align-items: center;
     padding-block: 24px;
@@ -184,6 +186,7 @@ const methodCapabilities = [
     grid-template-columns: minmax(0, 1.08fr) minmax(420px, 0.92fr);
     gap: 72px;
     align-items: center;
+    transform: translateY(clamp(18px, 2.6svh, 30px));
   }
 
   .hero-copy {
@@ -599,6 +602,7 @@ const methodCapabilities = [
 
   @media (max-width: 980px) {
     .hero-section {
+      height: auto;
       min-height: auto;
       padding-block: 72px 76px;
     }
@@ -606,6 +610,7 @@ const methodCapabilities = [
     .hero-grid {
       grid-template-columns: 1fr;
       gap: 46px;
+      transform: none;
     }
 
     .method-sample-card {

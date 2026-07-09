@@ -269,6 +269,7 @@ const isInitiallyVisible = (index: number) => index < 3;
     box-sizing: border-box;
     overflow: hidden;
     min-height: 100svh;
+    height: 100svh;
     padding-block: clamp(82px, 10svh, 112px) clamp(34px, 5svh, 56px);
     background:
       radial-gradient(circle at 50% 50%, rgba(91, 140, 255, 0.18), transparent 31%),
@@ -282,6 +283,7 @@ const isInitiallyVisible = (index: number) => index < 3;
     height: 100%;
     min-height: calc(100svh - clamp(82px, 10svh, 112px) - clamp(34px, 5svh, 56px));
     flex-direction: column;
+    transform: translateY(clamp(12px, 1.8svh, 22px));
   }
 
   .capability-system-section::before {
@@ -654,6 +656,7 @@ const isInitiallyVisible = (index: number) => index < 3;
       display: block;
       height: auto;
       min-height: 0;
+      transform: none;
     }
 
     .capability-system-heading h2 {
