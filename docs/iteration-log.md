@@ -4,14 +4,34 @@
 
 ## 当前状态摘要
 
-- 当前阶段：Phase 3 内容系统落地推进中；首页已升级为能力驱动个人品牌信息架构，AIPM 能力系统、AI Product Operating Process、方法样本模块与第一个正式 Case Study 详情页展示骨架已完成；全局字体栈已调整为 Apple-first，正文灰色层级已切换为 Apple-ish 冷灰；首页 Typography System、Hero 杂志式姓名背景、方法样本文字结构和卡片视觉层级已精修；Hero 英文名已从暗色导航栏跨界溢出到封面；Hero 重复小徽标和能力标签组已删除；首页关键 section 标题与副标题字号已统一；暗色页眉 `HAOLIN WU` 装饰字已改为两个词组和分段画线方案，整条 header 下线不再穿过字母，字母内部不再透出明显横线，线只保留在左右侧、字母间和词间；当前暗色页眉已进一步透明化为覆盖式 header，`HAOLIN WU` 更浅更明显，分段下线更清楚且仍避开字母实体；样本 01 详情页已升级为深色承接、浅色透出和白色内容上浮的过渡型案例详情页；详情页 Hero 主体已在透明 header 后整体下移，返回按钮、标题、元信息卡片和右侧判断链路面板不再被 `HAOLIN WU` 装饰字压住；详情页右侧“案例摘要”已修正为顶部原位、滚动后栏内垂直居中的浮动摘要，且 sticky 失效根因已修复；详情页 Hero 标题已按用户截图反馈改为两行断行和轻微冷蓝紫渐变强调；详情页 Hero 背景左右两侧黑白过渡已进一步加密为 12 段停靠点渐变，且中间泛白光感保持原参数；详情页右侧判断链路面板中的英文 kicker 和编号已统一为 Apple-first 无衬线字体；详情页白色内容壳后方已新增柔化裙边，让白壳顶边和左右边缘参与灰蓝背景融合
+- 当前阶段：Phase 3 内容系统落地推进中；首页已升级为能力驱动个人品牌信息架构，AIPM 能力系统、AI Product Operating Process、方法样本模块与第一个正式 Case Study 详情页展示骨架已完成；AIPM 能力系统已改为桌面一屏半圆轮盘，中心 `AI Product Builder` 圆圈保留，初始只显示 `01/02/03`，滚轮、触控板横向滑动和左右方向键可单步循环；全局字体栈已调整为 Apple-first，正文灰色层级已切换为 Apple-ish 冷灰；首页 Typography System、Hero 杂志式姓名背景、方法样本文字结构和卡片视觉层级已精修；Hero 英文名已从暗色导航栏跨界溢出到封面；Hero 重复小徽标和能力标签组已删除；首页关键 section 标题与副标题字号已统一；暗色页眉 `HAOLIN WU` 装饰字已改为两个词组和分段画线方案，整条 header 下线不再穿过字母，字母内部不再透出明显横线，线只保留在左右侧、字母间和词间；当前暗色页眉已进一步透明化为覆盖式 header，`HAOLIN WU` 更浅更明显，分段下线更清楚且仍避开字母实体；样本 01 详情页已升级为深色承接、浅色透出和白色内容上浮的过渡型案例详情页；详情页 Hero 主体已在透明 header 后整体下移，返回按钮、标题、元信息卡片和右侧判断链路面板不再被 `HAOLIN WU` 装饰字压住；详情页右侧“案例摘要”已修正为顶部原位、滚动后栏内垂直居中的浮动摘要，且 sticky 失效根因已修复；详情页 Hero 标题已按用户截图反馈改为两行断行和轻微冷蓝紫渐变强调；详情页 Hero 背景左右两侧黑白过渡已进一步加密为 12 段停靠点渐变，且中间泛白光感保持原参数；详情页右侧判断链路面板中的英文 kicker 和编号已统一为 Apple-first 无衬线字体；详情页白色内容壳后方已新增柔化裙边，让白壳顶边和左右边缘参与灰蓝背景融合
 - 详情页背景渐变已按用户确认方案继续细腻化：使用 OKLab 色彩插值、更长向下过渡、密集停靠点和极轻 dither 抗色带；根据用户红框反馈，网格不应在正文和摘要之间，而应位于页面最外侧左右留白区，本轮已改为深色低透明外侧纵深网格，并让外侧网格顶部完全透明；不改字体、不改标题文字渐变、不改变 Hero 中央 `50% 96%` 泛白光。
-- 最近完成：CS-016 详情页外侧留白纵深网格背景
+- 最近完成：UX-021 首页 AIPM 能力系统半圆轮盘
 - 当前阻塞：无内容 schema 阻塞；demo link、GitHub link、截图资产、真实商家反馈和真实商业指标仍为 `TBD`
-- 下一步唯一建议：执行 `prddev-checkpoint`，复核 CS-016 后的项目状态与后续 backlog；若继续开发，先由用户确认下一轮视觉或内容增量。
+- 下一步唯一建议：执行 `prddev-checkpoint`，复核 UX-021 后的项目状态与后续 backlog；若继续开发，先由用户确认下一轮视觉或内容增量。
 - 最后更新：2026-07-10
 
 ## 迭代记录
+
+### 2026-07-10 - UX-021 首页 AIPM 能力系统半圆轮盘
+
+- 使用 skill：`prddev-increment`
+- 本轮目标：根据用户确认，将首页 `AIPM Capability System` 改成桌面端刚好一屏高度的半圆轮盘；中心 `AI Product Builder` 圆圈保留，一次只显示 3 张能力卡，滚轮、触控板左右滑动和左右方向键按单步循环。
+- 完成内容：
+  - 调整 `apps/ai-native-product-builder-portfolio/src/components/AIPMCapabilitySystem.astro`：将原六卡静态辐射图改为 `left / top / right / hidden` 槽位驱动的半圆轮盘。
+  - 桌面端 `.capability-system-section` 改为一屏高度并隐藏溢出，初始只显示 `01 / 02 / 03`，`04 / 05 / 06` 进入隐藏槽且不可交互。
+  - 保留中心 `AI Product Builder` 圆圈，并微调圆圈尺寸与位置，避免被上方卡片遮挡。
+  - 新增轻量原生脚本：滚轮上下、触控板水平滑动、键盘 `ArrowLeft` / `ArrowRight` 均可触发单步循环，并通过阈值与冷却时间避免一次滑动跳多格。
+  - 移动端保持六卡纵向列表，移除隐藏态和绝对定位，不启用轮盘交互。
+- 修改文件：
+  - `apps/ai-native-product-builder-portfolio/src/components/AIPMCapabilitySystem.astro`
+  - `docs/backlog.md`
+  - `docs/testing.md`
+  - `docs/iteration-log.md`
+- 验证结果：使用 Codex bundled Node / pnpm 执行 `pnpm run check`、`pnpm run build`、`pnpm run lint` 均通过；`astro check` 结果 0 errors / 0 warnings / 0 hints；`astro build` 生成 `/`、`/projects/`、`/projects/ecommerce-review-copilot/` 3 个静态页面；preview 于 `http://127.0.0.1:4344/#capabilities` 检查，桌面 1280x720 下 section 高度为 720px，初始只显示 `01:left / 02:top / 03:right`，隐藏卡无可见泄漏且 `pointer-events:none`；键盘、滚轮和水平滑动可按单步切换到 `02/03/04`、`03/04/05`、`04/05/06`、`05/06/01`、`06/01/02`；移动 390x844 下 6 张卡均为 `static` 纵向列表，水平溢出为 0。
+- 未做内容：未修改首页 Hero、AI Product Operating Process、方法样本、案例详情页、内容源、schema、截图资产、真实指标、demo、GitHub、CMS、AI runtime 或新增依赖。
+- 遗留问题：桌面轮盘的视觉阻尼、卡片位置和圆圈距离仍属主观体验判断，需要用户在目标电脑屏幕上确认是否还要更靠上、更大或更有转动幅度。
+- 下一步建议：执行 `prddev-checkpoint`，复核 UX-021 后的项目状态与后续 backlog；若继续开发，先由用户确认下一轮视觉或内容增量。
 
 ### 2026-07-10 - CS-016 详情页外侧留白纵深网格背景
 

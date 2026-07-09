@@ -66,6 +66,7 @@
 | CS-014 | done | 详情页背景渐变 OKLab 细腻化 | 根据用户确认方案，在不改变字体、不新增装饰层、不改变 Hero 中央光感的前提下，用 OKLab 色彩插值、更长向下过渡、密集停靠点和极轻抗色带提升详情页深色到浅色背景过渡的细腻度 | 仅调整 `CaseStudyLayout` 中原有 `.case-detail-page::before` 和 `.case-detail-hero` 背景渐变：降低 dither 强度，延长页面级雾面带高度，加密色彩停靠点，并在支持时使用 `oklab` 插值 | 不改字体；不改标题文字渐变；不改中间 `50% 96%` 泛白光；不改 `.case-detail-hero::after` 参数；不改页眉、内容壳尺寸、正文卡片、右侧摘要、首页、内容源、schema、截图资产、真实指标、demo、GitHub、CMS 或 AI runtime | bundled Node 环境下 `pnpm run check` / `pnpm run build` / `pnpm run lint` 通过；preview 于 `http://127.0.0.1:4338/projects/ecommerce-review-copilot/` 返回 200 OK；源码与构建产物可检索到 `linear-gradient(180deg in oklab`、`.case-detail-page::before` 的 `top:548px` / `height:840px`、`tableValues='0 .018'`；中间 `50% 96%` 泛白 radial 和 `.case-detail-hero::after` 的 `bottom:-170px`、`blur(58px)`、`opacity:0.72` 保持原值 | `CS-013` |
 | CS-015 | done | 详情页内容区两侧纵深网格背景 | 根据用户确认，在 Case Study 正文内容壳左右留白区增加浅色、半透明、非均匀的纵深网格，减少纯白留白的单调感 | 仅在 `CaseStudyLayout` 的 `.case-content-shell` 内新增左右 `case-depth-grid` 装饰层，并微调内容壳浅色背景；使用近 / 远不同间距网格、低透明浅米灰 / 浅青灰底雾和少量透视线；移动端隐藏该装饰 | 不改 Hero、页眉、正文卡片、右侧摘要、内容源、schema、截图资产、真实指标、demo、GitHub、CMS、AI runtime 或其他页面 | bundled Node 环境下 `pnpm run check` / `pnpm run build` / `pnpm run lint` 通过；preview 于 `http://127.0.0.1:4341/projects/ecommerce-review-copilot/` 返回 200 OK；源码与构建产物可检索到 `case-depth-grid--left`、`case-depth-grid--right`、`background-size:32px 32px`、`background-size:68px 68px` 和移动端 `display:none`；可见 Chrome 检查确认左右留白出现浅色纵深网格且正文卡片仍在上层 | `CS-014` |
 | CS-016 | done | 详情页外侧留白纵深网格背景 | 根据用户红框反馈，撤销本轮放在内容壳内部的网格尝试，把深色低透明纵深网格移动到页面最外侧左右留白区，并让外侧网格顶部完全透明 | 仅在 `CaseStudyLayout` 的 article 顶层新增左右 `case-outer-grid` 装饰层；外侧网格使用近 / 远不同间距、斜向透视线、浅米 / 浅青底雾；通过 `--case-outer-grid-start` 让顶部留出完全透明区，并在 `1180px` 以下隐藏 | 不改 Hero、页眉、正文卡片、右侧摘要、内容源、schema、截图资产、真实指标、demo、GitHub、CMS、AI runtime 或其他页面；不在正文和摘要之间铺网格；不让外侧顶部出现线条残影 | bundled Node 环境下 `pnpm run check` / `pnpm run build` / `pnpm run lint` 通过；preview 于 `http://127.0.0.1:4342/projects/ecommerce-review-copilot/?v=outer-grid-clear` 可见检查确认网格位于用户标注的页面外侧留白，外侧顶部保持完全透明，内容壳内部恢复干净白底 | `CS-015` |
+| UX-021 | done | 首页 AIPM 能力系统半圆轮盘 | 根据用户确认，把首页 AIPM Capability System 从六卡静态辐射图改为桌面一屏三卡半圆轮盘，保留中心 `AI Product Builder` 圆圈 | 仅调整 `AIPMCapabilitySystem.astro`：桌面端 section 高度为一屏，能力卡片按 `left / top / right / hidden` 槽位轮换；原生 JS 支持滚轮、触控板横向滑动和左右方向键单步循环；移动端继续六卡纵向列表 | 不改 Hero、构建流程、方法样本、案例详情页、内容源、schema、截图资产、真实指标、demo、GitHub、CMS、AI runtime 或新增依赖 | bundled Node 环境下 `pnpm run check` / `pnpm run build` / `pnpm run lint` 通过；preview 于 `http://127.0.0.1:4344/#capabilities` 浏览器验证桌面 1280x720 初始只显示 `01/02/03`，键盘、滚轮和水平滑动均按单步循环到 `02/03/04`、`03/04/05`、`04/05/06`、`05/06/01`、`06/01/02`；移动 390x844 下 6 张卡恢复 `static` 纵向列表且水平溢出为 0 | `UX-014` |
 | CS-003 | deferred | 创建第二个 Featured Case Study 内容骨架 | 用 TalentSignal AI 验证统一 Case Study schema 和详情页骨架可以复用到第二个重点项目 | 选择 TalentSignal AI，按 `docs/case-study-template-schema.md` 补齐一版内容骨架；允许未确认字段为 `TBD`，但不删除 Product Judgment、AI Workflow、Evaluation、Outcome、Reflection | 不改详情页结构；不新增第三个案例；不编造 demo、GitHub、截图、用户反馈或商业指标；不新增 CMS、AI runtime 或真实 LLM | 未来恢复多 Featured 案例策略后，`pnpm run check` / `pnpm run build` / `pnpm run lint` 通过；Projects 列表出现第二个正式案例；详情页复用 `CS-002` 的完整展示骨架 | `CS-002` |
 
 ## 推荐执行顺序
@@ -116,11 +117,13 @@
 | 42 | CS-014 | 已完成；详情页背景渐变已使用 OKLab 插值、更长向下过渡、密集停靠点和极轻抗色带继续细腻化 |
 | 43 | CS-015 | 已完成；详情页正文内容壳左右留白区已增加浅色非均匀纵深网格，减少纯白留白单调感 |
 | 44 | CS-016 | 已完成；详情页网格已按用户红框反馈移到页面最外侧左右留白区，外侧顶部完全透明，正文和摘要之间恢复干净 |
-| 45 | CS-003 | 已延后；当前公开阶段先不增加第二个 Featured 案例，待证据补齐后复核 |
+| 45 | UX-021 | 已完成；首页 AIPM 能力系统已改为桌面一屏半圆轮盘，初始只显示 `01/02/03`，滚轮、触控板横向滑动和左右方向键可单步循环，移动端保持纵向列表 |
+| 46 | CS-003 | 已延后；当前公开阶段先不增加第二个 Featured 案例，待证据补齐后复核 |
 
 ## Foundation 后下一步
 
-- 当前下一步唯一建议：执行 `prddev-checkpoint`，复核 CS-016 后的项目状态与后续 backlog；若继续开发，先由用户确认下一轮视觉或内容增量。
+- 当前下一步唯一建议：执行 `prddev-checkpoint`，复核 UX-021 后的项目状态与后续 backlog；若继续开发，先由用户确认下一轮视觉或内容增量。
+- 本轮说明：`UX-021` 已完成，首页 AIPM 能力系统已从六卡静态辐射图改为桌面一屏三卡半圆轮盘；中心 `AI Product Builder` 圆圈保留，初始显示 `01/02/03`，滚轮、触控板横向滑动和左右方向键按单步循环；本轮只调整 `AIPMCapabilitySystem.astro`，不改 Hero、构建流程、方法样本、案例详情页、内容源、schema、截图资产、真实指标、demo、GitHub、CMS 或 AI runtime。
 - 本轮说明：`CS-016` 已完成，Ecommerce Review Copilot 详情页网格已从内容壳内部撤出，改为显示在用户红框标注的页面最外侧左右留白区；根据最新反馈，外侧网格顶部已通过 `--case-outer-grid-start: 840px` 保持完全透明，网格从更下方出现；本轮只新增 article 顶层左右外侧装饰层，不改 Hero、页眉、正文卡片、右侧摘要、内容源、schema、截图资产、真实指标、demo、GitHub、CMS 或 AI runtime。
 - 本轮说明：`CS-015` 已完成，Ecommerce Review Copilot 详情页正文内容壳左右留白区已增加浅色非均匀纵深网格；本轮只新增内容壳内的左右装饰层和浅色底雾，不改 Hero、页眉、正文卡片、右侧摘要、内容源、schema、截图资产、真实指标、demo、GitHub、CMS 或 AI runtime。
 - 本轮说明：`UX-020` 已完成，Ecommerce Review Copilot 详情页 Hero 主体已整体下移，避免透明 header 后返回按钮和首屏内容被 `HAOLIN WU` 装饰字遮挡；顶部 header、字母样式和导航保持不变。

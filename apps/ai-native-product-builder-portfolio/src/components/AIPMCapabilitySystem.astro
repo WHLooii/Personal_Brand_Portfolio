@@ -55,6 +55,16 @@ const capabilities = [
     output: ["Iteration Direction", "Product Learning"]
   }
 ];
+
+const getInitialSlot = (index: number) => {
+  if (index === 0) return "left";
+  if (index === 1) return "top";
+  if (index === 2) return "right";
+  if (index === 3) return "hidden-next";
+  return "hidden-prev";
+};
+
+const isInitiallyVisible = (index: number) => index < 3;
 ---
 
 <section id="capabilities" class="capability-system-section">
@@ -67,8 +77,16 @@ const capabilities = [
       </p>
     </div>
 
-    <div class="capability-orbit" aria-label="AIPM 能力系统中心辐射图">
-      <svg class="capability-orbit__lines" viewBox="0 0 1200 980" preserveAspectRatio="none" aria-hidden="true">
+    <div
+      class="capability-orbit"
+      data-capability-wheel
+      tabindex="0"
+      role="region"
+      aria-roledescription="半圆轮盘"
+      aria-label="AIPM 能力系统半圆轮盘"
+    >
+      <span class="capability-orbit__status" data-capability-status aria-live="polite">当前显示 01、02、03</span>
+      <svg class="capability-orbit__lines" viewBox="0 0 1200 640" preserveAspectRatio="none" aria-hidden="true">
         <defs>
           <linearGradient id="capability-line" x1="0" x2="1" y1="0" y2="1">
             <stop offset="0%" stop-color="rgba(91, 140, 255, 0.16)" />
@@ -81,9 +99,9 @@ const capabilities = [
             <stop offset="100%" stop-color="rgba(139, 92, 246, 0)" />
           </linearGradient>
         </defs>
-        <path class="capability-orbit__ring" d="M600 92 946 244 946 736 600 888 254 736 254 244Z" />
-        <path class="capability-orbit__flow" d="M600 92 946 244 946 736 600 888 254 736 254 244 600 92" />
-        <path class="capability-orbit__spokes" d="M600 490 600 92M600 490 946 244M600 490 946 736M600 490 600 888M600 490 254 736M600 490 254 244" />
+        <path class="capability-orbit__arc" d="M180 378 C276 112 454 42 600 42 C746 42 924 112 1020 378" />
+        <path class="capability-orbit__flow" d="M180 378 C276 112 454 42 600 42 C746 42 924 112 1020 378" />
+        <path class="capability-orbit__spokes" d="M600 488 180 378M600 488 600 42M600 488 1020 378" />
       </svg>
 
       <div class="capability-core" aria-label="中心能力">
@@ -92,8 +110,16 @@ const capabilities = [
         <p>Problem -> Judgment -> Workflow -> Prototype -> Evaluation</p>
       </div>
 
-      {capabilities.map((capability) => (
-        <article class={`capability-node capability-node--${capability.className}`} tabindex="0">
+      {capabilities.map((capability, index) => (
+        <article
+          class={`capability-node capability-node--${capability.className}`}
+          data-capability-node
+          data-capability-index={index}
+          data-capability-code={capability.code}
+          data-slot={getInitialSlot(index)}
+          tabindex={isInitiallyVisible(index) ? "0" : "-1"}
+          aria-hidden={isInitiallyVisible(index) ? "false" : "true"}
+        >
           <span class="capability-node__code">{capability.code}</span>
           <h3>{capability.title}</h3>
           <p class="capability-node__zh">{capability.zh}</p>
@@ -114,18 +140,148 @@ const capabilities = [
   </div>
 </section>
 
+<script>
+  const wheels = document.querySelectorAll<HTMLElement>("[data-capability-wheel]");
+
+  wheels.forEach((wheel) => {
+    const nodes = Array.from(wheel.querySelectorAll<HTMLElement>("[data-capability-node]"));
+    const status = wheel.querySelector<HTMLElement>("[data-capability-status]");
+    const desktopQuery = window.matchMedia("(min-width: 981px)");
+    const total = nodes.length;
+    const threshold = 72;
+    const cooldown = 520;
+    let activeStart = 0;
+    let wheelAccumulator = 0;
+    let lastMoveAt = 0;
+
+    const normalizeIndex = (value: number) => ((value % total) + total) % total;
+
+    const getSlot = (relativeIndex: number) => {
+      if (relativeIndex === 0) return "left";
+      if (relativeIndex === 1) return "top";
+      if (relativeIndex === 2) return "right";
+      if (relativeIndex === 3) return "hidden-next";
+      return "hidden-prev";
+    };
+
+    const applyState = (direction = "none") => {
+      const isDesktop = desktopQuery.matches;
+      const visibleCodes: string[] = [];
+      wheel.dataset.direction = direction;
+
+      nodes.forEach((node, index) => {
+        if (!isDesktop) {
+          node.dataset.slot = "static";
+          node.removeAttribute("aria-hidden");
+          node.tabIndex = 0;
+          return;
+        }
+
+        const relativeIndex = normalizeIndex(index - activeStart);
+        const slot = getSlot(relativeIndex);
+        const isVisible = relativeIndex < 3;
+        node.dataset.slot = slot;
+        node.setAttribute("aria-hidden", String(!isVisible));
+        node.tabIndex = isVisible ? 0 : -1;
+
+        if (isVisible) {
+          visibleCodes.push(node.dataset.capabilityCode ?? "");
+        }
+      });
+
+      if (status && visibleCodes.length > 0) {
+        status.textContent = `当前显示 ${visibleCodes.join("、")}`;
+      }
+
+      const focusedHiddenNode = document.activeElement instanceof HTMLElement
+        ? document.activeElement.closest<HTMLElement>("[data-capability-node][aria-hidden='true']")
+        : null;
+
+      if (focusedHiddenNode) {
+        wheel.focus({ preventScroll: true });
+      }
+    };
+
+    const rotate = (direction: number) => {
+      if (!desktopQuery.matches || total === 0) return;
+      activeStart = normalizeIndex(activeStart + direction);
+      applyState(direction > 0 ? "forward" : "backward");
+    };
+
+    wheel.addEventListener(
+      "wheel",
+      (event) => {
+        if (!desktopQuery.matches) return;
+
+        const dominantDelta = Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY;
+        if (Math.abs(dominantDelta) < 2) return;
+
+        event.preventDefault();
+
+        const now = Date.now();
+        if (now - lastMoveAt < cooldown) return;
+
+        wheelAccumulator += dominantDelta;
+        if (Math.abs(wheelAccumulator) < threshold) return;
+
+        rotate(wheelAccumulator > 0 ? 1 : -1);
+        lastMoveAt = now;
+        wheelAccumulator = 0;
+      },
+      { passive: false }
+    );
+
+    wheel.addEventListener("keydown", (event) => {
+      if (!desktopQuery.matches) return;
+
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        rotate(1);
+      }
+
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        rotate(-1);
+      }
+    });
+
+    wheel.addEventListener("pointerdown", () => {
+      if (desktopQuery.matches) {
+        wheel.focus({ preventScroll: true });
+      }
+    });
+
+    const handleViewportChange = () => {
+      wheelAccumulator = 0;
+      applyState("none");
+    };
+
+    desktopQuery.addEventListener("change", handleViewportChange);
+
+    applyState();
+  });
+</script>
+
 <style>
   .capability-system-section {
     position: relative;
     isolation: isolate;
+    box-sizing: border-box;
     overflow: hidden;
-    min-height: 1180px;
-    padding-block: 152px 136px;
+    min-height: 100svh;
+    padding-block: clamp(82px, 10svh, 112px) clamp(34px, 5svh, 56px);
     background:
-      radial-gradient(circle at 50% 42%, rgba(91, 140, 255, 0.18), transparent 30%),
+      radial-gradient(circle at 50% 50%, rgba(91, 140, 255, 0.18), transparent 31%),
       radial-gradient(circle at 20% 28%, rgba(139, 92, 246, 0.12), transparent 32%),
       linear-gradient(180deg, #050816 0%, #080b14 56%, #050816 100%);
     color: #f5f7fa;
+  }
+
+  .capability-system-section > .site-shell {
+    display: flex;
+    height: 100%;
+    min-height: calc(100svh - clamp(82px, 10svh, 112px) - clamp(34px, 5svh, 56px));
+    flex-direction: column;
   }
 
   .capability-system-section::before {
@@ -154,6 +310,7 @@ const capabilities = [
 
   .capability-system-heading {
     max-width: 980px;
+    flex: 0 0 auto;
   }
 
   .capability-system-heading h2 {
@@ -176,8 +333,25 @@ const capabilities = [
 
   .capability-orbit {
     position: relative;
-    min-height: 980px;
-    margin-top: 30px;
+    flex: 1 1 auto;
+    min-height: 0;
+    margin-top: clamp(18px, 3svh, 30px);
+    outline: none;
+  }
+
+  .capability-orbit:focus-visible {
+    outline: 2px solid rgba(191, 238, 255, 0.78);
+    outline-offset: 10px;
+  }
+
+  .capability-orbit__status {
+    position: absolute;
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 
   .capability-orbit__lines {
@@ -188,14 +362,14 @@ const capabilities = [
     opacity: 0.84;
   }
 
-  .capability-orbit__ring,
+  .capability-orbit__arc,
   .capability-orbit__spokes,
   .capability-orbit__flow {
     fill: none;
     stroke-linecap: round;
   }
 
-  .capability-orbit__ring,
+  .capability-orbit__arc,
   .capability-orbit__spokes {
     stroke: url(#capability-line);
     stroke-width: 1;
@@ -207,23 +381,24 @@ const capabilities = [
 
   .capability-orbit__flow {
     stroke: url(#capability-line-active);
-    stroke-dasharray: 132 860;
+    stroke-dasharray: 118 760;
     stroke-width: 1.5;
     animation: capability-flow 10s linear infinite;
   }
 
   .capability-core {
     position: absolute;
-    top: 50%;
+    top: 78%;
     left: 50%;
     display: grid;
-    width: 250px;
-    min-height: 250px;
+    z-index: 2;
+    width: clamp(190px, 18.6vw, 224px);
+    min-height: clamp(190px, 18.6vw, 224px);
     place-items: center;
     transform: translate(-50%, -50%);
     border: 1px solid rgba(191, 219, 254, 0.28);
     border-radius: 999px;
-    padding: 34px;
+    padding: 30px;
     background:
       linear-gradient(145deg, rgba(17, 35, 65, 0.72), rgba(49, 37, 95, 0.58)),
       rgba(255, 255, 255, 0.04);
@@ -245,7 +420,7 @@ const capabilities = [
 
   .capability-core strong {
     color: #f5f7fa;
-    font-size: 1.58rem;
+    font-size: clamp(1.22rem, 1.8vw, 1.5rem);
     font-weight: 760;
     line-height: 1.16;
   }
@@ -260,7 +435,12 @@ const capabilities = [
 
   .capability-node {
     position: absolute;
-    width: min(300px, 28vw);
+    width: min(318px, 30vw);
+    --node-x: -50%;
+    --node-y: -50%;
+    --node-lift: 0px;
+    --node-scale: 1;
+    --node-rotate: 0deg;
     border: 1px solid rgba(191, 219, 254, 0.12);
     border-radius: var(--radius-card);
     padding: 26px;
@@ -272,16 +452,87 @@ const capabilities = [
       0 18px 56px rgba(91, 140, 255, 0.06),
       inset 0 1px 0 rgba(255, 255, 255, 0.06);
     backdrop-filter: blur(18px);
+    opacity: 1;
+    transform: translate(var(--node-x), calc(var(--node-y) + var(--node-lift))) scale(var(--node-scale))
+      rotate(var(--node-rotate));
     transition:
-      transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      top 620ms cubic-bezier(0.18, 0.88, 0.24, 1),
+      left 620ms cubic-bezier(0.18, 0.88, 0.24, 1),
+      transform 620ms cubic-bezier(0.18, 0.88, 0.24, 1),
+      opacity 420ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      filter 620ms cubic-bezier(0.18, 0.88, 0.24, 1),
       border-color 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
-      background 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      background 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      visibility 0s linear 0s;
+    will-change: top, left, transform, opacity;
+  }
+
+  .capability-node[data-slot="left"] {
+    top: 48%;
+    left: 15%;
+    z-index: 3;
+    --node-scale: 0.9;
+    --node-rotate: -2.5deg;
+    opacity: 0.72;
+  }
+
+  .capability-node[data-slot="top"] {
+    top: 0;
+    left: 50%;
+    z-index: 4;
+    --node-y: 0%;
+    --node-scale: 1;
+    border-color: rgba(191, 238, 255, 0.42);
+    background:
+      linear-gradient(180deg, rgba(91, 140, 255, 0.15), rgba(139, 92, 246, 0.055)),
+      rgba(11, 18, 38, 0.84);
+    box-shadow:
+      0 32px 82px rgba(0, 0, 0, 0.3),
+      0 20px 78px rgba(91, 140, 255, 0.16),
+      inset 0 1px 0 rgba(255, 255, 255, 0.09);
+  }
+
+  .capability-node[data-slot="right"] {
+    top: 48%;
+    left: 85%;
+    z-index: 3;
+    --node-scale: 0.9;
+    --node-rotate: 2.5deg;
+    opacity: 0.72;
+  }
+
+  .capability-node[data-slot="hidden-next"],
+  .capability-node[data-slot="hidden-prev"] {
+    top: 118%;
+    left: 50%;
+    z-index: 1;
+    pointer-events: none;
+    visibility: hidden;
+    opacity: 0;
+    filter: blur(8px);
+    transition:
+      top 620ms cubic-bezier(0.18, 0.88, 0.24, 1),
+      left 620ms cubic-bezier(0.18, 0.88, 0.24, 1),
+      transform 620ms cubic-bezier(0.18, 0.88, 0.24, 1),
+      opacity 420ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      filter 620ms cubic-bezier(0.18, 0.88, 0.24, 1),
+      visibility 0s linear 620ms;
+  }
+
+  .capability-node[data-slot="hidden-next"] {
+    --node-scale: 0.72;
+    --node-rotate: 8deg;
+  }
+
+  .capability-node[data-slot="hidden-prev"] {
+    --node-scale: 0.72;
+    --node-rotate: -8deg;
   }
 
   .capability-node:hover,
   .capability-node:focus-visible {
     z-index: 5;
-    transform: translateY(-6px);
+    --node-lift: -6px;
     border-color: rgba(191, 238, 255, 0.48);
     background:
       linear-gradient(180deg, rgba(91, 140, 255, 0.13), rgba(139, 92, 246, 0.055)),
@@ -369,51 +620,9 @@ const capabilities = [
     line-height: 1.36;
   }
 
-  .capability-node--problem {
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .capability-node--problem:hover,
-  .capability-node--problem:focus-visible {
-    transform: translate(-50%, -6px);
-  }
-
-  .capability-node--judgment {
-    top: 180px;
-    right: 4%;
-  }
-
-  .capability-node--workflow {
-    right: 4%;
-    bottom: 130px;
-  }
-
-  .capability-node--prototype {
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .capability-node--prototype:hover,
-  .capability-node--prototype:focus-visible {
-    transform: translate(-50%, -6px);
-  }
-
-  .capability-node--evaluation {
-    bottom: 130px;
-    left: 4%;
-  }
-
-  .capability-node--reflection {
-    top: 180px;
-    left: 4%;
-  }
-
   @keyframes capability-flow {
     to {
-      stroke-dashoffset: -992;
+      stroke-dashoffset: -878;
     }
   }
 
@@ -436,8 +645,15 @@ const capabilities = [
 
   @media (max-width: 980px) {
     .capability-system-section {
+      height: auto;
       min-height: auto;
       padding-block: 104px;
+    }
+
+    .capability-system-section > .site-shell {
+      display: block;
+      height: auto;
+      min-height: 0;
     }
 
     .capability-system-heading h2 {
@@ -460,6 +676,10 @@ const capabilities = [
     .capability-node {
       position: static;
       width: 100%;
+      visibility: visible;
+      opacity: 1;
+      filter: none;
+      pointer-events: auto;
       transform: none;
     }
 
@@ -470,12 +690,15 @@ const capabilities = [
     }
 
     .capability-node:hover,
-    .capability-node:focus-visible,
-    .capability-node--problem:hover,
-    .capability-node--problem:focus-visible,
-    .capability-node--prototype:hover,
-    .capability-node--prototype:focus-visible {
+    .capability-node:focus-visible {
       transform: translateY(-4px);
+    }
+
+    .capability-node:hover .capability-node__io,
+    .capability-node:focus-visible .capability-node__io {
+      max-height: 180px;
+      margin-top: 18px;
+      opacity: 1;
     }
   }
 
