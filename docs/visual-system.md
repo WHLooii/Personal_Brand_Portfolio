@@ -9,11 +9,11 @@
 ## 文档状态
 
 - Project：AI Native Product Builder Portfolio
-- Version：v0.1
+- Version：v0.2
 - Document Type：Visual System / Design Direction / Agent Execution Guardrail
-- Status：Ready for `prddev-foundation` and later visual increments
+- Status：Implemented and verified through `VU-005`
 - Primary Audience：Codex、Claude Code、未来前端实现、未来内容维护
-- 最后更新：2026-07-07
+- 最后更新：2026-07-10
 
 ## 1. 核心目的
 
@@ -304,56 +304,43 @@ V1 使用黑白灰为基础，只保留一个主 accent 色系。
 - 冷静智能。
 - 高级克制。
 
-### 7.2 默认主题
+### 7.2 明暗叙事
 
-V1 采用 light-first editorial interface。
+V1 采用“深色品牌层 -> 灰蓝雾层 -> 浅色阅读层”的单向视觉弧线：
 
-原因：
-
-- 阅读舒适。
-- 更适合 Case Study 消费。
-- 更接近 Notion / Vercel 的编辑型清晰感。
-- 更适合招聘方在短时间内浏览。
-
-暗色模式或深色 section 可以延后，不作为 V1 的视觉核心。
+- 深色负责建立 AI Native Product Builder 的品牌与技术感。
+- 灰蓝雾层负责连接深色系统图与浅色案例内容。
+- Porcelain / Paper 浅色面负责承载 Case Study 证据和长内容阅读。
+- 不使用深浅交替的拼贴节奏，也不把全站改成暗色科幻界面。
+- 页面缩小为长图时，明暗变化应是连续曲线，而不是模块级硬切。
 
 ### 7.3 语义化 tokens
 
 使用语义 token，不要在组件里散写随机色值。
 
-示例：
+当前实现基线：
 
 ```css
 :root {
-  --color-bg: #fafafa;
-  --color-surface: #ffffff;
-  --color-surface-muted: #f5f5f5;
+  --color-night-950: #050816;
+  --color-night-900: #08101f;
+  --color-night-800: #101a31;
+  --color-mist-700: #596579;
+  --color-mist-400: #aab4c5;
+  --color-porcelain: #f3f5f9;
+  --color-paper: #ffffff;
 
-  --color-text-primary: #0a0a0a;
-  --color-text-secondary: #404040;
-  --color-text-muted: #737373;
-  --color-text-inverse: #ffffff;
+  --color-accent: #0f6b83;
+  --color-accent-on-dark: #bfeeff;
 
-  --color-border-subtle: rgba(10, 10, 10, 0.08);
-  --color-border-strong: rgba(10, 10, 10, 0.16);
-
-  --color-accent: #4f46e5;
-  --color-accent-strong: #3730a3;
-  --color-accent-soft: rgba(79, 70, 229, 0.10);
-  --color-accent-border: rgba(79, 70, 229, 0.24);
+  --surface-glass-subtle: rgba(255, 255, 255, 0.04);
+  --surface-glass: rgba(255, 255, 255, 0.045);
+  --surface-glass-elevated: rgba(255, 255, 255, 0.08);
+  --surface-paper-translucent: rgba(255, 255, 255, 0.94);
 }
 ```
 
-推荐 accent 方向：
-
-```text
-Electric Indigo
-Deep Violet
-Calm Blue
-Blue-Violet Hybrid
-```
-
-V1 只使用一个主 accent family。
+V1 只使用青蓝主 accent family。紫色仅允许作为已有标题光谱渐变的低占比端点，不作为按钮、状态、分类或第二套界面强调色。
 
 ### 7.4 使用规则
 
@@ -1362,9 +1349,9 @@ Do not add many gradients without a system.
 
 ```css
 :root {
-  --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 8px;
+  --radius-control: 8px;
+  --radius-card: 12px;
+  --radius-shell: 28px;
 
   --shadow-card: 0 1px 2px rgba(10, 10, 10, 0.04), 0 8px 24px rgba(10, 10, 10, 0.06);
   --shadow-card-hover: 0 2px 4px rgba(10, 10, 10, 0.06), 0 16px 40px rgba(10, 10, 10, 0.10);
@@ -1374,7 +1361,7 @@ Do not add many gradients without a system.
 }
 ```
 
-卡片、按钮、输入类 UI 元素主圆角不超过 `8px`。如未来确实需要更大圆角，必须有明确设计理由并保持少量使用。
+按钮、输入和标签使用 `8px`；普通卡片使用 `12px`；只有跨越明暗区域的大型内容壳可使用 `28px`。胶囊状态和圆形节点使用 `999px`，不要把该值扩散到普通卡片。
 
 Diagram 实现：
 
@@ -1729,15 +1716,15 @@ apps/ai-native-product-builder-portfolio/src/content/projects/
 V1 视觉系统可视为完成，当且仅当：
 
 ```text
-[ ] 网站具备清晰的 AI Native Product Builder 视觉身份。
-[ ] 首页不是普通个人主页。
-[ ] Case Study 页面围绕 Product Judgment 和 AI Workflow 组织。
-[ ] 主要视觉组件可复用。
-[ ] 色彩系统 tokenized 且克制。
-[ ] Typography 和 spacing 一致。
-[ ] 动效克制、有目的、可访问。
-[ ] 网站保持 static-first portfolio 的性能优势。
-[ ] 新项目可以通过同一结构加入，而不需要重做页面。
+[x] 网站具备清晰的 AI Native Product Builder 视觉身份。
+[x] 首页不是普通个人主页。
+[x] Case Study 页面围绕 Product Judgment 和 AI Workflow 组织。
+[x] 主要视觉组件可复用。
+[x] 色彩系统 tokenized 且克制。
+[x] Typography 和 spacing 一致。
+[x] 动效克制、有目的、可访问。
+[x] 网站保持 static-first portfolio 的性能优势。
+[x] 新项目可以通过同一结构加入，而不需要重做页面。
 ```
 
 ## 23. Final Visual North Star
@@ -1747,3 +1734,18 @@ V1 视觉系统可视为完成，当且仅当：
 > This person does not merely use AI tools. This person can identify AI product opportunities, design controlled AI workflows, build prototypes, evaluate outcomes, and communicate decisions with clarity and taste.
 
 视觉系统的职责，是让这个判断更容易、更快、更可信。
+
+## 24. 全站视觉连续性实施状态（VU-001 至 VU-005）
+
+当前全站采用唯一明暗叙事：
+
+```text
+深色品牌层 -> 深蓝结构层 -> 灰蓝雾层 -> 白色阅读与证据层
+```
+
+- 首页：Hero 保持满屏；能力系统与构建流程使用自然高度；页面级滚动吸附已取消；方法样本通过白色 Editorial 主面与深色证明栏同时预告详情页两种界面；联系区以 porcelain 浅色收尾。
+- Projects：使用暗色透明页眉和紧凑深色 Hero，自然过渡到浅色项目区；单案例卡采用白色主内容 + 灰蓝证明栏，不使用空白三列项目模板。
+- Case Study：保留原 12 段左右渐变、中央泛白、雾面抗色带、白色内容壳、外侧纵深网格和 Sticky 摘要；局部视觉常量统一使用共享 token。
+- 统一组件家族：跨区域内容壳为 28px、普通卡片为 12px、控件为 8px；深色玻璃阴影与白色纸面阴影各保留一套；accent 仅使用青蓝 family，紫色只保留在既有标题强调和极少量环境光。
+- 响应式：已检查 1440×900、1280×800、1024×768、390×844；所有公开页面无横向溢出，桌面与移动阅读路径连续。
+- 可访问性：轮盘支持滚轮、触控板与方向键；`prefers-reduced-motion` 下关闭非必要动画和位移；关键文字组合对比度不低于 4.92:1。

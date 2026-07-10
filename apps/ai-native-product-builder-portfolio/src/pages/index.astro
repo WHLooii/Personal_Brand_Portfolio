@@ -26,7 +26,6 @@ const methodCapabilities = [
   title="巫浩林 | AI Product Builder"
   description="巫浩林的 AI Product Builder 个人品牌首页，展示 AI 产品判断、Workflow 设计、MVP 原型构建与评估迭代能力。"
   headerVariant="dark"
-  pageClass="home-scroll-snap"
 >
   <section class="hero-section">
     <div class="site-shell hero-grid">
@@ -119,18 +118,6 @@ const methodCapabilities = [
       </article>
     </div>
   </section>
-
-  <section id="contact" class="contact-section">
-    <div class="site-shell">
-      <div class="contact-panel">
-        <p class="eyebrow">其他内容</p>
-        <h2>如果你想评估我的 AI 产品构建能力，可以先从这套判断链路开始。</h2>
-        <p>
-          当前作品集优先展示我如何定义问题、设计 AI 介入点、保留人类边界并验证输出质量；更完整的案例、原型证据和评测记录会继续按增量补齐。
-        </p>
-      </div>
-    </div>
-  </section>
 </BaseLayout>
 
 <style>
@@ -145,10 +132,11 @@ const methodCapabilities = [
     align-items: center;
     padding-block: 24px;
     background:
+      linear-gradient(180deg, transparent 66%, var(--color-night-800) 100%),
       radial-gradient(circle at 76% 32%, rgba(91, 140, 255, 0.2), transparent 29%),
       radial-gradient(circle at 92% 62%, rgba(139, 92, 246, 0.14), transparent 34%),
-      linear-gradient(135deg, #050816 0%, #07111f 47%, #10142b 100%);
-    color: rgba(247, 250, 255, 0.96);
+      var(--gradient-night-hero);
+    color: var(--color-text-on-dark-primary);
   }
 
   .hero-section::before {
@@ -195,7 +183,7 @@ const methodCapabilities = [
 
   .hero-name {
     margin: 0;
-    color: rgba(248, 251, 255, 0.98);
+    color: var(--color-text-on-dark-primary);
     font-size: 4rem;
     font-weight: 760;
     line-height: 1;
@@ -212,7 +200,7 @@ const methodCapabilities = [
   }
 
   .hero-position span:last-child {
-    color: rgba(166, 190, 224, 0.66);
+    color: var(--color-text-on-dark-muted);
     font-size: 0.72em;
     font-weight: 560;
   }
@@ -243,7 +231,7 @@ const methodCapabilities = [
   .hero-subtitle {
     max-width: 600px;
     margin: 22px 0 0;
-    color: rgba(255, 255, 255, 0.65);
+    color: var(--color-text-on-dark-secondary);
     font-size: 1.02rem;
     line-height: 1.86;
   }
@@ -261,16 +249,16 @@ const methodCapabilities = [
     align-items: center;
     justify-content: center;
     border: 1px solid rgba(178, 207, 255, 0.18);
-    border-radius: var(--radius-card);
+    border-radius: var(--radius-control);
     padding: 0 16px;
-    background: rgba(255, 255, 255, 0.045);
+    background: var(--surface-glass);
     color: rgba(241, 247, 255, 0.88);
     font-size: 0.9rem;
     font-weight: 650;
     transition:
-      transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1),
-      border-color 180ms cubic-bezier(0.2, 0.8, 0.2, 1),
-      background 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      transform var(--duration-fast) var(--ease-standard),
+      border-color var(--duration-fast) var(--ease-standard),
+      background var(--duration-fast) var(--ease-standard);
     backdrop-filter: blur(12px);
   }
 
@@ -291,20 +279,31 @@ const methodCapabilities = [
   }
 
   .hero-cta:focus-visible {
-    outline-color: #bfeeff;
+    outline-color: var(--color-accent-on-dark);
   }
 
   .method-sample-section {
     position: relative;
     isolation: isolate;
     overflow: hidden;
-    padding-block: 144px;
+    padding-block: 136px 164px;
     background:
-      radial-gradient(circle at 50% 90%, rgba(226, 235, 255, 0.12), transparent 34%),
-      radial-gradient(circle at 74% 78%, rgba(130, 150, 255, 0.13), transparent 30%),
-      radial-gradient(circle at 15% 16%, rgba(139, 92, 246, 0.1), transparent 30%),
-      linear-gradient(180deg, #080b12 0%, #050816 100%);
-    color: #f5f7fa;
+      var(--texture-mist-dither),
+      radial-gradient(circle at 78% 24%, rgba(126, 167, 221, 0.18), transparent 32%),
+      radial-gradient(circle at 18% 48%, rgba(191, 238, 255, 0.1), transparent 34%),
+      linear-gradient(
+        180deg,
+        #263247 0%,
+        #344156 16%,
+        var(--color-mist-700) 34%,
+        #7f899b 50%,
+        var(--color-mist-400) 64%,
+        #d7dce5 82%,
+        var(--color-porcelain) 100%
+      );
+    background-blend-mode: soft-light, normal, normal, normal;
+    background-size: 128px 128px, auto, auto, auto;
+    color: var(--color-text-on-dark-primary);
   }
 
   .method-sample-section > .site-shell {
@@ -313,23 +312,18 @@ const methodCapabilities = [
   }
 
   .method-sample-section::before {
-    position: absolute;
-    inset-inline: 0;
-    top: 0;
-    height: 1px;
-    content: "";
-    background: linear-gradient(90deg, transparent, rgba(191, 219, 254, 0.22), transparent);
+    content: none;
   }
 
   .method-sample-section::after {
     position: absolute;
     left: 50%;
-    bottom: -188px;
+    bottom: -132px;
     z-index: 0;
     width: min(920px, 86vw);
     height: 330px;
     border-radius: 999px;
-    background: rgba(245, 247, 252, 0.17);
+    background: rgba(255, 255, 255, 0.54);
     content: "";
     filter: blur(70px);
     pointer-events: none;
@@ -339,6 +333,11 @@ const methodCapabilities = [
   .method-sample-heading {
     max-width: 980px;
     margin-bottom: 42px;
+  }
+
+  .method-sample-heading .eyebrow,
+  .method-sample-proof .eyebrow {
+    color: var(--color-accent-on-dark);
   }
 
   .method-sample-heading h2 {
@@ -363,16 +362,11 @@ const methodCapabilities = [
     display: grid;
     overflow: hidden;
     grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.78fr);
-    border: 1px solid rgba(191, 219, 254, 0.12);
-    border-radius: var(--radius-card);
-    background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.052), rgba(255, 255, 255, 0.026)),
-      rgba(255, 255, 255, 0.03);
-    box-shadow:
-      0 36px 92px rgba(0, 0, 0, 0.24),
-      0 28px 80px rgba(91, 140, 255, 0.08),
-      inset 0 1px 0 rgba(255, 255, 255, 0.06);
-    backdrop-filter: blur(18px);
+    border: 1px solid var(--color-border-cool-subtle);
+    border-radius: var(--radius-shell);
+    background: var(--color-paper);
+    box-shadow: var(--shadow-paper-shell);
+    backdrop-filter: blur(22px);
   }
 
   .method-sample-card::after {
@@ -381,7 +375,7 @@ const methodCapabilities = [
     bottom: -34px;
     height: 72px;
     content: "";
-    background: radial-gradient(ellipse at center, rgba(214, 226, 255, 0.2), transparent 68%);
+    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.6), transparent 68%);
     pointer-events: none;
   }
 
@@ -395,11 +389,11 @@ const methodCapabilities = [
   .method-sample-stage {
     width: fit-content;
     margin: 0 0 22px;
-    border: 1px solid rgba(191, 238, 255, 0.22);
-    border-radius: var(--radius-card);
+    border: 1px solid var(--color-accent-border);
+    border-radius: var(--radius-control);
     padding: 8px 11px;
-    background: rgba(91, 140, 255, 0.08);
-    color: rgba(255, 255, 255, 0.42);
+    background: var(--color-accent-soft);
+    color: var(--color-text-secondary);
     font-size: 0.82rem;
     font-weight: 650;
     line-height: 1.5;
@@ -407,7 +401,7 @@ const methodCapabilities = [
 
   .method-sample-system-label {
     margin: 0 0 16px;
-    color: rgba(191, 238, 255, 0.88);
+    color: var(--color-accent);
     font-family: var(--font-mono);
     font-size: 0.86rem;
     font-weight: 700;
@@ -418,7 +412,7 @@ const methodCapabilities = [
   .method-sample-card h3 {
     max-width: 620px;
     margin: 0;
-    color: #f5f7fa;
+    color: var(--color-text-primary);
     font-size: 2.45rem;
     font-weight: 720;
     line-height: 1.12;
@@ -427,7 +421,7 @@ const methodCapabilities = [
   .method-sample-subtitle {
     max-width: 560px;
     margin: 14px 0 0;
-    color: rgba(255, 255, 255, 0.58);
+    color: var(--color-text-secondary);
     font-size: 1.08rem;
     font-weight: 600;
     line-height: 1.62;
@@ -438,7 +432,7 @@ const methodCapabilities = [
   }
 
   .method-sample-block {
-    border-top: 1px solid rgba(191, 219, 254, 0.12);
+    border-top: 1px solid var(--color-border-cool-subtle);
     padding-block: 22px;
   }
 
@@ -453,14 +447,14 @@ const methodCapabilities = [
 
   .method-sample-label {
     margin: 0 0 10px;
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--color-text-primary);
     font-size: 0.96rem;
     font-weight: 700;
   }
 
   .method-sample-block p:not(.method-sample-label) {
     margin: 0;
-    color: rgba(255, 255, 255, 0.65);
+    color: var(--color-text-secondary);
     font-size: 0.98rem;
     line-height: 1.86;
   }
@@ -477,29 +471,31 @@ const methodCapabilities = [
     min-height: 34px;
     align-items: center;
     gap: 8px;
-    border: 1px solid rgba(191, 219, 254, 0.14);
-    border-radius: var(--radius-card);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-control);
     padding: 0 10px;
-    background: rgba(255, 255, 255, 0.045);
-    color: rgba(255, 255, 255, 0.78);
+    background: var(--color-surface-muted);
+    color: var(--color-text-secondary);
     font-size: 0.85rem;
     font-weight: 620;
   }
 
   .method-workflow__index {
-    color: rgba(191, 238, 255, 0.72);
+    color: var(--color-accent);
     font-family: var(--font-mono);
     font-size: 0.68rem;
   }
 
   .method-sample-proof {
-    border-left: 1px solid rgba(191, 219, 254, 0.12);
-    background: rgba(255, 255, 255, 0.032);
+    border-left: 1px solid rgba(191, 219, 254, 0.16);
+    background:
+      radial-gradient(circle at 86% 10%, rgba(191, 238, 255, 0.12), transparent 30%),
+      linear-gradient(160deg, #253149 0%, #172238 58%, #10182a 100%);
   }
 
   .method-sample-proof h4 {
     margin: 14px 0 0;
-    color: #f5f7fa;
+    color: var(--color-text-on-dark-primary);
     font-size: 1.28rem;
     font-weight: 700;
     line-height: 1.35;
@@ -516,7 +512,7 @@ const methodCapabilities = [
   .method-sample-proof li {
     position: relative;
     padding-left: 18px;
-    color: rgba(255, 255, 255, 0.65);
+    color: var(--color-text-on-dark-secondary);
     font-size: 0.94rem;
     line-height: 1.76;
   }
@@ -540,7 +536,7 @@ const methodCapabilities = [
     justify-content: center;
     margin-top: 30px;
     border: 1px solid rgba(255, 255, 255, 0.72);
-    border-radius: var(--radius-card);
+    border-radius: var(--radius-control);
     padding: 0 15px;
     background: #f3f6fb;
     color: #0b1020;
@@ -550,10 +546,10 @@ const methodCapabilities = [
       0 0 0 1px rgba(255, 255, 255, 0.18),
       0 16px 44px rgba(180, 200, 255, 0.18);
     transition:
-      transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1),
-      border-color 180ms cubic-bezier(0.2, 0.8, 0.2, 1),
-      background 180ms cubic-bezier(0.2, 0.8, 0.2, 1),
-      box-shadow 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      transform var(--duration-fast) var(--ease-standard),
+      border-color var(--duration-fast) var(--ease-standard),
+      background var(--duration-fast) var(--ease-standard),
+      box-shadow var(--duration-fast) var(--ease-standard);
   }
 
   .method-sample-link:hover {
@@ -565,46 +561,11 @@ const methodCapabilities = [
       0 22px 60px rgba(190, 210, 255, 0.26);
   }
 
-  .contact-section {
-    padding-block: 0 128px;
-    background: #050816;
-    color: #f5f7fa;
-  }
-
-  .contact-panel {
-    border: 1px solid rgba(191, 219, 254, 0.16);
-    border-radius: var(--radius-card);
-    padding: 40px;
-    background:
-      radial-gradient(circle at 92% 12%, rgba(91, 140, 255, 0.12), transparent 34%),
-      rgba(255, 255, 255, 0.045);
-    box-shadow:
-      0 24px 70px rgba(0, 0, 0, 0.22),
-      inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  }
-
-  .contact-panel h2 {
-    max-width: 760px;
-    margin: 14px 0 0;
-    color: #f5f7fa;
-    font-size: 2rem;
-    font-weight: 720;
-    line-height: 1.22;
-  }
-
-  .contact-panel p:not(.eyebrow) {
-    max-width: 720px;
-    margin: 16px 0 0;
-    color: rgba(218, 228, 244, 0.66);
-    font-size: 1rem;
-    line-height: 1.8;
-  }
-
   @media (max-width: 980px) {
     .hero-section {
       height: auto;
       min-height: auto;
-      padding-block: 72px 76px;
+      padding-block: 132px 76px;
     }
 
     .hero-grid {
@@ -618,14 +579,14 @@ const methodCapabilities = [
     }
 
     .method-sample-proof {
-      border-top: 1px solid rgba(191, 219, 254, 0.12);
+      border-top: 1px solid rgba(191, 219, 254, 0.16);
       border-left: 0;
     }
   }
 
   @media (max-width: 640px) {
     .hero-section {
-      padding-block: 58px 64px;
+      padding-block: 132px 64px;
     }
 
     .hero-name {
@@ -664,8 +625,7 @@ const methodCapabilities = [
     }
 
     .method-sample-card__main,
-    .method-sample-proof,
-    .contact-panel {
+    .method-sample-proof {
       padding: 24px;
     }
 
@@ -682,13 +642,6 @@ const methodCapabilities = [
       justify-content: flex-start;
     }
 
-    .contact-section {
-      padding-bottom: 76px;
-    }
-
-    .contact-panel h2 {
-      font-size: 1.55rem;
-    }
   }
 
   @media (prefers-reduced-motion: reduce) {

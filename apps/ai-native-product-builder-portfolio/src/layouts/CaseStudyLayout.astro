@@ -4,7 +4,7 @@ import DecisionMatrix from "@/components/DecisionMatrix.astro";
 import WorkflowDiagram from "@/components/WorkflowDiagram.astro";
 import ArchitectureBlock from "@/components/ArchitectureBlock.astro";
 import Timeline from "@/components/Timeline.astro";
-import { getProjectSlug, type ProjectEntry } from "@/lib/content";
+import { type ProjectEntry } from "@/lib/content";
 import { getCapabilityLabel, getStatusLabel } from "@/lib/labels";
 
 interface Props {
@@ -13,7 +13,6 @@ interface Props {
 
 const { project } = Astro.props;
 const data = project.data;
-const slug = getProjectSlug(project);
 const isPending = (value: string) => value.trim().toUpperCase() === "TBD";
 const displayText = (value: string) => value.replaceAll("TBD", "待补充");
 const techStackGroups = [
@@ -26,7 +25,8 @@ const techStackGroups = [
 const outcomeLinks = [
   { label: "Demo", value: data.outcome.demo_link },
   { label: "GitHub", value: data.outcome.github_link }
-];
+].filter((link) => !isPending(link.value));
+const availableScreenshots = data.outcome.screenshots.filter((screenshot) => !isPending(screenshot.path));
 const formatCaseHeroTitle = (title: string) => {
   if (title === "电商评论洞察与运营决策 AI Copilot") {
     return [
@@ -103,15 +103,9 @@ const heroTitleLines = formatCaseHeroTitle(data.basic.title);
           <p class="eyebrow">案例概览</p>
           <h2 class="mt-3 text-2xl font-semibold">能力证明</h2>
           <p class="mt-4 leading-7 text-[var(--color-text-secondary)]">{data.brand_evidence.proof_statement}</p>
-          <div class="mt-6 grid gap-4 md:grid-cols-2">
-            <div class="border border-[var(--color-border-subtle)] p-4">
-              <h3 class="font-semibold">项目类型</h3>
-              <p class="mt-2 text-sm leading-6 text-[var(--color-text-secondary)]">{data.basic.category}</p>
-            </div>
-            <div class="border border-[var(--color-border-subtle)] p-4">
-              <h3 class="font-semibold">案例路径</h3>
-              <p class="mt-2 font-mono text-sm text-[var(--color-text-secondary)]">{slug}</p>
-            </div>
+          <div class="mt-6 border border-[var(--color-border-subtle)] p-4">
+            <h3 class="font-semibold">项目类型</h3>
+            <p class="mt-2 text-sm leading-6 text-[var(--color-text-secondary)]">{data.basic.category}</p>
           </div>
         </section>
 
@@ -303,33 +297,31 @@ const heroTitleLines = formatCaseHeroTitle(data.basic.title);
           <p class="eyebrow">结果证据</p>
           <h2 class="mt-3 text-2xl font-semibold">Outcome / Demo Evidence</h2>
           <p class="mt-4 leading-7 text-[var(--color-text-secondary)]">{data.outcome.impact}</p>
-          <div class="mt-6 grid gap-4 md:grid-cols-2">
-            {outcomeLinks.map((link) => (
-              <div class="border border-[var(--color-border-subtle)] p-4">
-                <h3 class="font-semibold">{link.label}</h3>
-                {
-                  isPending(link.value) ? (
-                    <p class="mt-3 text-sm leading-6 text-[var(--color-text-muted)]">待补充</p>
-                  ) : (
-                    <a class="mt-3 inline-block text-sm font-semibold text-[var(--color-accent)]" href={link.value}>
-                      打开链接
-                    </a>
-                  )
-                }
-              </div>
-            ))}
-          </div>
-          <div class="mt-6">
-            <h3 class="font-semibold">截图资产</h3>
-            <div class="mt-3 space-y-3">
-              {data.outcome.screenshots.map((screenshot) => (
+          {outcomeLinks.length > 0 && (
+            <div class="mt-6 grid gap-4 md:grid-cols-2">
+              {outcomeLinks.map((link) => (
                 <div class="border border-[var(--color-border-subtle)] p-4">
-                  <p class="text-sm leading-6 text-[var(--color-text-secondary)]">{screenshot.caption}</p>
-                  <p class="mt-2 font-mono text-xs text-[var(--color-text-muted)]">路径：{displayText(screenshot.path)}</p>
+                  <h3 class="font-semibold">{link.label}</h3>
+                  <a class="mt-3 inline-block text-sm font-semibold text-[var(--color-accent)]" href={link.value}>
+                    打开链接
+                  </a>
                 </div>
               ))}
             </div>
-          </div>
+          )}
+          {availableScreenshots.length > 0 && (
+            <div class="mt-6">
+              <h3 class="font-semibold">截图资产</h3>
+              <div class="mt-3 space-y-3">
+                {availableScreenshots.map((screenshot) => (
+                  <div class="border border-[var(--color-border-subtle)] p-4">
+                    <p class="text-sm leading-6 text-[var(--color-text-secondary)]">{screenshot.caption}</p>
+                    <p class="mt-2 font-mono text-xs text-[var(--color-text-muted)]">路径：{screenshot.path}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </section>
 
         <section class="surface-card p-6">
@@ -432,9 +424,8 @@ const heroTitleLines = formatCaseHeroTitle(data.basic.title);
     overflow-x: clip;
     --case-shell-max-width: 1160px;
     --case-outer-grid-start: 840px;
-    --case-mist-dither: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.86' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 .018'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='128' height='128' filter='url(%23noise)'/%3E%3C/svg%3E");
-    background: #f6f7fb;
-    color: #1f2430;
+    background: var(--color-porcelain-raised);
+    color: var(--color-text-primary-cool);
   }
 
   .case-detail-page::before {
@@ -443,7 +434,7 @@ const heroTitleLines = formatCaseHeroTitle(data.basic.title);
     inset-inline: -6vw;
     height: 840px;
     background:
-      var(--case-mist-dither),
+      var(--texture-mist-dither),
       radial-gradient(ellipse 56% 108% at -5% 16%, rgba(78, 88, 116, 0.13) 0%, rgba(86, 98, 126, 0.127) 8%, rgba(98, 110, 138, 0.121) 16%, rgba(112, 124, 152, 0.11) 26%, rgba(132, 144, 170, 0.094) 38%, rgba(156, 168, 190, 0.074) 50%, rgba(182, 193, 212, 0.054) 62%, rgba(207, 216, 230, 0.036) 76%, rgba(230, 235, 244, 0.018) 90%, rgba(246, 247, 251, 0) 100%),
       radial-gradient(ellipse 56% 108% at 105% 16%, rgba(78, 88, 116, 0.13) 0%, rgba(86, 98, 126, 0.127) 8%, rgba(98, 110, 138, 0.121) 16%, rgba(112, 124, 152, 0.11) 26%, rgba(132, 144, 170, 0.094) 38%, rgba(156, 168, 190, 0.074) 50%, rgba(182, 193, 212, 0.054) 62%, rgba(207, 216, 230, 0.036) 76%, rgba(230, 235, 244, 0.018) 90%, rgba(246, 247, 251, 0) 100%),
       radial-gradient(ellipse 72% 128% at -10% 54%, rgba(90, 102, 132, 0.058) 0%, rgba(116, 130, 158, 0.052) 22%, rgba(148, 160, 184, 0.041) 44%, rgba(184, 194, 214, 0.029) 66%, rgba(221, 227, 238, 0.014) 84%, rgba(246, 247, 251, 0) 100%),
@@ -458,7 +449,7 @@ const heroTitleLines = formatCaseHeroTitle(data.basic.title);
   @supports (background: linear-gradient(180deg in oklab, #000, #fff)) {
     .case-detail-page::before {
       background:
-        var(--case-mist-dither),
+        var(--texture-mist-dither),
         radial-gradient(ellipse 56% 108% at -5% 16% in oklab, rgba(78, 88, 116, 0.13) 0%, rgba(86, 98, 126, 0.127) 8%, rgba(98, 110, 138, 0.121) 16%, rgba(112, 124, 152, 0.11) 26%, rgba(132, 144, 170, 0.094) 38%, rgba(156, 168, 190, 0.074) 50%, rgba(182, 193, 212, 0.054) 62%, rgba(207, 216, 230, 0.036) 76%, rgba(230, 235, 244, 0.018) 90%, rgba(246, 247, 251, 0) 100%),
         radial-gradient(ellipse 56% 108% at 105% 16% in oklab, rgba(78, 88, 116, 0.13) 0%, rgba(86, 98, 126, 0.127) 8%, rgba(98, 110, 138, 0.121) 16%, rgba(112, 124, 152, 0.11) 26%, rgba(132, 144, 170, 0.094) 38%, rgba(156, 168, 190, 0.074) 50%, rgba(182, 193, 212, 0.054) 62%, rgba(207, 216, 230, 0.036) 76%, rgba(230, 235, 244, 0.018) 90%, rgba(246, 247, 251, 0) 100%),
         radial-gradient(ellipse 72% 128% at -10% 54% in oklab, rgba(90, 102, 132, 0.058) 0%, rgba(116, 130, 158, 0.052) 22%, rgba(148, 160, 184, 0.041) 44%, rgba(184, 194, 214, 0.029) 66%, rgba(221, 227, 238, 0.014) 84%, rgba(246, 247, 251, 0) 100%),
@@ -580,7 +571,7 @@ const heroTitleLines = formatCaseHeroTitle(data.basic.title);
     position: relative;
     overflow: hidden;
     min-height: 790px;
-    color: #f7f9ff;
+    color: var(--color-text-on-dark-primary);
     background:
       radial-gradient(circle at 72% 24%, rgba(120, 145, 255, 0.2), transparent 34%),
       radial-gradient(circle at 34% 12%, rgba(40, 190, 220, 0.1), transparent 30%),
@@ -630,7 +621,7 @@ const heroTitleLines = formatCaseHeroTitle(data.basic.title);
     bottom: -170px;
     width: min(980px, 86vw);
     height: 340px;
-    border-radius: 999px;
+    border-radius: var(--radius-round);
     background: rgba(246, 247, 251, 0.78);
     content: "";
     filter: blur(58px);
@@ -661,30 +652,30 @@ const heroTitleLines = formatCaseHeroTitle(data.basic.title);
     display: inline-flex;
     align-items: center;
     min-height: 36px;
-    border: 1px solid rgba(191, 219, 254, 0.16);
-    border-radius: var(--radius-card);
+    border: 1px solid var(--color-border-on-dark);
+    border-radius: var(--radius-control);
     padding: 0 12px;
-    background: rgba(255, 255, 255, 0.045);
-    color: rgba(218, 228, 244, 0.72);
+    background: var(--surface-glass);
+    color: var(--color-text-on-dark-secondary);
     font-size: 0.86rem;
     font-weight: 650;
     transition:
-      transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1),
-      border-color 180ms cubic-bezier(0.2, 0.8, 0.2, 1),
-      color 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      transform var(--duration-fast) var(--ease-standard),
+      border-color var(--duration-fast) var(--ease-standard),
+      color var(--duration-fast) var(--ease-standard);
     backdrop-filter: blur(14px);
   }
 
   .case-back-link:hover {
     transform: translateY(-1px);
-    border-color: rgba(191, 238, 255, 0.34);
-    color: #f7f9ff;
+    border-color: var(--color-border-on-dark-strong);
+    color: var(--color-text-on-dark-primary);
   }
 
   .case-hero-kicker,
   .case-panel-kicker {
     margin: 28px 0 0;
-    color: rgba(191, 238, 255, 0.82);
+    color: var(--color-accent-on-dark-soft);
     font-family: var(--font-sans);
     font-size: 0.78rem;
     font-weight: 700;
@@ -695,7 +686,7 @@ const heroTitleLines = formatCaseHeroTitle(data.basic.title);
   .case-hero-title {
     max-width: 760px;
     margin: 18px 0 0;
-    color: rgba(248, 251, 255, 0.98);
+    color: var(--color-text-on-dark-primary);
     font-size: 4.35rem;
     font-weight: 740;
     line-height: 1.04;
@@ -714,7 +705,7 @@ const heroTitleLines = formatCaseHeroTitle(data.basic.title);
   .case-hero-title__line--accent {
     width: max-content;
     max-width: 100%;
-    background: linear-gradient(92deg, #f7f9ff 0%, #bfeeff 46%, #c8b7ff 100%);
+    background: linear-gradient(92deg, #f7f9ff 0%, var(--color-accent-on-dark) 46%, #c8b7ff 100%);
     background-clip: text;
     color: transparent;
     font-size: 0.9em;
@@ -727,7 +718,7 @@ const heroTitleLines = formatCaseHeroTitle(data.basic.title);
   .case-hero-summary {
     max-width: 680px;
     margin: 24px 0 0;
-    color: rgba(228, 237, 252, 0.7);
+    color: var(--color-text-on-dark-secondary);
     font-size: 1.1rem;
     line-height: 1.86;
   }
@@ -741,22 +732,22 @@ const heroTitleLines = formatCaseHeroTitle(data.basic.title);
 
   .case-meta-row div {
     min-width: 0;
-    border: 1px solid rgba(191, 219, 254, 0.13);
+    border: 1px solid var(--color-border-on-dark-subtle);
     border-radius: var(--radius-card);
     padding: 14px;
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--surface-glass-subtle);
     backdrop-filter: blur(14px);
   }
 
   .case-meta-row dt {
-    color: rgba(191, 238, 255, 0.76);
+    color: var(--color-accent-on-dark-soft);
     font-size: 0.78rem;
     font-weight: 700;
   }
 
   .case-meta-row dd {
     margin: 8px 0 0;
-    color: rgba(245, 247, 250, 0.82);
+    color: var(--color-text-on-dark-secondary);
     font-size: 0.9rem;
     font-weight: 620;
     line-height: 1.5;
@@ -765,15 +756,13 @@ const heroTitleLines = formatCaseHeroTitle(data.basic.title);
   .case-hero-panel {
     position: relative;
     overflow: hidden;
-    border: 1px solid rgba(191, 219, 254, 0.16);
-    border-radius: 24px;
+    border: 1px solid var(--color-border-on-dark);
+    border-radius: var(--radius-shell);
     padding: 30px;
     background:
       radial-gradient(circle at 78% 18%, rgba(191, 238, 255, 0.14), transparent 34%),
       linear-gradient(180deg, rgba(255, 255, 255, 0.092), rgba(255, 255, 255, 0.036));
-    box-shadow:
-      0 36px 90px rgba(0, 0, 0, 0.24),
-      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    box-shadow: var(--shadow-dark-glass);
     backdrop-filter: blur(22px);
   }
 
@@ -782,7 +771,7 @@ const heroTitleLines = formatCaseHeroTitle(data.basic.title);
     inset-inline: 22px;
     bottom: -42px;
     height: 90px;
-    border-radius: 999px;
+    border-radius: var(--radius-round);
     background: rgba(217, 228, 255, 0.18);
     content: "";
     filter: blur(32px);
@@ -798,7 +787,7 @@ const heroTitleLines = formatCaseHeroTitle(data.basic.title);
     z-index: 1;
     max-width: 300px;
     margin: 16px 0 0;
-    color: rgba(248, 251, 255, 0.96);
+    color: var(--color-text-on-dark-primary);
     font-size: 1.85rem;
     font-weight: 720;
     line-height: 1.15;
@@ -819,22 +808,22 @@ const heroTitleLines = formatCaseHeroTitle(data.basic.title);
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    border: 1px solid rgba(191, 219, 254, 0.12);
+    border: 1px solid var(--color-border-on-dark-subtle);
     border-radius: var(--radius-card);
     padding: 12px 14px;
-    background: rgba(255, 255, 255, 0.045);
-    color: rgba(226, 235, 255, 0.78);
+    background: var(--surface-glass);
+    color: var(--color-text-on-dark-secondary);
   }
 
   .case-chain-list span {
-    color: rgba(191, 238, 255, 0.62);
+    color: var(--color-accent-on-dark-soft);
     font-family: var(--font-sans);
     font-size: 0.72rem;
     font-weight: 700;
   }
 
   .case-chain-list strong {
-    color: rgba(248, 251, 255, 0.88);
+    color: var(--color-text-on-dark-primary);
     font-size: 0.95rem;
     font-weight: 700;
   }
@@ -846,13 +835,11 @@ const heroTitleLines = formatCaseHeroTitle(data.basic.title);
     overflow: visible;
     width: min(1160px, calc(100% - 48px));
     margin: -150px auto 0;
-    border: 1px solid rgba(20, 28, 45, 0.08);
-    border-radius: 32px 32px 0 0;
+    border: 1px solid var(--color-border-cool-subtle);
+    border-radius: var(--radius-shell) var(--radius-shell) 0 0;
     padding: 36px;
-    background: rgba(255, 255, 255, 0.94);
-    box-shadow:
-      0 -24px 80px rgba(8, 12, 24, 0.2),
-      0 24px 80px rgba(20, 28, 45, 0.08);
+    background: var(--surface-paper-translucent);
+    box-shadow: var(--shadow-paper-shell);
     opacity: 0;
     transform: translateY(56px);
     animation: caseShellIn 680ms cubic-bezier(0.22, 1, 0.36, 1) 120ms forwards;
@@ -864,7 +851,7 @@ const heroTitleLines = formatCaseHeroTitle(data.basic.title);
     z-index: -1;
     inset: -132px -10vw auto;
     height: 320px;
-    border-radius: 999px 999px 0 0;
+    border-radius: var(--radius-round) var(--radius-round) 0 0;
     background:
       radial-gradient(ellipse 50% 72% at 50% 62%, rgba(246, 247, 251, 0.74) 0%, rgba(246, 247, 251, 0.56) 36%, rgba(246, 247, 251, 0.28) 64%, rgba(246, 247, 251, 0) 92%),
       radial-gradient(ellipse 34% 82% at 5% 45%, rgba(228, 234, 244, 0.34) 0%, rgba(198, 207, 224, 0.16) 48%, rgba(246, 247, 251, 0) 86%),
@@ -889,10 +876,10 @@ const heroTitleLines = formatCaseHeroTitle(data.basic.title);
 
   .case-detail-page .surface-card,
   .case-side-card {
-    border-color: rgba(20, 28, 45, 0.08);
-    border-radius: 20px;
-    background: #ffffff;
-    box-shadow: 0 16px 42px rgba(20, 28, 45, 0.045);
+    border-color: var(--color-border-cool-subtle);
+    border-radius: var(--radius-card);
+    background: var(--color-paper);
+    box-shadow: var(--shadow-paper-card);
   }
 
   .case-side-rail {
@@ -930,6 +917,30 @@ const heroTitleLines = formatCaseHeroTitle(data.basic.title);
     }
   }
 
+  @media (min-width: 981px) and (max-width: 1080px) {
+    .case-hero-inner {
+      grid-template-columns: minmax(0, 1fr) minmax(300px, 360px);
+      gap: 44px;
+    }
+
+    .case-hero-title {
+      font-size: 3.6rem;
+    }
+
+    .case-meta-row {
+      gap: 8px;
+    }
+
+    .case-meta-row div {
+      padding: 12px;
+    }
+
+    .case-content-grid {
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 24px;
+    }
+  }
+
   @media (max-width: 980px) {
     .case-detail-hero {
       min-height: 860px;
@@ -957,7 +968,7 @@ const heroTitleLines = formatCaseHeroTitle(data.basic.title);
     .case-content-shell {
       width: calc(100% - 24px);
       margin-top: -106px;
-      border-radius: 24px 24px 0 0;
+      border-radius: var(--radius-shell) var(--radius-shell) 0 0;
       padding: 20px;
     }
 
@@ -1016,7 +1027,7 @@ const heroTitleLines = formatCaseHeroTitle(data.basic.title);
     }
 
     .case-hero-panel {
-      border-radius: 20px;
+      border-radius: var(--radius-shell);
       padding: 22px;
     }
 

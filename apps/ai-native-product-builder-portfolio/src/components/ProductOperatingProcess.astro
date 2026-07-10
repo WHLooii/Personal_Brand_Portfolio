@@ -63,39 +63,38 @@ const stages = [
   .operating-process-section {
     position: relative;
     box-sizing: border-box;
-    display: grid;
-    min-height: 100svh;
-    height: 100svh;
-    align-items: center;
+    display: block;
+    min-height: auto;
+    height: auto;
     overflow: hidden;
-    padding-block: clamp(64px, 8svh, 96px);
+    padding-block: clamp(112px, 10vw, 136px) clamp(132px, 12vw, 164px);
     background:
       radial-gradient(circle at 84% 8%, rgba(91, 140, 255, 0.13), transparent 28%),
-      linear-gradient(180deg, #050816 0%, #080b12 100%);
-    color: #f5f7fa;
+      radial-gradient(circle at 18% 82%, rgba(191, 238, 255, 0.07), transparent 32%),
+      linear-gradient(180deg, #101a2d 0%, #121d30 34%, #19253a 68%, #263247 100%);
+    color: var(--color-text-on-dark-primary);
   }
 
   .operating-process-section > .site-shell {
-    transform: translateY(clamp(14px, 2svh, 24px));
+    transform: none;
   }
 
   .operating-process-section::before {
-    position: absolute;
-    inset-inline: 0;
-    top: 0;
-    height: 1px;
-    content: "";
-    background: linear-gradient(90deg, transparent, rgba(191, 219, 254, 0.22), transparent);
+    content: none;
   }
 
   .operating-process-heading {
     max-width: 980px;
   }
 
+  .operating-process-heading .eyebrow {
+    color: var(--color-accent-on-dark);
+  }
+
   .operating-process-heading h2 {
     margin: 14px 0 0;
     max-width: 980px;
-    color: #f5f7fa;
+    color: var(--color-text-on-dark-primary);
     font-size: 2.75rem;
     font-weight: 740;
     line-height: 1.14;
@@ -104,7 +103,7 @@ const stages = [
   .operating-process-heading p:not(.eyebrow) {
     max-width: 640px;
     margin: 16px 0 0;
-    color: rgba(255, 255, 255, 0.65);
+    color: var(--color-text-on-dark-secondary);
     font-size: 1rem;
     line-height: 1.86;
   }
@@ -121,7 +120,7 @@ const stages = [
   .process-stage {
     position: relative;
     min-height: 280px;
-    border: 1px solid rgba(191, 219, 254, 0.12);
+    border: 1px solid var(--color-border-on-dark-subtle);
     border-radius: var(--radius-card);
     padding: 24px;
     background:
@@ -145,14 +144,14 @@ const stages = [
     width: 18px;
     height: 1px;
     content: "";
-    background: linear-gradient(90deg, rgba(191, 238, 255, 0.28), rgba(139, 92, 246, 0.42));
+    background: linear-gradient(90deg, rgba(191, 238, 255, 0.28), rgba(126, 167, 221, 0.44));
   }
 
   .process-stage:hover {
     transform: translateY(-6px);
     border-color: rgba(191, 238, 255, 0.42);
     background:
-      linear-gradient(180deg, rgba(91, 140, 255, 0.12), rgba(139, 92, 246, 0.045)),
+      linear-gradient(180deg, rgba(91, 140, 255, 0.12), rgba(126, 167, 221, 0.05)),
       rgba(11, 18, 38, 0.82);
   }
 
@@ -164,7 +163,7 @@ const stages = [
 
   .process-stage h3 {
     margin: 22px 0 0;
-    color: #f5f7fa;
+    color: var(--color-text-on-dark-primary);
     font-size: 1.28rem;
     font-weight: 740;
     line-height: 1.2;
@@ -172,7 +171,7 @@ const stages = [
 
   .process-stage__question {
     margin: 18px 0 0;
-    color: rgba(255, 255, 255, 0.65);
+    color: var(--color-text-on-dark-secondary);
     font-size: 0.94rem;
     line-height: 1.76;
   }
@@ -194,11 +193,11 @@ const stages = [
     width: fit-content;
     min-height: 28px;
     align-items: center;
-    border: 1px solid rgba(191, 219, 254, 0.14);
-    border-radius: var(--radius-card);
+    border: 1px solid rgba(226, 235, 245, 0.52);
+    border-radius: var(--radius-control);
     padding: 0 9px;
-    background: rgba(255, 255, 255, 0.04);
-    color: rgba(245, 247, 250, 0.78);
+    background: rgba(243, 245, 249, 0.92);
+    color: #253149;
     font-size: 0.76rem;
     font-weight: 580;
     line-height: 1.35;
@@ -206,9 +205,6 @@ const stages = [
 
   @media (max-width: 1080px) {
     .operating-process-section {
-      display: block;
-      min-height: auto;
-      height: auto;
       padding-block: 104px;
     }
 

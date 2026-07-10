@@ -4,17 +4,263 @@ import ProjectCard from "@/components/ProjectCard.astro";
 import { getProjects } from "@/lib/content";
 
 const projects = await getProjects();
+const publicProjectCount = String(projects.length).padStart(2, "0");
 ---
 
-<BaseLayout title="项目案例 | 巫浩林">
-  <section class="site-shell section">
-    <p class="eyebrow">项目案例</p>
-    <h1 class="mt-4 text-4xl font-semibold md:text-5xl">AI 产品案例索引</h1>
-    <p class="mt-5 max-w-2xl leading-7 text-[var(--color-text-secondary)]">
-      这个索引已经接入 Astro 内容集合。真实案例会按一个增量一个增量地补充，避免一次性堆内容。
-    </p>
-    <div class="mt-10 grid gap-5 md:grid-cols-3">
-      {projects.map((project) => <ProjectCard project={project} />)}
-    </div>
-  </section>
+<BaseLayout
+  title="项目案例 | 巫浩林"
+  description="以问题判断、AI Workflow、原型与评估证据组织的 AI 产品案例库。"
+  headerVariant="dark"
+>
+  <div class="projects-page">
+    <section class="projects-hero">
+      <div class="site-shell projects-hero__inner">
+        <div class="projects-hero__copy">
+          <p class="eyebrow">Case Library / {publicProjectCount}</p>
+          <h1><span>AI 产品案例</span><span class="projects-hero__title-tail">索引</span></h1>
+          <p class="projects-hero__lead">
+            这里不是项目数量清单，而是一组可以被追溯的产品判断证据：问题为什么值得 AI 化、人与 AI 如何协作，以及原型如何被评估。
+          </p>
+        </div>
+
+        <dl class="projects-hero__route" aria-label="案例阅读路径">
+          <div>
+            <dt>当前公开</dt>
+            <dd>{publicProjectCount} 个正式案例</dd>
+          </div>
+          <div>
+            <dt>阅读路径</dt>
+            <dd>问题 → 判断 → 工作流 → 原型 → 评估</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="projects-library" aria-labelledby="projects-library-title">
+      <div class="site-shell">
+        <header class="projects-library__heading">
+          <p class="eyebrow">Selected Work</p>
+          <h2 id="projects-library-title">当前公开案例</h2>
+          <p>每个案例都沿用同一条 AIPM 判断链路，重点呈现可复核的过程，而不是堆叠功能与技术名词。</p>
+        </header>
+
+        <div class="projects-list">
+          {projects.map((project) => <ProjectCard project={project} />)}
+        </div>
+      </div>
+    </section>
+  </div>
 </BaseLayout>
+
+<style>
+  .projects-page {
+    min-height: 100vh;
+    overflow-x: clip;
+    background: var(--color-porcelain);
+  }
+
+  .projects-hero {
+    position: relative;
+    min-height: 660px;
+    overflow: hidden;
+    padding-block: 176px 148px;
+    background:
+      var(--texture-mist-dither),
+      radial-gradient(circle at 78% 32%, rgba(91, 140, 255, 0.2), transparent 31%),
+      radial-gradient(circle at 16% 56%, rgba(191, 238, 255, 0.07), transparent 34%),
+      linear-gradient(
+        180deg,
+        var(--color-night-950) 0%,
+        var(--color-night-900) 46%,
+        var(--color-night-800) 67%,
+        #263247 79%,
+        #69758a 89%,
+        var(--color-porcelain) 100%
+      );
+    background-blend-mode: soft-light, normal, normal, normal;
+    color: var(--color-text-on-dark-primary);
+  }
+
+  .projects-hero::after {
+    position: absolute;
+    inset: auto -10% -92px;
+    height: 220px;
+    content: "";
+    pointer-events: none;
+    background: rgba(243, 245, 249, 0.72);
+    filter: blur(54px);
+  }
+
+  .projects-hero__inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 1.45fr) minmax(310px, 0.75fr);
+    gap: clamp(56px, 8vw, 112px);
+    align-items: end;
+  }
+
+  .projects-hero__copy {
+    max-width: 780px;
+  }
+
+  .projects-hero .eyebrow {
+    color: var(--color-accent-on-dark);
+  }
+
+  .projects-hero h1 {
+    max-width: 760px;
+    margin: 20px 0 0;
+    color: var(--color-text-on-dark-primary);
+    font-size: clamp(2.5rem, calc(1.5rem + 2.5vw), 4rem);
+    font-weight: 740;
+    letter-spacing: 0;
+    line-height: 1.04;
+  }
+
+  .projects-hero__title-tail {
+    white-space: nowrap;
+  }
+
+  .projects-hero__lead {
+    max-width: 660px;
+    margin: 30px 0 0;
+    color: var(--color-text-on-dark-secondary);
+    font-size: 1.04rem;
+    line-height: 1.9;
+  }
+
+  .projects-hero__route {
+    display: grid;
+    gap: 1px;
+    margin: 0 0 4px;
+    overflow: hidden;
+    border: 1px solid var(--color-border-on-dark);
+    border-radius: var(--radius-card);
+    background: var(--color-border-on-dark-subtle);
+    box-shadow: var(--shadow-dark-glass);
+  }
+
+  .projects-hero__route div {
+    padding: 22px 24px;
+    background: rgba(8, 16, 31, 0.72);
+    backdrop-filter: blur(18px);
+  }
+
+  .projects-hero__route dt {
+    color: var(--color-text-on-dark-muted);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+  }
+
+  .projects-hero__route dd {
+    margin: 8px 0 0;
+    color: var(--color-text-on-dark-primary);
+    font-size: 0.94rem;
+    font-weight: 620;
+    line-height: 1.55;
+  }
+
+  .projects-library {
+    position: relative;
+    z-index: 2;
+    margin-top: -22px;
+    padding-block: 64px 132px;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(170, 180, 197, 0.2), transparent 34%),
+      linear-gradient(180deg, rgba(243, 245, 249, 0) 0%, var(--color-porcelain) 18%, var(--color-paper) 100%);
+  }
+
+  .projects-library__heading {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 0.58fr);
+    column-gap: 56px;
+    align-items: end;
+    margin-bottom: 38px;
+  }
+
+  .projects-library__heading .eyebrow {
+    grid-column: 1 / -1;
+    margin: 0 0 12px;
+  }
+
+  .projects-library__heading h2 {
+    margin: 0;
+    color: var(--color-text-primary-cool);
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    font-weight: 740;
+    letter-spacing: -0.04em;
+    line-height: 1.08;
+  }
+
+  .projects-library__heading > p:last-child {
+    margin: 0;
+    color: var(--color-text-secondary);
+    font-size: 0.96rem;
+    line-height: 1.78;
+  }
+
+  .projects-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    align-items: stretch;
+  }
+
+  @media (max-width: 1080px) {
+    .projects-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 900px) {
+    .projects-hero {
+      min-height: auto;
+      padding-block: 152px 126px;
+    }
+
+    .projects-hero__inner,
+    .projects-library__heading {
+      grid-template-columns: 1fr;
+    }
+
+    .projects-hero__route {
+      width: min(100%, 600px);
+      margin-top: 44px;
+    }
+
+    .projects-library__heading > p:last-child {
+      max-width: 620px;
+      margin-top: 18px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .projects-hero {
+      padding-block: 142px 112px;
+    }
+
+    .projects-hero__lead {
+      margin-top: 24px;
+      font-size: 0.96rem;
+    }
+
+    .projects-hero__route div {
+      padding: 18px;
+    }
+
+    .projects-library {
+      margin-top: -12px;
+      padding-block: 48px 88px;
+    }
+
+    .projects-library__heading {
+      margin-bottom: 28px;
+    }
+
+    .projects-list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -91,12 +91,12 @@ const isInitiallyVisible = (index: number) => index < 3;
           <linearGradient id="capability-line" x1="0" x2="1" y1="0" y2="1">
             <stop offset="0%" stop-color="rgba(91, 140, 255, 0.16)" />
             <stop offset="52%" stop-color="rgba(159, 190, 255, 0.54)" />
-            <stop offset="100%" stop-color="rgba(139, 92, 246, 0.18)" />
+            <stop offset="100%" stop-color="rgba(126, 167, 221, 0.2)" />
           </linearGradient>
           <linearGradient id="capability-line-active" x1="0" x2="1">
             <stop offset="0%" stop-color="rgba(91, 140, 255, 0)" />
             <stop offset="46%" stop-color="rgba(191, 238, 255, 0.82)" />
-            <stop offset="100%" stop-color="rgba(139, 92, 246, 0)" />
+            <stop offset="100%" stop-color="rgba(126, 167, 221, 0)" />
           </linearGradient>
         </defs>
         <path class="capability-orbit__arc" d="M180 378 C276 112 454 42 600 42 C746 42 924 112 1020 378" />
@@ -268,22 +268,22 @@ const isInitiallyVisible = (index: number) => index < 3;
     isolation: isolate;
     box-sizing: border-box;
     overflow: hidden;
-    min-height: 100svh;
-    height: 100svh;
-    padding-block: clamp(82px, 10svh, 112px) clamp(34px, 5svh, 56px);
+    min-height: auto;
+    height: auto;
+    padding-block: clamp(104px, 10vw, 128px) clamp(72px, 7vw, 96px);
     background:
       radial-gradient(circle at 50% 50%, rgba(91, 140, 255, 0.18), transparent 31%),
       radial-gradient(circle at 20% 28%, rgba(139, 92, 246, 0.12), transparent 32%),
-      linear-gradient(180deg, #050816 0%, #080b14 56%, #050816 100%);
-    color: #f5f7fa;
+      linear-gradient(180deg, var(--color-night-800) 0%, #0b1426 24%, #0a1323 68%, #101a2d 100%);
+    color: var(--color-text-on-dark-primary);
   }
 
   .capability-system-section > .site-shell {
     display: flex;
-    height: 100%;
-    min-height: calc(100svh - clamp(82px, 10svh, 112px) - clamp(34px, 5svh, 56px));
+    height: auto;
+    min-height: 0;
     flex-direction: column;
-    transform: translateY(clamp(12px, 1.8svh, 22px));
+    transform: none;
   }
 
   .capability-system-section::before {
@@ -315,10 +315,14 @@ const isInitiallyVisible = (index: number) => index < 3;
     flex: 0 0 auto;
   }
 
+  .capability-system-heading .eyebrow {
+    color: var(--color-accent-on-dark);
+  }
+
   .capability-system-heading h2 {
     margin: 14px 0 0;
     max-width: 980px;
-    color: #f5f7fa;
+    color: var(--color-text-on-dark-primary);
     font-size: 2.75rem;
     font-weight: 740;
     line-height: 1.14;
@@ -328,21 +332,21 @@ const isInitiallyVisible = (index: number) => index < 3;
   .capability-system-heading p:not(.eyebrow) {
     max-width: 640px;
     margin: 16px 0 0;
-    color: rgba(255, 255, 255, 0.65);
+    color: var(--color-text-on-dark-secondary);
     font-size: 1rem;
     line-height: 1.86;
   }
 
   .capability-orbit {
     position: relative;
-    flex: 1 1 auto;
-    min-height: 0;
-    margin-top: clamp(18px, 3svh, 30px);
+    flex: 0 0 auto;
+    min-height: 548px;
+    margin-top: clamp(26px, 3vw, 38px);
     outline: none;
   }
 
   .capability-orbit:focus-visible {
-    outline: 2px solid rgba(191, 238, 255, 0.78);
+    outline: 2px solid var(--color-accent-on-dark-soft);
     outline-offset: 10px;
   }
 
@@ -398,12 +402,12 @@ const isInitiallyVisible = (index: number) => index < 3;
     min-height: clamp(190px, 18.6vw, 224px);
     place-items: center;
     transform: translate(-50%, -50%);
-    border: 1px solid rgba(191, 219, 254, 0.28);
-    border-radius: 999px;
+    border: 1px solid var(--color-border-on-dark-elevated);
+    border-radius: var(--radius-round);
     padding: 30px;
     background:
-      linear-gradient(145deg, rgba(17, 35, 65, 0.72), rgba(49, 37, 95, 0.58)),
-      rgba(255, 255, 255, 0.04);
+      linear-gradient(145deg, rgba(17, 35, 65, 0.72), rgba(31, 58, 86, 0.62)),
+      var(--surface-glass-subtle);
     box-shadow:
       0 0 80px rgba(91, 140, 255, 0.22),
       0 26px 80px rgba(0, 0, 0, 0.32),
@@ -421,7 +425,7 @@ const isInitiallyVisible = (index: number) => index < 3;
   }
 
   .capability-core strong {
-    color: #f5f7fa;
+    color: var(--color-text-on-dark-primary);
     font-size: clamp(1.22rem, 1.8vw, 1.5rem);
     font-weight: 760;
     line-height: 1.16;
@@ -443,7 +447,7 @@ const isInitiallyVisible = (index: number) => index < 3;
     --node-lift: 0px;
     --node-scale: 1;
     --node-rotate: 0deg;
-    border: 1px solid rgba(191, 219, 254, 0.12);
+    border: 1px solid var(--color-border-on-dark-subtle);
     border-radius: var(--radius-card);
     padding: 26px;
     background:
@@ -486,7 +490,7 @@ const isInitiallyVisible = (index: number) => index < 3;
     --node-scale: 1;
     border-color: rgba(191, 238, 255, 0.42);
     background:
-      linear-gradient(180deg, rgba(91, 140, 255, 0.15), rgba(139, 92, 246, 0.055)),
+      linear-gradient(180deg, rgba(91, 140, 255, 0.15), rgba(126, 167, 221, 0.06)),
       rgba(11, 18, 38, 0.84);
     box-shadow:
       0 32px 82px rgba(0, 0, 0, 0.3),
@@ -537,7 +541,7 @@ const isInitiallyVisible = (index: number) => index < 3;
     --node-lift: -6px;
     border-color: rgba(191, 238, 255, 0.48);
     background:
-      linear-gradient(180deg, rgba(91, 140, 255, 0.13), rgba(139, 92, 246, 0.055)),
+      linear-gradient(180deg, rgba(91, 140, 255, 0.13), rgba(126, 167, 221, 0.06)),
       rgba(11, 18, 38, 0.82);
   }
 
@@ -667,7 +671,7 @@ const isInitiallyVisible = (index: number) => index < 3;
     .capability-orbit {
       display: grid;
       gap: 14px;
-      min-height: auto;
+      min-height: 0;
       margin-top: 48px;
     }
 

@@ -69,6 +69,12 @@
 | UX-021 | done | 首页 AIPM 能力系统半圆轮盘 | 根据用户确认，把首页 AIPM Capability System 从六卡静态辐射图改为桌面一屏三卡半圆轮盘，保留中心 `AI Product Builder` 圆圈 | 仅调整 `AIPMCapabilitySystem.astro`：桌面端 section 高度为一屏，能力卡片按 `left / top / right / hidden` 槽位轮换；原生 JS 支持滚轮、触控板横向滑动和左右方向键单步循环；移动端继续六卡纵向列表 | 不改 Hero、构建流程、方法样本、案例详情页、内容源、schema、截图资产、真实指标、demo、GitHub、CMS、AI runtime 或新增依赖 | bundled Node 环境下 `pnpm run check` / `pnpm run build` / `pnpm run lint` 通过；preview 于 `http://127.0.0.1:4344/#capabilities` 浏览器验证桌面 1280x720 初始只显示 `01/02/03`，键盘、滚轮和水平滑动均按单步循环到 `02/03/04`、`03/04/05`、`04/05/06`、`05/06/01`、`06/01/02`；移动 390x844 下 6 张卡恢复 `static` 纵向列表且水平溢出为 0 | `UX-014` |
 | UX-022 | done | 首页前三屏满视口与垂直重心校准 | 让 Hero、AIPM 能力系统和 AI Product Operating Process 在宽桌面端各自完整占满一个视口，消除 Hero 底部露出的下一屏背景，并让主体视觉重心略低于几何中心 | 仅调整首页 Hero、能力系统和构建流程的 section 高度与内容组垂直偏移；宽度不足以容纳五列流程卡时，保留内容自适应；移动端维持自然内容高度 | 不改方法样本与后续区块、导航叠层逻辑、文本内容、能力轮盘交互、案例详情页、内容源、schema、截图资产、真实指标、demo、GitHub、CMS、AI runtime 或新增依赖 | bundled Node 环境下 `pnpm run check` / `pnpm run build` / `pnpm run lint` 通过；浏览器 1440x900 下前三个 section 的 `top` 分别为 `0/900/1800`、高度均为 `900px`、无水平溢出；主体内容中心相对各 section 中线下移约 `18-39px`；移动 390x844 下三段均回退为自然高度且无水平溢出 | `UX-021` |
 | UX-023 | done | 首页前三屏滚动吸附 | 让宽桌面端用户滚动浏览首页前三屏时，靠近页面边界即可自动对齐完整一屏，而无需手动找齐位置 | 仅为首页根节点增加 `y proximity` scroll snap；Hero、AIPM 能力系统与构建流程为吸附目标，方法样本与后续模块不设吸附；移动端与窄桌面端不启用 | 不修改前三屏内容与高度、导航逻辑、能力轮盘交互、方法样本与后续模块、案例详情页、内容源、schema、截图资产、真实指标、demo、GitHub、CMS、AI runtime 或依赖 | bundled Node 环境下 `pnpm run check` / `pnpm run build` / `pnpm run lint` 通过；浏览器 1440x900 下靠近首屏 / 第二屏边界滚动后分别稳定在 `scrollY=900` / `1800`；继续进入方法样本可停在非吸附位置；390x844 下 `scroll-snap-type:none` 且无水平溢出 | `UX-022` |
+| VU-001 | done | 建立全站视觉语义基础 | 为后续全站深色到白色的连续视觉改造建立统一 night / mist / porcelain / paper / glass / border / shadow / radius 语义层 | 补齐共享 CSS token；提取详情页轻 dither；将首页、能力系统、构建流程、共享页眉和案例详情页中可无损替换的重复视觉常量切换为 token；同步视觉系统、决策、测试和迭代记录 | 不取消首页吸附；不改变首页模块高度；不实施方法样本转白；不重排 Projects；不改变详情页渐变停靠点、内容结构、schema、数据、Sticky 摘要或外侧网格 | bundled Node 环境下 `pnpm run check` / `pnpm run build` / `pnpm run lint` 通过；三条静态页面生成；1280px 浏览器回归确认三页无横向溢出，详情页保留 6 层 Hero 渐变、2 个外侧网格、白色内容壳和 Sticky 摘要，浏览器错误日志为空 | `UX-023`、D-009 |
+| VU-002 | done | 首页由深到浅的完整视觉弧线 | 将首页从连续深色幻灯片调整为一条自然的品牌到证据叙事 | 取消前三段滚动吸附；只保留 Hero 满屏；能力系统与流程恢复自然高度；流程开始引入纸面 Output；方法样本采用深色顶部、灰蓝中段、浅色底部，并改为白色 Editorial 主面 + 深色证明栏；联系区使用 porcelain 收尾 | 不改首页信息架构、核心文案、能力轮盘逻辑、内容数据、路由或依赖 | `check / build / lint` 通过；1440×900 整页缩小约 18% 可见连续深→深蓝→灰蓝→白弧线；390×844 无溢出，移动页眉不遮挡姓名；轮盘键盘与滚轮交互保留 | `VU-001` |
+| VU-003 | done | Projects 单案例索引统一 | 让首页、Projects 与详情页的页眉、颜色、卡片和 CTA 语言连续 | Projects 改为暗色透明页眉与紧凑深色 Hero；下方自然过渡浅色项目区；唯一案例改为横向白色主内容 + 灰蓝证明栏，并保留原 `project` 输入与内容集合驱动 | 不新增案例、截图、指标、技术 Badge、路由、schema 或依赖 | `check / build / lint` 通过；1440/1280/1024 保持横向结构，390 自动堆叠；整页缩小约 18% 明暗过渡连续；CTA 正确进入现有详情页 | `VU-002` |
+| VU-004 | done | 案例详情页视觉对齐 | 保留用户认可的详情页母版，仅将局部视觉常量收敛到共享系统 | Hero 面板、返回按钮、元信息、判断链路、白色内容壳、正文卡和摘要卡使用共享 glass / paper / border / shadow / radius / focus token；1024 平板比例微调 | 不改 12 段左右渐变、中央泛白、页面雾面、内容顺序、schema、数据、外侧网格、Sticky 脚本或标题强调 | `check / build / lint` 通过；详情页仍有 6 层 Hero 背景、2 个外侧网格和 94% 白壳；1440 Sticky 在多个滚动位置稳定，390 单列降级无回归 | `VU-003` |
+| VU-005 | done | 全站视觉 QA 与微调 | 以整页和多视口方式证明三个页面属于同一视觉作品 | 检查 1440×900、1280×800、1024×768、390×844；生成三页整页缩略图；修复 1024 详情标题比例、390 Projects 标题换行和首页页眉遮挡；回归锚点、轮盘、CTA、返回、Sticky、减少动效、对比度、错误日志和横向溢出 | 不新增功能、内容、案例、依赖、重动画、3D 或粒子系统 | `check / build / lint` 通过且 21 个 Astro 文件 0 error/warning/hint；3 路由生成；所有测试视口 `scrollWidth === clientWidth`；关键文字对比度 4.92:1–18.18:1；浏览器 error/warn 日志为空 | `VU-004` |
+| VU-006 | done | 案例索引比例回调与公开占位清理 | 根据用户反馈缩小 Projects Hero 标题，恢复原版紧凑竖向项目卡片并做克制精修，同时清理公开页面上的开发占位信息 | Projects H1 收敛到 40–64px；ProjectCard 恢复能力 / 状态 / 标题 / tagline / 问题 / AI 角色 / 我的角色 / CTA 的原版信息骨架并使用 3/2/1 列；删除首页空内容面板、Hero `Live Map`、详情页 slug 卡和未就绪 Demo / GitHub / 截图卡 | 不改变顶部深色到灰蓝雾面再到浅色案例区的丝滑过渡；不新增案例、Schema、联系方式、Demo、GitHub、截图、指标、依赖或详情页视觉重做；不删除真实证据缺口和归档 placeholder | bundled Node 环境下 `pnpm run check` / `pnpm run build` / `pnpm run lint` 通过；1710/1440/1024/390 下 H1 为 64/60/49.6/40px 且单行，无水平溢出；卡片列数为 3/3/2/1、1440 卡宽约 387px；CTA 实际进入现有详情页；公开产物负向文案检查和浏览器 error/warn 日志通过 | `VU-005` |
 | CS-003 | deferred | 创建第二个 Featured Case Study 内容骨架 | 用 TalentSignal AI 验证统一 Case Study schema 和详情页骨架可以复用到第二个重点项目 | 选择 TalentSignal AI，按 `docs/case-study-template-schema.md` 补齐一版内容骨架；允许未确认字段为 `TBD`，但不删除 Product Judgment、AI Workflow、Evaluation、Outcome、Reflection | 不改详情页结构；不新增第三个案例；不编造 demo、GitHub、截图、用户反馈或商业指标；不新增 CMS、AI runtime 或真实 LLM | 未来恢复多 Featured 案例策略后，`pnpm run check` / `pnpm run build` / `pnpm run lint` 通过；Projects 列表出现第二个正式案例；详情页复用 `CS-002` 的完整展示骨架 | `CS-002` |
 
 ## 推荐执行顺序
@@ -122,13 +128,22 @@
 | 45 | UX-021 | 已完成；首页 AIPM 能力系统已改为桌面一屏半圆轮盘，初始只显示 `01/02/03`，滚轮、触控板横向滑动和左右方向键可单步循环，移动端保持纵向列表 |
 | 46 | UX-022 | 已完成；首页前三屏在宽桌面端各自占满一个视口，主体视觉重心轻微下移；窄屏保持内容自适应 |
 | 47 | UX-023 | 已完成；首页前三屏在宽桌面端支持接近边界时自动吸附对齐，方法样本与后续不受影响 |
-| 48 | CS-003 | 已延后；当前公开阶段先不增加第二个 Featured 案例，待证据补齐后复核 |
+| 48 | VU-001 | 已完成；全站 night / mist / porcelain / paper / glass / border / shadow / radius 视觉语义层已建立，现有页面结构和详情页渐变保持不变 |
+| 49 | VU-002 | 已完成；首页已形成深夜品牌层、深蓝结构层、灰蓝雾层和白色证据层的连续长幅 |
+| 50 | VU-003 | 已完成；Projects 已改为暗色 Hero + 浅色单案例证据卡，并与首页及详情页共享组件语言 |
+| 51 | VU-004 | 已完成；详情页保留原母版并对齐共享视觉 token，Sticky、网格和渐变无回归 |
+| 52 | VU-005 | 已完成；三页四档视口、整页缩略图、交互、可访问性和构建验收均通过 |
+| 53 | VU-006 | 已完成；Projects 标题已缩小并保持单行，项目卡恢复原版紧凑比例，公开开发占位信息已清理，深色到浅色过渡保持不变 |
+| 54 | CS-003 | 已延后；当前公开阶段先不增加第二个 Featured 案例，待证据补齐后复核 |
 
 ## Foundation 后下一步
 
-- 当前下一步唯一建议：请用户在目标电脑屏幕体验 UX-023 的滚动吸附力度；如无调整，执行 `prddev-checkpoint` 同步当前首页视觉状态。
-- 本轮说明：`UX-023` 已完成，首页前三屏在宽桌面端采用 `scroll-snap-type: y proximity`，靠近边界时自动对齐完整一屏；方法样本及其后续内容没有 snap target，因此不会被强制拉回第三屏；能力轮盘内部滚轮继续保留其单步切换能力节点的既有逻辑。
-- 本轮说明：`UX-022` 已完成，首页 Hero、AIPM 能力系统和 AI Product Operating Process 在宽桌面端均为完整一屏；Hero 不再扣除绝对定位导航的高度，因此底部不再提前露出下一模块。三个内容组都轻微下移，移动和空间不足的窄屏保持自然高度，避免内容被截断；方法样本及其后续模块未改动。
+- 当前下一步唯一建议：先由用户复核 `VU-006` 的 Projects 标题、紧凑卡片比例和深色到浅色过渡；若继续开发，单独规划真实截图、Demo 或验证证据增量，不自动增加第二案例。
+- 本轮说明：`VU-006` 已完成。Projects 保留顶部深色品牌区、灰蓝雾面和浅色案例区的丝滑过渡；Hero 标题缩小到同级层级，单案例卡恢复约 387px 的原版竖向比例并使用轻边框、12px 圆角和克制微交互；首页、Hero 与详情页的公开开发占位已清理，真实待验证边界仍保留在内容源和正文中。
+- 本轮说明：`VU-002` 至 `VU-006` 已全部完成。首页、Projects 与 Ecommerce Review Copilot 详情页现已共享“深色品牌层 -> 灰蓝雾层 -> 白色阅读层”的单向视觉叙事；Projects 标题与卡片比例已按最新反馈回调，并完成多视口与交互验收。
+- 本轮说明：`VU-001` 已完成，全站共享视觉语义层和详情页 dither 纹理已集中到 `tokens.css`；本轮未改变首页模块高度、吸附逻辑、Projects 布局或详情页渐变结构。
+- 历史说明：`UX-023` 曾为首页前三屏加入 `scroll-snap-type: y proximity`；该行为已在 `VU-002` 中按全站连续长幅目标取消，能力轮盘内部滚轮与键盘切换逻辑继续保留。
+- 历史说明：`UX-022` 曾让首页 Hero、AIPM 能力系统和 AI Product Operating Process 各自完整一屏；该后三段满屏策略已与 `UX-023` 的页面吸附一起由 `VU-002` 替代。当前仅 Hero 保持 `100svh`，后续模块使用自然高度。
 - 本轮说明：`UX-021` 已完成，首页 AIPM 能力系统已从六卡静态辐射图改为桌面一屏三卡半圆轮盘；中心 `AI Product Builder` 圆圈保留，初始显示 `01/02/03`，滚轮、触控板横向滑动和左右方向键按单步循环；本轮只调整 `AIPMCapabilitySystem.astro`，不改 Hero、构建流程、方法样本、案例详情页、内容源、schema、截图资产、真实指标、demo、GitHub、CMS 或 AI runtime。
 - 本轮说明：`CS-016` 已完成，Ecommerce Review Copilot 详情页网格已从内容壳内部撤出，改为显示在用户红框标注的页面最外侧左右留白区；根据最新反馈，外侧网格顶部已通过 `--case-outer-grid-start: 840px` 保持完全透明，网格从更下方出现；本轮只新增 article 顶层左右外侧装饰层，不改 Hero、页眉、正文卡片、右侧摘要、内容源、schema、截图资产、真实指标、demo、GitHub、CMS 或 AI runtime。
 - 本轮说明：`CS-015` 已完成，Ecommerce Review Copilot 详情页正文内容壳左右留白区已增加浅色非均匀纵深网格；本轮只新增内容壳内的左右装饰层和浅色底雾，不改 Hero、页眉、正文卡片、右侧摘要、内容源、schema、截图资产、真实指标、demo、GitHub、CMS 或 AI runtime。

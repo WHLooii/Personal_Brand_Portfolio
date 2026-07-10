@@ -32,6 +32,10 @@ select {
   outline-offset: 3px;
 }
 
+:where(.site-header--dark, .hero-section, .case-detail-hero) :focus-visible {
+  outline-color: var(--color-accent-on-dark);
+}
+
 ::selection {
   background: var(--color-accent-soft);
 }
@@ -80,7 +84,7 @@ select {
   inset-block-start: 0;
   inset-inline: 0;
   background: transparent;
-  color: rgba(245, 249, 255, 0.94);
+  color: var(--color-text-on-dark-primary);
 }
 
 .site-header--dark::after {
@@ -199,7 +203,7 @@ select {
 }
 
 .site-header a {
-  transition: color 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: color var(--duration-fast) var(--ease-standard);
 }
 
 .site-header a:hover {
@@ -207,7 +211,7 @@ select {
 }
 
 .site-header--dark a:hover {
-  color: #bfeeff;
+  color: var(--color-accent-on-dark);
 }
 
 .section {
@@ -217,7 +221,7 @@ select {
 .surface-card {
   border: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-card);
-  background: var(--color-surface);
+  background: var(--color-paper);
 }
 
 .eyebrow {
@@ -226,19 +230,6 @@ select {
   font-size: 0.78rem;
   font-weight: 650;
   text-transform: uppercase;
-}
-
-@media (min-width: 1081px) {
-  html.home-scroll-snap {
-    scroll-snap-type: y proximity;
-  }
-
-  html.home-scroll-snap .hero-section,
-  html.home-scroll-snap .capability-system-section,
-  html.home-scroll-snap .operating-process-section {
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
-  }
 }
 
 @media (max-width: 720px) {

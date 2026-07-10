@@ -4,14 +4,91 @@
 
 ## 当前状态摘要
 
-- 当前阶段：Phase 3 内容系统落地推进中；首页已升级为能力驱动个人品牌信息架构，AIPM 能力系统、AI Product Operating Process、方法样本模块与第一个正式 Case Study 详情页展示骨架已完成；首页前三屏（Hero、AIPM 能力系统、AI Product Operating Process）现已在宽桌面端各自完整占满一个视口，主体内容组轻微下移，并在靠近页面边界时自动吸附对齐；Hero 不再因绝对定位导航而在底部露出下一模块，方法样本与后续内容不参与吸附；AIPM 能力系统已改为桌面一屏半圆轮盘，中心 `AI Product Builder` 圆圈保留，初始只显示 `01/02/03`，滚轮、触控板横向滑动和左右方向键可单步循环；全局字体栈已调整为 Apple-first，正文灰色层级已切换为 Apple-ish 冷灰；首页 Typography System、Hero 杂志式姓名背景、方法样本文字结构和卡片视觉层级已精修；Hero 英文名已从暗色导航栏跨界溢出到封面；Hero 重复小徽标和能力标签组已删除；首页关键 section 标题与副标题字号已统一；暗色页眉 `HAOLIN WU` 装饰字已改为两个词组和分段画线方案，整条 header 下线不再穿过字母，字母内部不再透出明显横线，线只保留在左右侧、字母间和词间；当前暗色页眉已进一步透明化为覆盖式 header，`HAOLIN WU` 更浅更明显，分段下线更清楚且仍避开字母实体；样本 01 详情页已升级为深色承接、浅色透出和白色内容上浮的过渡型案例详情页；详情页 Hero 主体已在透明 header 后整体下移，返回按钮、标题、元信息卡片和右侧判断链路面板不再被 `HAOLIN WU` 装饰字压住；详情页右侧“案例摘要”已修正为顶部原位、滚动后栏内垂直居中的浮动摘要，且 sticky 失效根因已修复；详情页 Hero 标题已按用户截图反馈改为两行断行和轻微冷蓝紫渐变强调；详情页 Hero 背景左右两侧黑白过渡已进一步加密为 12 段停靠点渐变，且中间泛白光感保持原参数；详情页右侧判断链路面板中的英文 kicker 和编号已统一为 Apple-first 无衬线字体；详情页白色内容壳后方已新增柔化裙边，让白壳顶边和左右边缘参与灰蓝背景融合
+- 当前阶段：Phase 3 内容系统落地推进中；`VU-001` 至 `VU-006` 已完成。首页、Projects 与 Ecommerce Review Copilot 详情页继续统一为“深色品牌层 -> 灰蓝雾层 -> 白色阅读层”；Projects 保留顶部深色到浅色案例区的丝滑过渡，Hero 标题已缩小，单案例卡已从横向证据面板回调为原版紧凑竖卡并做克制精修；详情页保留原 12 段渐变、中央泛白、白色内容壳、外侧网格和 Sticky 摘要。
 - 详情页背景渐变已按用户确认方案继续细腻化：使用 OKLab 色彩插值、更长向下过渡、密集停靠点和极轻 dither 抗色带；根据用户红框反馈，网格不应在正文和摘要之间，而应位于页面最外侧左右留白区，本轮已改为深色低透明外侧纵深网格，并让外侧网格顶部完全透明；不改字体、不改标题文字渐变、不改变 Hero 中央 `50% 96%` 泛白光。
-- 最近完成：UX-023 首页前三屏滚动吸附
+- 最近完成：VU-006 案例索引比例回调与公开占位清理
 - 当前阻塞：无内容 schema 阻塞；demo link、GitHub link、截图资产、真实商家反馈和真实商业指标仍为 `TBD`
-- 下一步唯一建议：请用户在目标电脑屏幕体验 UX-023 的滚动吸附力度；如无调整，执行 `prddev-checkpoint` 同步当前首页视觉状态。
+- 下一步唯一建议：先由用户复核 Projects 标题、原版紧凑卡片和深色到浅色过渡；后续如继续开发，单独规划真实截图、Demo 或验证证据增量，不自动增加第二案例。
 - 最后更新：2026-07-10
 
 ## 迭代记录
+
+### 2026-07-10 - VU-006 案例索引比例回调与公开占位清理
+
+- 使用 skill：`prddev-increment`、`browser:control-in-app-browser`
+- 本轮目标：根据用户反馈缩小 Projects Hero 标题，以原版竖向项目卡为骨架做高级化精修，并清理所有公开页面上的开发占位信息，同时保持顶部深色、灰蓝雾面到浅色案例区的丝滑过渡。
+- 完成内容：Projects H1 改为 40–64px 单一 fluid clamp，取消移动端强制分行并保护“索引”不拆分；ProjectCard 恢复能力标签 / 状态 / 标题 / tagline / 问题 / AI 角色 / 我的角色 / CTA 的紧凑信息顺序，使用 3/2/1 列、12px 圆角、轻边框与轻阴影；删除首页无真实 CTA 的空内容面板、Hero `Live Map`、详情页 slug 卡和未就绪 Demo / GitHub / 截图占位卡。
+- 修改文件：`src/pages/projects/index.astro`、`src/components/ProjectCard.astro`、`src/pages/index.astro`、`src/components/HeroAbilitySystem.astro`、`src/layouts/CaseStudyLayout.astro` 及本轮状态文档。
+- 验证结果：bundled Node / pnpm 下 `pnpm run check`、`pnpm run build`、`pnpm run lint` 均通过，21 个 Astro 文件为 0 error / warning / hint，生成 3 条静态路由；1710 / 1440 / 1024 / 390px 下 H1 分别为 64 / 60 / 49.6 / 40px、首尾同一行且无横向溢出，项目列表分别为 3 / 3 / 2 / 1 列，1440 卡宽约 387px；浏览器实际点击“查看案例”进入现有详情页；首页和详情页占位清理生效，浏览器 error / warn 日志为空。
+- 未做内容：未改变 Projects 的深色到浅色过渡；未新增案例、Schema、内容事实、联系方式、Demo、GitHub、截图、指标、依赖、详情页视觉模块或归档内容清理。
+- 下一步建议：先由用户复核目标显示器上的标题比例、卡片密度和明暗过渡；若继续开发，单独规划真实证据增量。
+
+### 2026-07-10 - VU-005 全站视觉 QA 与微调
+
+- 使用 skill：`prddev-increment`、`browser:control-in-app-browser`
+- 本轮目标：用整页缩略图、多视口、交互和构建结果证明三页已成为同一件视觉作品。
+- 完成内容：检查 1440×900、1280×800、1024×768、390×844；生成首页、Projects、详情页整页长图并缩小到约 18%；修正 1024 详情页 Hero 标题比例、390 Projects 标题换行和首页透明页眉遮挡姓名；回归导航锚点、轮盘键盘/滚轮、首页/Projects CTA、详情返回、Sticky 与减少动效。
+- 修改文件：`src/layouts/CaseStudyLayout.astro`、`src/pages/index.astro`、`src/pages/projects/index.astro` 及本轮状态文档。
+- 验证结果：三页四档视口均 `scrollWidth === clientWidth`；能力轮盘可由 `01/02/03` 切到 `02/03/04`；Sticky 在 `scrollY=900/1400/2400/4200/7600` 时 top 均为 `181px`；关键文字对比度为 4.92:1–18.18:1；浏览器 error/warn 日志为空；`check / build / lint` 通过并生成 3 条静态路由。
+- 未做内容：未新增案例、内容数据、截图、指标、Demo、依赖、3D、粒子或页面切换动画。
+- 下一步建议：用户复核最终视觉；后续只按真实证据增量继续。
+
+### 2026-07-10 - VU-004 案例详情页视觉对齐
+
+- 使用 skill：`prddev-increment`
+- 本轮目标：保留详情页现有视觉母版，仅把局部颜色、圆角、边框、阴影和焦点状态对齐共享 token。
+- 完成内容：Hero 判断链路面板、返回按钮、元信息、白色内容壳、正文卡片与 Sticky 摘要切换到共享 glass / paper / border / shadow / radius；新增 981–1080px 平板比例微调。
+- 修改文件：`src/layouts/CaseStudyLayout.astro`、`src/styles/tokens.css`、`src/styles/global.css`。
+- 验证结果：保留 6 层 Hero 背景、中央泛白、2 个外侧网格、94% 白色内容壳和 Sticky 脚本；桌面 Sticky 稳定，390px 单列降级且无水平溢出；`check / build / lint` 通过。
+- 未做内容：未改 12 段渐变、内容结构、schema、数据、标题强调、网格或 Sticky 行为。
+- 下一步建议：执行 `VU-005` 全站 QA。
+
+### 2026-07-10 - VU-003 Projects 单案例索引统一
+
+- 使用 skill：`prddev-increment`
+- 本轮目标：让 Projects 成为首页样本与详情页之间连续的案例入口，而不是空白三列模板。
+- 完成内容：Projects 使用暗色透明页眉、紧凑深色 Hero 与自然灰蓝到浅色过渡；唯一案例改为白色主内容 + 深色证明栏，展示现有问题、AI 角色、个人角色、证明语句、状态、主要能力和五步判断链路。
+- 修改文件：`src/pages/projects/index.astro`、`src/components/ProjectCard.astro`。
+- 验证结果：卡片继续由内容集合和原 `project` 输入驱动；桌面横向、移动单列；CTA 正确进入原详情页；无水平溢出；`check / build / lint` 通过。
+- 未做内容：未新增案例、截图、指标、技术 Badge、路由、schema 或依赖。
+- 下一步建议：执行 `VU-004` 详情页视觉对齐。
+
+### 2026-07-10 - VU-002 首页由深到浅的完整视觉弧线
+
+- 使用 skill：`prddev-increment`
+- 本轮目标：将首页从多张独立深色幻灯片改为一条连续的深色品牌到白色证据叙事。
+- 完成内容：取消首页滚动吸附；Hero 保持满屏；能力系统和流程恢复自然高度；流程 Output 引入纸面预告；方法样本使用长距离深→雾→白过渡并改为白色 Editorial 主面 + 深色证明栏；联系区用 porcelain 收尾。
+- 修改文件：`src/pages/index.astro`、`src/components/AIPMCapabilitySystem.astro`、`src/components/ProductOperatingProcess.astro`、`src/components/HeroAbilitySystem.astro`、`src/styles/global.css`。
+- 验证结果：1440×900 整页缩略图显示连续深→深蓝→灰蓝→白弧线；390px 自然堆叠且无水平溢出；轮盘交互保留；`check / build / lint` 通过。
+- 未做内容：未改首页信息架构、核心文案、内容数据、详情页结构、路由或依赖。
+- 下一步建议：执行 `VU-003` Projects 统一。
+
+### 2026-07-10 - VU-001 建立全站视觉语义基础
+
+- 使用 skill：`prddev-increment`
+- 本轮目标：为全站“深色品牌层 -> 灰蓝雾层 -> 白色案例阅读层”的视觉叙事建立共享语义基础，同时保持现有页面结构和详情页渐变观感。
+- 完成内容：
+  - 扩展 `tokens.css`，新增 night、mist、porcelain、paper、深色文字、深色边框、青蓝反色 accent、玻璃表面、纸面、阴影、三级圆角、动效节奏、共享深色渐变和轻 dither 纹理。
+  - 将共享页眉、首页 Hero / 方法样本、AIPM 能力系统、AI Product Operating Process、Hero 能力面板和案例详情页中可无损替换的重复视觉常量切换为语义 token。
+  - 将详情页局部 `--case-mist-dither` 提取为全站 `--texture-mist-dither`；保留详情页原有 OKLab 渐变、停靠点、中央泛白、内容壳、外侧网格和 Sticky 摘要。
+  - 更新视觉系统与 D-009，确认全站明暗叙事及 VU-001 至 VU-005 的增量边界。
+- 修改文件：
+  - `apps/ai-native-product-builder-portfolio/src/styles/tokens.css`
+  - `apps/ai-native-product-builder-portfolio/src/styles/global.css`
+  - `apps/ai-native-product-builder-portfolio/src/pages/index.astro`
+  - `apps/ai-native-product-builder-portfolio/src/components/AIPMCapabilitySystem.astro`
+  - `apps/ai-native-product-builder-portfolio/src/components/ProductOperatingProcess.astro`
+  - `apps/ai-native-product-builder-portfolio/src/components/HeroAbilitySystem.astro`
+  - `apps/ai-native-product-builder-portfolio/src/layouts/CaseStudyLayout.astro`
+  - `docs/visual-system.md`
+  - `docs/decision-log.md`
+  - `docs/backlog.md`
+  - `docs/testing.md`
+  - `docs/iteration-log.md`
+- 验证结果：Codex bundled Node / pnpm 下 `pnpm run check`、`pnpm run build`、`pnpm run lint` 均通过；21 个 Astro 文件为 0 errors / 0 warnings / 0 hints；构建生成 3 条静态路由。1280px 浏览器回归确认首页、Projects 与详情页无横向溢出；详情页保留 6 层 Hero 渐变、2 个外侧网格、白色内容壳和 Sticky 摘要；浏览器错误日志为空。
+- 未做内容：未取消首页前三屏吸附；未改变 Hero / 能力系统 / 构建流程高度；未实施方法样本白色 Editorial 内容面；未重排 Projects；未改变详情页渐变停靠点、内容结构、schema、内容数据、截图资产、真实指标、demo、GitHub、CMS、AI runtime 或依赖。
+- 遗留问题：当前共享视觉基础已经就绪，但首页长图仍保持连续深色屏幕，深到雾到白的视觉弧线需要在 VU-002 中实现。
+- 下一步建议：执行 `VU-002` 首页由深到浅的完整视觉弧线；完成后停止，不自动进入 Projects 改造。
 
 ### 2026-07-10 - UX-023 首页前三屏滚动吸附
 
@@ -1150,6 +1227,12 @@
 
 | 日期 | Backlog ID | 完成内容 | 验证 | 备注 |
 | --- | --- | --- | --- | --- |
+| 2026-07-10 | VU-006 | 缩小 Projects 标题、恢复原版紧凑项目卡并清理公开开发占位 | `pnpm run check`、`pnpm run build`、`pnpm run lint`、四档浏览器与 CTA 验收通过 | 深色到灰蓝雾面再到浅色案例区的过渡保持不变 |
+| 2026-07-10 | VU-005 | 完成全站多视口、整页连续性、交互、可访问性与构建 QA，并修正平板/移动排版 | `pnpm run check`、`pnpm run build`、`pnpm run lint`、四档浏览器验收通过 | 全站视觉连续性重构完成 |
+| 2026-07-10 | VU-004 | 详情页对齐共享 glass / paper / border / shadow / radius，保留原视觉母版 | 三页静态构建、详情页桌面/移动与 Sticky 回归通过 | 未改渐变、schema、内容或网格 |
+| 2026-07-10 | VU-003 | Projects 改为暗色 Hero + 单案例横向证据卡 | 桌面/移动、CTA 与构建验证通过 | 保持内容集合驱动和原 project 接口 |
+| 2026-07-10 | VU-002 | 首页形成深色品牌到白色证据的连续长幅，取消页面吸附 | 整页缩略图、轮盘交互、桌面/移动和构建验证通过 | 仅 Hero 保持满屏 |
+| 2026-07-10 | VU-001 | 建立全站语义视觉 token 与共享纹理基础 | 三页构建和视觉回归通过 | D-009 的基础增量 |
 | 2026-07-07 | CS-001 | 创建 Ecommerce Review Copilot 正式 Case Study 内容骨架 | `pnpm run check`、`pnpm run build`、`pnpm run lint` 通过 | 下一步执行 `CS-002`，扩展 Case Study Detail 展示骨架 |
 | 2026-07-07 | UX-001 | 前端文案中文优先表达 | `pnpm run check`、`pnpm run build`、`pnpm run lint` 通过 | 已为后续正式案例保持中文优先表达 |
 | 2026-07-07 | FN-001 | 初始化最小 Astro + TypeScript 基座 | `pnpm run check`、`pnpm run build`、`pnpm run lint` 通过 | 已进入内容系统落地阶段 |
@@ -1170,5 +1253,5 @@
 
 | 日期 | 问题 | 影响 | 处理建议 | 状态 |
 | --- | --- | --- | --- | --- |
-| 2026-07-07 | 当前目录未检测到 `.git` | 无法通过 `git status` 辅助判断工作区差异 | 版本状态暂以文件扫描、文档记录和验证命令为准 | open |
+| 2026-07-07 | 当前目录未检测到 `.git` | 当时无法通过 `git status` 辅助判断工作区差异 | 当前仓库已可正常执行 `git status`，该历史环境问题不再阻塞 | closed |
 | 2026-07-07 | 只有 foundation placeholder 内容 | 站点可运行但还不能代表正式作品集内容 | 已通过 `CS-001` 创建第一个正式 Case Study 内容骨架，并将 placeholder 归档 | closed |

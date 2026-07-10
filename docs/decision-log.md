@@ -14,6 +14,7 @@
 | D-006 | 2026-07-08 | 产品 / 视觉表达 | 首页 Hero 允许采用暗色高级玻璃质感作为局部封面方向，但不扩展为全站暗色科幻风格 | 用户明确要求首页封面更神秘、高级、未来感，并重点优化右侧能力模型；项目仍需保持克制、专业、简洁和产品可信度 | `apps/ai-native-product-builder-portfolio/src/pages/index.astro`、`apps/ai-native-product-builder-portfolio/src/components/HeroAbilitySystem.astro`、`docs/backlog.md`、`docs/testing.md`、`docs/iteration-log.md` | 已确认 |
 | D-007 | 2026-07-08 | 产品 / 首页内容策略 | 首页当前公开阶段将“精选案例”收敛为单个 AIPM 方法样本，不做多项目卡片堆叠 | 用户明确当前定位是 AI Product Manager / AI 产品原型构建者，现阶段先展示核心能力、判断方式和方法论，而不是大量完整项目案例或空项目占位卡 | `apps/ai-native-product-builder-portfolio/src/pages/index.astro`、`docs/prd.md`、`docs/portfolio-content-strategy.md`、`docs/project-portfolio-index.md`、`docs/content-model.md`、`docs/backlog.md`、`docs/testing.md`、`docs/iteration-log.md` | 已确认 |
 | D-008 | 2026-07-08 | 产品 / 首页信息架构 | 首页叙事从项目展示型作品集升级为能力驱动个人品牌，优先展示个人定位、AIPM 能力系统和 AI 产品方法论，再展示方法样本 | 用户明确第二阶段目标是 Capability-driven Personal Brand，首页 5-10 秒内应理解巫浩林能发现 AI 产品机会并转化为可验证 AI 产品，而不是先关注项目数量 | `apps/ai-native-product-builder-portfolio/src/pages/index.astro`、`apps/ai-native-product-builder-portfolio/src/components/HeroAbilitySystem.astro`、`apps/ai-native-product-builder-portfolio/src/components/AIPMCapabilitySystem.astro`、`apps/ai-native-product-builder-portfolio/src/components/ProductOperatingProcess.astro`、`apps/ai-native-product-builder-portfolio/src/layouts/BaseLayout.astro`、`docs/prd.md`、`docs/backlog.md`、`docs/testing.md`、`docs/iteration-log.md` | 已确认 |
+| D-009 | 2026-07-10 | 产品 / 全站视觉表达 | 全站采用“深色品牌层 -> 灰蓝雾层 -> 白色案例阅读层”的连续视觉叙事，并以现有 Case Study 过渡设计作为视觉母版 | 用户确认首页与案例详情当前像两套作品集，希望保留详情页的大面积白色拆解设计，同时让首页、Projects 和详情页通过共享色彩、表面与过渡语言形成完整系统 | `docs/visual-system.md`、`apps/ai-native-product-builder-portfolio/src/styles/tokens.css`、`apps/ai-native-product-builder-portfolio/src/styles/global.css`、`apps/ai-native-product-builder-portfolio/src/pages/index.astro`、`apps/ai-native-product-builder-portfolio/src/pages/projects/index.astro`、`apps/ai-native-product-builder-portfolio/src/components/ProjectCard.astro`、`apps/ai-native-product-builder-portfolio/src/layouts/CaseStudyLayout.astro`、`docs/backlog.md`、`docs/testing.md`、`docs/iteration-log.md` | 已完成 |
 
 ## 决策详情
 
@@ -136,6 +137,17 @@
   - 后续首页增量应优先维护能力驱动叙事，不应重新回到多项目墙。
   - 详情页下一步仍建议执行 `CS-004`，让方法样本详情承接首页“查看拆解过程”入口。
 - 复核条件：如果未来目标从 AI PM / AI Product Builder 个人品牌转向项目型作品集、英文求职站或完整商业服务站，需要复核首页信息架构。
+
+### D-009 全站深色到白色的连续视觉叙事
+
+- 日期：2026-07-10
+- 类型：产品 / 全站视觉表达
+- 背景：用户认可 Ecommerce Review Copilot 详情页“深色 Hero -> 灰蓝雾面 -> 白色拆解内容”的设计，但认为首页长期保持深色，导致首页与详情页像两个没有交集的作品集。
+- 决策：全站使用单向明暗弧线。深色建立品牌与系统感，灰蓝雾层连接明暗，白色纸面承载案例证据和长内容；首页、Projects 与 Case Study 共享语义 token、玻璃面、纸面、边框、阴影和圆角层级。
+- 实施边界：按 `VU-001` 至 `VU-005` 分增量执行；每轮只完成一个增量。详情页现有渐变、白色内容壳、外侧网格和 Sticky 摘要作为母版保留，不引入新依赖、重动画、3D 或粒子系统。
+- 实施状态：`VU-001` 至 `VU-005` 已于 2026-07-10 完成并通过三页、四档视口、整页缩略图、交互与静态构建验收。
+- 兼容说明：`VU-002` 已替代 `UX-022` / `UX-023` 的后三段满屏与页面吸附策略；当前仅 Hero 保持 `100svh`，能力轮盘内部滚轮、触控板和键盘交互继续保留。
+- 复核条件：如果未来网站转为纯暗色作品集、创意交互站或多主题产品，需要复核该视觉叙事。
 
 ## 待复核决策
 
